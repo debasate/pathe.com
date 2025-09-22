@@ -613,6 +613,64 @@
             color: white;
         }
 
+        /* Pricing Info Box */
+        .pricing-info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .pricing-info h4 {
+            margin: 0 0 12px 0;
+            color: #FFD700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .price-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #cccccc;
+        }
+
+        .price-row.total-row {
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .price-type {
+            color: #aaaaaa;
+        }
+
+        .total-row .price-type {
+            color: #ffffff;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .booking-summary {
             background: rgba(211, 47, 47, 0.1);
             padding: 1rem;
@@ -3142,15 +3200,15 @@
                     <div class="seat-legend">
                         <div class="legend-item">
                             <div class="legend-seat standard">💺</div>
-                            <span>Standard - €10.00-15.00</span>
+                            <span id="standardPrice">Standard - €10.00-15.00</span>
                         </div>
                         <div class="legend-item">
                             <div class="legend-seat premium">⭐</div>
-                            <span>Premium - €11.25-18.00</span>
+                            <span id="premiumPrice">Premium - €11.25-18.00</span>
                         </div>
                         <div class="legend-item">
                             <div class="legend-seat vip">👑</div>
-                            <span>VIP - €13.75-22.50</span>
+                            <span id="vipPrice">VIP - €13.75-22.50</span>
                         </div>
                         <div class="legend-item">
                             <div class="legend-seat occupied">✗</div>
@@ -3159,6 +3217,33 @@
                         <div class="legend-item">
                             <div class="legend-seat selected">🎯</div>
                             <span>Selected</span>
+                        </div>
+                    </div>
+
+                    <!-- Pricing Info Box -->
+                    <div id="pricingInfo" class="pricing-info" style="display: none;">
+                        <h4>💰 Current Ticket Prices</h4>
+                        <div class="price-breakdown">
+                            <div class="price-row">
+                                <span class="price-type">🌅 Time Slot:</span>
+                                <span id="currentTimeSlot">Select time</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-type">📅 Date:</span>
+                                <span id="currentDate">Select date</span>
+                            </div>
+                            <div class="price-row total-row">
+                                <span class="price-type">💺 Standard seats:</span>
+                                <span id="dynamicStandardPrice">€12.50</span>
+                            </div>
+                            <div class="price-row total-row">
+                                <span class="price-type">⭐ Premium seats:</span>
+                                <span id="dynamicPremiumPrice">€15.00</span>
+                            </div>
+                            <div class="price-row total-row">
+                                <span class="price-type">👑 VIP seats:</span>
+                                <span id="dynamicVipPrice">€18.50</span>
+                            </div>
                         </div>
                     </div>
 
@@ -3600,6 +3685,81 @@
             return { price: finalPrice, type: priceType };
         }
 
+        // Calculate seat-specific pricing
+        function getSeatPrice(seatType, timeSlot, selectedDate = null) {
+            const basePriceInfo = getTicketPrice(timeSlot, selectedDate);
+            const basePrice = basePriceInfo.price;
+
+            let seatMultiplier = 1.0;
+
+            switch (seatType) {
+                case 'standard':
+                    seatMultiplier = 0.8; // 20% discount for front rows
+                    break;
+                case 'premium':
+                    seatMultiplier = 1.2; // 20% premium for middle rows
+                    break;
+                case 'vip':
+                    seatMultiplier = 1.5; // 50% premium for back rows with extra space
+                    break;
+                default:
+                    seatMultiplier = 1.0;
+            }
+
+            const finalPrice = Math.round(basePrice * seatMultiplier * 100) / 100;
+            return finalPrice;
+        }
+
+        // Update seat pricing display
+        function updateSeatPricing() {
+            const timeSelect = document.getElementById('timeSelect');
+            const selectedTime = timeSelect.value;
+            const pricingInfo = document.getElementById('pricingInfo');
+
+            if (!selectedTime) {
+                // Hide pricing info if no time selected
+                pricingInfo.style.display = 'none';
+                // Reset legend to show price ranges
+                document.getElementById('standardPrice').textContent = 'Standard - €10.00-15.00';
+                document.getElementById('premiumPrice').textContent = 'Premium - €11.25-18.00';
+                document.getElementById('vipPrice').textContent = 'VIP - €13.75-22.50';
+                return;
+            }
+
+            // Show pricing info box
+            pricingInfo.style.display = 'block';
+
+            // Get current date info
+            const dateSelect = document.getElementById('dateSelect');
+            let currentDate = selectedDate;
+            if (!currentDate && dateSelect.value) {
+                const [year, month, day] = dateSelect.value.split('-');
+                currentDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+            }
+
+            // Get base pricing info
+            const basePriceInfo = getTicketPrice(selectedTime, currentDate);
+
+            // Calculate seat-specific prices
+            const standardPrice = getSeatPrice('standard', selectedTime, currentDate);
+            const premiumPrice = getSeatPrice('premium', selectedTime, currentDate);
+            const vipPrice = getSeatPrice('vip', selectedTime, currentDate);
+
+            // Update pricing info box
+            document.getElementById('currentTimeSlot').textContent = `${selectedTime} - ${basePriceInfo.type}`;
+            document.getElementById('currentDate').textContent = currentDate ?
+                currentDate.toLocaleDateString('nl-NL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) :
+                'Today';
+            document.getElementById('dynamicStandardPrice').textContent = `€${standardPrice.toFixed(2)}`;
+            document.getElementById('dynamicPremiumPrice').textContent = `€${premiumPrice.toFixed(2)}`;
+            document.getElementById('dynamicVipPrice').textContent = `€${vipPrice.toFixed(2)}`;
+
+            // Update legend with current prices
+            document.getElementById('standardPrice').textContent = `Standard - €${standardPrice.toFixed(2)}`;
+            document.getElementById('premiumPrice').textContent = `Premium - €${premiumPrice.toFixed(2)}`;
+            document.getElementById('vipPrice').textContent = `VIP - €${vipPrice.toFixed(2)}`;
+        }
+
         // Initialize seat grid
         function initSeats() {
             const seatsGrid = document.getElementById('seatsGrid');
@@ -3717,6 +3877,7 @@
             selectedSeats = [];
             initSeats();
             updateSummary();
+            updateSeatPricing(); // Initialize seat pricing display
         }
 
         // Close ticket modal
@@ -4054,9 +4215,25 @@
                     'eindhoven': 'Pathé Eindhoven'
                 };
 
-                // Get dynamic pricing
-                const priceInfo = getTicketPrice(time, selectedDate);
-                const totalPrice = selectedSeats.length * priceInfo.price;
+                // Calculate total with seat-specific pricing
+                let totalPrice = 0;
+                let priceBreakdown = {};
+                let priceType = '';
+
+                selectedSeats.forEach(seat => {
+                    const seatPrice = getSeatPrice(seat.type, time, selectedDate);
+                    totalPrice += seatPrice;
+
+                    // Group by seat type for display
+                    if (!priceBreakdown[seat.type]) {
+                        priceBreakdown[seat.type] = { count: 0, price: seatPrice };
+                    }
+                    priceBreakdown[seat.type].count++;
+                });
+
+                // Get time slot info for display
+                const basePriceInfo = getTicketPrice(time, selectedDate);
+                priceType = basePriceInfo.type;
 
                 // Format date display
                 let dateDisplay;
@@ -4075,11 +4252,24 @@
                     dateDisplay = dateNames[date] || date;
                 }
 
+                // Create price breakdown display
+                let ticketBreakdown = '';
+                const seatTypeNames = {
+                    'standard': 'Standard',
+                    'premium': 'Premium',
+                    'vip': 'VIP'
+                };
+
+                Object.keys(priceBreakdown).forEach(type => {
+                    const info = priceBreakdown[type];
+                    ticketBreakdown += `${info.count} × ${seatTypeNames[type]} (€${info.price.toFixed(2)})<br>`;
+                });
+
                 document.getElementById('summaryMovie').textContent = currentMovie;
                 document.getElementById('summaryCinema').textContent = cinemaNames[cinema] || cinema;
-                document.getElementById('summaryDateTime').innerHTML = `${dateDisplay} om ${time}<br><small style="color: #FFD700;">${priceInfo.type}</small>`;
-                document.getElementById('summarySeats').textContent = selectedSeats.sort((a, b) => a - b).join(', ');
-                document.getElementById('summaryTickets').innerHTML = `${selectedSeats.length} × €${priceInfo.price.toFixed(2)}`;
+                document.getElementById('summaryDateTime').innerHTML = `${dateDisplay} om ${time}<br><small style="color: #FFD700;">${priceType}</small>`;
+                document.getElementById('summarySeats').textContent = selectedSeats.map(s => s.display || s.number).sort().join(', ');
+                document.getElementById('summaryTickets').innerHTML = ticketBreakdown;
                 document.getElementById('summaryTotal').textContent = `€${totalPrice.toFixed(2)}`;
 
                 confirmBtn.disabled = false;
@@ -4130,7 +4320,10 @@ Click OK to go to Pathé.nl for the actual booking!`);
         // Event listeners
         document.addEventListener('DOMContentLoaded', () => {
             ['cinemaSelect', 'dateSelect', 'timeSelect'].forEach(id => {
-                document.getElementById(id).addEventListener('change', updateSummary);
+                document.getElementById(id).addEventListener('change', () => {
+                    updateSummary();
+                    updateSeatPricing(); // Update seat pricing when time/date changes
+                });
             });
 
             // Initialize calendar and timezone functionality
