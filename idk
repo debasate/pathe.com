@@ -1,0 +1,19 @@
+from docx import Document
+
+# Laad het final document (met CONCEPT watermerk)
+input_path = "/mnt/data/Bedrijfsplan_final.docx"
+output_path_no_watermark = "/mnt/data/Bedrijfsplan_no_concept.docx"
+
+doc = Document(input_path)
+
+# Verwijder het watermerk (dat ik als headertekst "CONCEPT" had toegevoegd)
+for section in doc.sections:
+    header = section.header
+    for para in header.paragraphs:
+        if "CONCEPT" in para.text:
+            p = para._element
+            p.getparent().remove(p)
+
+doc.save(output_path_no_watermark)
+
+output_path_no_watermark

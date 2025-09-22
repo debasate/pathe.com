@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathé Cinema - Test Version</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: #d32f2f;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .movie-card {
+            background: #2a2a2a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .btn {
+            background: #d32f2f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background: #b71c1c;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">🎬 PATHÉ</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <h1>Welcome to Pathé Cinema</h1>
+            <p>The Ultimate Movie Experience</p>
+            <button class="btn" onclick="alert('Button works!')">🎬 Watch Movies</button>
+        </section>
+
+        <section>
+            <h2>🎬 Current Movies</h2>
+
+            <div class="movie-card">
+                <h3>The Conjuring: Last Rites</h3>
+                <p>Horror • Thriller • 112 min</p>
+                <p>The final chapter in the Conjuring universe brings Ed and Lorraine Warren face to face with their
+                    most terrifying case yet.</p>
+                <button class="btn" onclick="alert('Booking system would open here!')">🎫 Buy Tickets</button>
+                <button class="btn" onclick="alert('Added to favorites!')">❤️ Favorite</button>
+            </div>
+
+            <div class="movie-card">
+                <h3>Superman</h3>
+                <p>Action • Superhero • 140 min</p>
+                <p>The Man of Steel returns in a new adventure as Clark Kent embraces his destiny as Earth's greatest
+                    protector.</p>
+                <button class="btn" onclick="alert('Booking system would open here!')">🎫 Buy Tickets</button>
+                <button class="btn" onclick="alert('Added to favorites!')">❤️ Favorite</button>
+            </div>
+        </section>
+
+        <section>
+            <h2>🏢 Our Theaters</h2>
+            <div class="movie-card">
+                <h3>Pathé Arena - Amsterdam</h3>
+                <p>📍 Arena Boulevard 600, 1101 DS Amsterdam Zuidoost</p>
+                <p>🎬 14 screens • 🍿 IMAX • 🎵 Dolby Atmos • 🚗 Parking</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        console.log("Pathé Cinema website loaded successfully!");
+
+        // Test alle basic functies
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log("DOM loaded, all systems go!");
+        });
+    </script>
+</body>
+
+</html>

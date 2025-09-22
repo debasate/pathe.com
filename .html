@@ -1,0 +1,3941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathé Cinema - The Ultimate Movie Experience</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(90deg, #d32f2f 0%, #8b0000 100%);
+            box-shadow: 0 4px 20px rgba(211, 47, 47, 0.3);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo::before {
+            content: '🎬 ';
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 6rem 0;
+            color: white;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(139, 0, 0, 0.4));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="cinema" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse"><rect width="50" height="50" fill="transparent"/><circle cx="25" cy="25" r="2" fill="%23d32f2f" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23cinema)"/></svg>') repeat;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), 0 0 10px #d32f2f;
+            }
+
+            to {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), 0 0 20px #d32f2f, 0 0 30px #d32f2f;
+            }
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #d32f2f, #f44336);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(211, 47, 47, 0.6);
+        }
+
+        .movies-section {
+            padding: 4rem 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #d32f2f;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .movie-card {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(211, 47, 47, 0.1);
+        }
+
+        .movie-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(211, 47, 47, 0.2);
+            border-color: rgba(211, 47, 47, 0.3);
+        }
+
+        .movie-poster {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+
+        .movie-poster iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .movie-info {
+            padding: 1.5rem;
+        }
+
+        .movie-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #d32f2f;
+        }
+
+        .movie-genre {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .movie-description {
+            color: #ccc;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .book-ticket-btn {
+            flex: 1;
+            background: linear-gradient(45deg, #d32f2f, #f44336);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .book-ticket-btn:hover {
+            background: linear-gradient(45deg, #f44336, #d32f2f);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+        }
+
+        /* Movie Actions Container */
+        .movie-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        /* Favorite Button */
+        .favorite-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 48px;
+            height: 48px;
+        }
+
+        .favorite-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .favorite-btn.favorited {
+            background: rgba(211, 47, 47, 0.2);
+            border-color: #d32f2f;
+        }
+
+        .favorite-btn.favorited:hover {
+            background: rgba(211, 47, 47, 0.3);
+        }
+
+        .heart {
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .favorite-btn.favorited .heart {
+            animation: heartBeat 0.5s ease;
+        }
+
+        @keyframes heartBeat {
+            0% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.2);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+
+            75% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 2px solid #d32f2f;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: #d32f2f;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background: #333;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #d32f2f;
+            box-shadow: 0 0 10px rgba(211, 47, 47, 0.3);
+        }
+
+        .seats-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 5px;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+
+        .seat {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #444;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            background: #222;
+        }
+
+        .seat:hover {
+            border-color: #d32f2f;
+            background: rgba(211, 47, 47, 0.2);
+        }
+
+        .seat.selected {
+            background: #d32f2f;
+            border-color: #f44336;
+            color: white;
+        }
+
+        .seat.occupied {
+            background: #666;
+            border-color: #888;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .booking-summary {
+            background: rgba(211, 47, 47, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 1px solid rgba(211, 47, 47, 0.3);
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .total-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #d32f2f;
+            border-top: 1px solid rgba(211, 47, 47, 0.3);
+            padding-top: 0.5rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .confirm-btn {
+            background: linear-gradient(45deg, #d32f2f, #f44336);
+            color: white;
+        }
+
+        .confirm-btn:hover:not(:disabled) {
+            background: linear-gradient(45deg, #f44336, #d32f2f);
+            transform: translateY(-2px);
+        }
+
+        .confirm-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .cancel-btn {
+            background: #666;
+            color: white;
+        }
+
+        .cancel-btn:hover {
+            background: #777;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #d32f2f;
+        }
+
+        /* Copyright Footer */
+        .copyright-footer {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-top: 3px solid #d32f2f;
+            padding: 2rem 0 1rem 0;
+            margin-top: 3rem;
+            color: #ccc;
+        }
+
+        .copyright-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .copyright-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .copyright-text p {
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .copyright-text p:first-child {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .copyright-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .copyright-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .copyright-links a:hover {
+            color: #d32f2f;
+        }
+
+        .copyright-social {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .copyright-social span {
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+
+        .copyright-social a {
+            display: inline-block;
+            padding: 0.3rem;
+            border-radius: 50%;
+            background: rgba(211, 47, 47, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .copyright-social a:hover {
+            background: #d32f2f;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .movies-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .seats-grid {
+                grid-template-columns: repeat(8, 1fr);
+            }
+
+            .seat {
+                width: 25px;
+                height: 25px;
+            }
+        }
+
+        /* Theaters Section */
+        .theaters-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
+        .theaters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .theater-card {
+            background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid #404040;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theater-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #d32f2f, #ff5722);
+        }
+
+        .theater-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(211, 47, 47, 0.3);
+            border-color: #d32f2f;
+        }
+
+        .theater-name {
+            color: #d32f2f;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .theater-address {
+            color: #ffffff;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .theater-features {
+            color: #ffb74d;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .theater-description {
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .theater-contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #404040;
+        }
+
+        .theater-contact span {
+            background: rgba(211, 47, 47, 0.1);
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(211, 47, 47, 0.3);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #0d1117 0%, #1a1a1a 100%);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid #404040;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #d32f2f, #ff5722);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(211, 47, 47, 0.3);
+            border-color: #d32f2f;
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            filter: grayscale(100%) brightness(1.2);
+            transition: filter 0.3s ease;
+        }
+
+        .contact-card:hover .contact-icon {
+            filter: none;
+        }
+
+        .contact-card h3 {
+            color: #d32f2f;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .contact-card p {
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-details {
+            background: rgba(211, 47, 47, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(211, 47, 47, 0.3);
+        }
+
+        .contact-details p {
+            margin: 0.5rem 0;
+            color: #ffffff;
+        }
+
+        .contact-details strong {
+            color: #d32f2f;
+        }
+
+        .contact-btn {
+            background: linear-gradient(45deg, #d32f2f, #ff5722);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .contact-btn:hover {
+            background: linear-gradient(45deg, #b71c1c, #d32f2f);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(211, 47, 47, 0.4);
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .social-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.6rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .social-btn:hover {
+            background: rgba(211, 47, 47, 0.3);
+            border-color: #d32f2f;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design voor nieuwe secties */
+        @media (max-width: 768px) {
+            .theaters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .theater-card,
+            .contact-card {
+                padding: 1.5rem;
+            }
+
+            .social-links {
+                grid-template-columns: 1fr;
+            }
+
+            /* Copyright Footer Responsive */
+            .copyright-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .copyright-text {
+                min-width: auto;
+            }
+
+            .copyright-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .copyright-social {
+                justify-content: center;
+            }
+        }
+
+        /* Login/Register Modal Styling */
+        .login-modal {
+            max-width: 450px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .auth-form {
+            padding: 1rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            background: #1a1a1a;
+            border: 2px solid #404040;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #d32f2f;
+            box-shadow: 0 0 10px rgba(211, 47, 47, 0.3);
+        }
+
+        .form-group input::placeholder {
+            color: #888;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            background: #1a1a1a;
+            border: 2px solid #404040;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-label input[type="checkbox"]:checked+.checkmark {
+            background: #d32f2f;
+            border-color: #d32f2f;
+        }
+
+        .checkbox-label input[type="checkbox"]:checked+.checkmark::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .forgot-link,
+        .terms-link {
+            color: #d32f2f;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-link:hover,
+        .terms-link:hover {
+            color: #ff5722;
+            text-decoration: underline;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #d32f2f, #ff5722);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .auth-btn:hover {
+            background: linear-gradient(45deg, #b71c1c, #d32f2f);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(211, 47, 47, 0.4);
+        }
+
+        .auth-switch {
+            text-align: center;
+            color: #cccccc;
+            margin: 1rem 0;
+        }
+
+        .auth-switch a {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-switch a:hover {
+            color: #ff5722;
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            background: rgba(211, 47, 47, 0.1) !important;
+            border: 1px solid rgba(211, 47, 47, 0.3) !important;
+            border-radius: 20px !important;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .login-btn:hover {
+            background: rgba(211, 47, 47, 0.2) !important;
+            border-color: #d32f2f !important;
+        }
+
+        /* User Profile Styling */
+        .user-profile {
+            padding: 1rem;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(211, 47, 47, 0.1), rgba(255, 87, 34, 0.1));
+            border-radius: 15px;
+            border: 1px solid rgba(211, 47, 47, 0.3);
+        }
+
+        .profile-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #d32f2f, #ff5722);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .profile-info h3 {
+            color: #ffffff;
+            margin: 0 0 0.5rem 0;
+            font-size: 1.3rem;
+        }
+
+        .profile-info p {
+            color: #cccccc;
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .membership-badge {
+            background: linear-gradient(45deg, #d32f2f, #ff5722);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #d32f2f;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #cccccc;
+        }
+
+        .profile-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .profile-btn {
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .profile-btn:hover {
+            background: rgba(211, 47, 47, 0.3);
+            border-color: #d32f2f;
+            transform: translateY(-2px);
+        }
+
+        .logout-btn {
+            grid-column: 1 / -1;
+            background: rgba(255, 0, 0, 0.1) !important;
+            border-color: rgba(255, 0, 0, 0.3) !important;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 0, 0, 0.2) !important;
+            border-color: #ff0000 !important;
+        }
+
+        /* Logged in state navigation */
+        .nav-links .user-nav {
+            background: rgba(211, 47, 47, 0.1);
+            border: 1px solid rgba(211, 47, 47, 0.3);
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+        }
+
+        /* Email Verification Modal */
+        .verification-modal {
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .verification-content {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .verification-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .verification-content h3 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .verification-content p {
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .verification-form {
+            margin: 2rem 0;
+        }
+
+        .verification-help {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #404040;
+        }
+
+        .verification-help p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .resend-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #d32f2f;
+            border: 1px solid rgba(211, 47, 47, 0.3);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .resend-btn:hover {
+            background: rgba(211, 47, 47, 0.1);
+            border-color: #d32f2f;
+        }
+
+        .verification-btn {
+            background: linear-gradient(45deg, #4caf50, #45a049);
+        }
+
+        .verification-btn:hover {
+            background: linear-gradient(45deg, #45a049, #3d8b40);
+        }
+
+        /* Simulated Email Display */
+        .simulated-email {
+            background: linear-gradient(145deg, #f5f5f5, #ffffff);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: left;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+        .email-header {
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .email-header h4 {
+            color: #d32f2f;
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        .email-from {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .email-body h3 {
+            color: #d32f2f;
+            margin-bottom: 1rem;
+        }
+
+        .email-body p {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .verification-code-display {
+            background: linear-gradient(45deg, #d32f2f, #ff5722);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 1.5rem 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
+        }
+
+        /* Responsive verification modal */
+        @media (max-width: 768px) {
+            .verification-modal {
+                width: 95%;
+                margin: 2rem auto;
+            }
+
+            .simulated-email {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .verification-code-display {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+        }
+
+        /* Floating Chatbot Button */
+        .chatbot-float-btn {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #d32f2f, #ff5722);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(211, 47, 47, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1002;
+            overflow: hidden;
+        }
+
+        .chatbot-float-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 15px 35px rgba(211, 47, 47, 0.6);
+            width: 150px;
+            border-radius: 35px;
+        }
+
+        .chatbot-btn-icon {
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-btn-text {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin-top: 2px;
+        }
+
+        .chatbot-float-btn:hover .chatbot-btn-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chatbot-float-btn:hover .chatbot-btn-icon {
+            font-size: 1.5rem;
+            margin-bottom: 2px;
+        }
+
+        .chatbot-btn-pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            70% {
+                transform: scale(1.2);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        .chatbot-float-btn.hidden {
+            transform: translateY(-50%) scale(0);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* AI Chatbot Styling */
+        .chatbot-container {
+            position: fixed;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
+            width: 380px;
+            height: 550px;
+            background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+            border-radius: 15px;
+            border: 1px solid #404040;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            z-index: 1001;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .chatbot-container.active {
+            display: flex;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100px) scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .chatbot-header {
+            background: linear-gradient(90deg, #d32f2f, #ff5722);
+            padding: 1rem;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chatbot-avatar {
+            font-size: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-info {
+            flex: 1;
+        }
+
+        .chatbot-info h3 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .chatbot-info p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .chatbot-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background: #1a1a1a;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-start;
+        }
+
+        .message-avatar {
+            font-size: 1.5rem;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .bot-message .message-avatar {
+            background: linear-gradient(45deg, #d32f2f, #ff5722);
+        }
+
+        .user-message .message-avatar {
+            background: #404040;
+        }
+
+        .message-content {
+            background: #2d2d2d;
+            padding: 0.8rem 1rem;
+            border-radius: 15px;
+            color: #ffffff;
+            line-height: 1.4;
+            max-width: 250px;
+        }
+
+        .bot-message .message-content {
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            flex-direction: row-reverse;
+        }
+
+        .user-message .message-content {
+            background: #d32f2f;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-content ul {
+            margin: 0.5rem 0;
+            padding-left: 1rem;
+        }
+
+        .message-content li {
+            margin: 0.3rem 0;
+        }
+
+        .chatbot-input {
+            padding: 1rem;
+            border-top: 1px solid #404040;
+            display: flex;
+            gap: 0.5rem;
+            background: #2d2d2d;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            background: #1a1a1a;
+            border: 1px solid #404040;
+            border-radius: 20px;
+            padding: 0.8rem 1rem;
+            color: white;
+            outline: none;
+        }
+
+        .chatbot-input input:focus {
+            border-color: #d32f2f;
+        }
+
+        .chatbot-input button {
+            background: linear-gradient(45deg, #d32f2f, #ff5722);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s ease;
+        }
+
+        .chatbot-input button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsive chatbot */
+        @media (max-width: 768px) {
+            .chatbot-float-btn {
+                right: 20px;
+                width: 60px;
+                height: 60px;
+            }
+
+            .chatbot-float-btn:hover {
+                width: 130px;
+                border-radius: 30px;
+            }
+
+            .chatbot-btn-icon {
+                font-size: 1.8rem;
+            }
+
+            .chatbot-float-btn:hover .chatbot-btn-icon {
+                font-size: 1.3rem;
+            }
+
+            .chatbot-container {
+                width: 95%;
+                height: 75%;
+                right: 2.5%;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-container {
+                width: 98%;
+                height: 80%;
+                right: 1%;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        /* Settings Section Styling */
+        .settings-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .settings-card {
+            background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid #404040;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .settings-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #d32f2f, #ff5722);
+        }
+
+        .settings-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(211, 47, 47, 0.3);
+            border-color: #d32f2f;
+        }
+
+        .settings-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            filter: grayscale(100%) brightness(1.2);
+            transition: filter 0.3s ease;
+        }
+
+        .settings-card:hover .settings-icon {
+            filter: none;
+        }
+
+        .settings-card h3 {
+            color: #d32f2f;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .settings-card p {
+            color: #cccccc;
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .setting-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .setting-item label {
+            display: block;
+            color: #ffffff;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .setting-item input[type="text"],
+        .setting-item input[type="email"],
+        .setting-item select {
+            width: 100%;
+            padding: 0.8rem;
+            background: #1a1a1a;
+            border: 2px solid #404040;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .setting-item input[type="text"]:focus,
+        .setting-item input[type="email"]:focus,
+        .setting-item select:focus {
+            outline: none;
+            border-color: #d32f2f;
+            box-shadow: 0 0 10px rgba(211, 47, 47, 0.3);
+        }
+
+        .setting-item select option {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        /* Custom Checkbox Styling for Settings */
+        .checkbox-setting {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #cccccc;
+            font-size: 0.9rem;
+            font-weight: normal;
+            margin-bottom: 0 !important;
+        }
+
+        .checkbox-setting input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkmark-setting {
+            width: 20px;
+            height: 20px;
+            background: #1a1a1a;
+            border: 2px solid #404040;
+            border-radius: 4px;
+            margin-right: 0.8rem;
+            position: relative;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .checkbox-setting input[type="checkbox"]:checked+.checkmark-setting {
+            background: #d32f2f;
+            border-color: #d32f2f;
+        }
+
+        .checkbox-setting input[type="checkbox"]:checked+.checkmark-setting::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        /* Genre Grid */
+        .genre-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .genre-tag {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 0.5rem 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .genre-tag:hover {
+            background: rgba(211, 47, 47, 0.2);
+            border-color: rgba(211, 47, 47, 0.5);
+        }
+
+        .genre-tag input[type="checkbox"] {
+            display: none;
+        }
+
+        .genre-tag input[type="checkbox"]:checked+span {
+            color: #d32f2f;
+            font-weight: 600;
+        }
+
+        .genre-tag:has(input:checked) {
+            background: rgba(211, 47, 47, 0.3);
+            border-color: #d32f2f;
+        }
+
+        /* Settings Buttons */
+        .settings-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #d32f2f, #ff5722);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .settings-btn:hover {
+            background: linear-gradient(45deg, #b71c1c, #d32f2f);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(211, 47, 47, 0.4);
+        }
+
+        .privacy-btn,
+        .app-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .privacy-btn:hover,
+        .app-btn:hover {
+            background: rgba(211, 47, 47, 0.3);
+            border-color: #d32f2f;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Settings */
+        @media (max-width: 768px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-card {
+                padding: 1.5rem;
+            }
+
+            .genre-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .genre-tag {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.6rem;
+            }
+
+            .privacy-btn,
+            .app-btn {
+                display: block;
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Pathé</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#movies">Movies</a></li>
+                <li><a href="#theaters">Theaters</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#settings">⚙️ Settings</a></li>
+                <li><a href="#" onclick="openLoginModal()" class="login-btn">👤 Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container">
+                <h1>Welcome to Pathé</h1>
+                <p>Experience the ultimate movie experience in our state-of-the-art cinemas. From blockbusters to
+                    arthouse
+                    films, we have everything for the true movie lover.</p>
+                <a href="#movies" class="cta-button">🎬 Watch Movies</a>
+            </div>
+        </section>
+
+        <section class="movies-section" id="movies">
+            <div class="container">
+                <!-- New Releases -->
+                <h2 class="section-title">🔥 New Releases</h2>
+                <div class="movies-grid">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen
+                                loading="lazy"></iframe>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">The Conjuring: Last Rites</h3>
+                            <p class="movie-genre">Horror • Thriller • 112 min</p>
+                            <p class="movie-description">The final chapter in the Conjuring universe brings Ed and
+                                Lorraine Warren face to face with their most terrifying case yet, as they confront
+                                evil forces beyond imagination.</p>
+                            <div class="movie-actions">
+                                <button class="book-ticket-btn"
+                                    onclick="openTicketModal('The Conjuring: Last Rites')">🎫
+                                    Buy Tickets</button>
+                                <button class="favorite-btn" onclick="toggleFavorite('The Conjuring: Last Rites')"
+                                    data-movie="The Conjuring: Last Rites">
+                                    <span class="heart">🤍</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen
+                                loading="lazy"></iframe>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Downton Abbey: The Grand Finale</h3>
+                            <p class="movie-genre">Drama • Period • 126 min</p>
+                            <p class="movie-description">The beloved Crawley family returns for one final adventure
+                                as they face new challenges and celebrate the end of an era at Downton Abbey.</p>
+                            <div class="movie-actions">
+                                <button class="book-ticket-btn"
+                                    onclick="openTicketModal('Downton Abbey: The Grand Finale')">🎫
+                                    Buy Tickets</button>
+                                <button class="favorite-btn" onclick="toggleFavorite('Downton Abbey: The Grand Finale')"
+                                    data-movie="Downton Abbey: The Grand Finale">
+                                    <span class="heart">🤍</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action & Adventure -->
+                <h2 class="section-title" style="margin-top: 4rem;">⚡ Action & Adventure</h2>
+                <div class="movies-grid">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen
+                                loading="lazy"></iframe>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Nobody 2</h3>
+                            <p class="movie-genre">Action • Thriller • 108 min</p>
+                            <p class="movie-description">Hutch Mansell returns for another explosive adventure.
+                                When his past catches up with him, he must use his lethal skills to protect his family
+                                from dangerous enemies.</p>
+                            <div class="movie-actions">
+                                <button class="book-ticket-btn" onclick="openTicketModal('Nobody 2')">🎫 Buy
+                                    Tickets</button>
+                                <button class="favorite-btn" onclick="toggleFavorite('Nobody 2')" data-movie="Nobody 2">
+                                    <span class="heart">🤍</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen
+                                loading="lazy"></iframe>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">The Fantastic Four: First Steps</h3>
+                            <p class="movie-genre">Action • Superhero • 124 min</p>
+                            <p class="movie-description">Marvel's first family embarks on their greatest adventure yet
+                                as they face cosmic threats and discover the true meaning of family and heroism.</p>
+                            <div class="movie-actions">
+                                <button class="book-ticket-btn"
+                                    onclick="openTicketModal('The Fantastic Four: First Steps')">🎫
+                                    Buy Tickets</button>
+                                <button class="favorite-btn" onclick="toggleFavorite('The Fantastic Four: First Steps')"
+                                    data-movie="The Fantastic Four: First Steps">
+                                    <span class="heart">🤍</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen
+                                loading="lazy"></iframe>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Jurassic World: Rebirth</h3>
+                            <p class="movie-genre">Action • Adventure • 118 min</p>
+                            <p class="movie-description">A new chapter in the Jurassic saga begins as scientists
+                                attempt to create a new world where humans and dinosaurs can coexist peacefully.</p>
+                            <div class="movie-actions">
+                                <button class="book-ticket-btn" onclick="openTicketModal('Jurassic World: Rebirth')">🎫
+                                    Buy
+                                    Tickets</button>
+                                <button class="favorite-btn" onclick="toggleFavorite('Alien: Romulus')"
+                                    data-movie="Alien: Romulus">
+                                    <span class="heart">🤍</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Family Movies -->
+                <h2 class="section-title" style="margin-top: 4rem;">👨‍👩‍👧‍👦 Family Movies</h2>
+                <div class="movies-grid">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen
+                                loading="lazy"></iframe>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Lilo & Stitch</h3>
+                            <p class="movie-genre">Animation • Family • 103 min</p>
+                            <p class="movie-description">A live-action remake of the beloved Disney classic about
+                                a young Hawaiian girl who adopts an unusual pet who turns out to be an alien experiment.
+                            </p>
+                            <div class="movie-actions">
+                                <button class="book-ticket-btn" onclick="openTicketModal('Lilo & Stitch')">🎫 Buy
+                                    Tickets</button>
+                                <button class="favorite-btn" onclick="toggleFavorite('Lilo & Stitch')"
+                                    data-movie="Lilo & Stitch">
+                                    <span class="heart">🤍</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen
+                                loading="lazy"></iframe>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Elio</h3>
+                            <p class="movie-genre">Animation • Family • 95 min</p>
+                            <p class="movie-description">A space-obsessed 11-year-old boy is accidentally beamed up to
+                                the Communiverse and becomes the intergalactic ambassador for planet Earth.</p>
+                            <div class="movie-actions">
+                                <button class="book-ticket-btn" onclick="openTicketModal('Elio')">🎫 Buy
+                                    Tickets</button>
+                                <button class="favorite-btn" onclick="toggleFavorite('Elio')" data-movie="Elio">
+                                    <span class="heart">🤍</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coming Soon -->
+                <h2 class="section-title" style="margin-top: 4rem;">🔜 Coming Soon to Cinemas</h2>
+                <div class="movies-grid">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen
+                                loading="lazy"></iframe>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Superman</h3>
+                            <p class="movie-genre">Action • Superhero • 140 min</p>
+                            <p class="movie-description">The Man of Steel returns in a new adventure as Clark Kent
+                                embraces his destiny as Earth's greatest protector while facing his most powerful enemy
+                                yet.</p>
+                            <div class="movie-actions">
+                                <button class="book-ticket-btn" onclick="openTicketModal('Superman')">🎫 Buy
+                                    Tickets</button>
+                                <button class="favorite-btn" onclick="toggleFavorite('Superman')" data-movie="Superman">
+                                    <span class="heart">🤍</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen
+                                loading="lazy"></iframe>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">How To Train Your Dragon</h3>
+                            <p class="movie-genre">Adventure • Family • 104 min</p>
+                            <p class="movie-description">A live-action adaptation of the beloved animated film about
+                                Hiccup and his dragon Toothless, exploring their friendship and adventures in the world
+                                of Berk.</p>
+                            <div class="movie-actions">
+                                <button class="book-ticket-btn" onclick="openTicketModal('How To Train Your Dragon')">🎫
+                                    Buy
+                                    Tickets</button>
+                                <button class="favorite-btn" onclick="toggleFavorite('How To Train Your Dragon')"
+                                    data-movie="How To Train Your Dragon">
+                                    <span class="heart">🤍</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pathé Theaters Section -->
+        <section class="theaters-section" id="theaters">
+            <div class="container">
+                <h2 class="section-title" style="margin-top: 4rem;">🏢 Our Theaters</h2>
+                <div class="theaters-grid">
+                    <div class="theater-card">
+                        <div class="theater-info">
+                            <h3 class="theater-name">Pathé Arena - Amsterdam</h3>
+                            <p class="theater-address">📍 Arena Boulevard 600, 1101 DS Amsterdam Zuidoost</p>
+                            <p class="theater-features">🎬 14 screens • 🍿 IMAX • 🎵 Dolby Atmos • 🚗 Parking</p>
+                            <p class="theater-description">The largest Pathé cinema in the Netherlands, located next to
+                                Johan Cruijff ArenA. With 14 modern screens, including a spectacular IMAX theater.</p>
+                            <div class="theater-contact">
+                                <span>📞 020 - 240 7777</span>
+                                <span>🚇 Station Bijlmer ArenA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="theater-card">
+                        <div class="theater-info">
+                            <h3 class="theater-name">Pathé Schouwburgplein - Rotterdam</h3>
+                            <p class="theater-address">📍 Schouwburgplein 101, 3012 CL Rotterdam</p>
+                            <p class="theater-features">🎬 9 screens • 🎵 Dolby Atmos • 🌟 Premium seats • 🚗 Parking
+                            </p>
+                            <p class="theater-description">In the heart of Rotterdam, opposite the Luxor Theater.
+                                Modern cinema with luxury seats and the latest audio and visual technology.</p>
+                            <div class="theater-contact">
+                                <span>📞 010 - 240 7777</span>
+                                <span>🚇 Station Blaak</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="theater-card">
+                        <div class="theater-info">
+                            <h3 class="theater-name">Pathé Spuimarkt - The Hague</h3>
+                            <p class="theater-address">📍 Spuistraat 162, 2511 BW Den Haag</p>
+                            <p class="theater-features">🎬 8 screens • 🎵 Dolby Atmos • 🏛️ Historic building • 🚌
+                                Public transport</p>
+                            <p class="theater-description">Located in the historic center of The Hague, within walking
+                                distance of the Binnenhof. A unique cinema experience in a monumental building.</p>
+                            <div class="theater-contact">
+                                <span>📞 070 - 240 7777</span>
+                                <span>🚌 Stop Spui</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="theater-card">
+                        <div class="theater-info">
+                            <h3 class="theater-name">Pathé Leidsche Rijn - Utrecht</h3>
+                            <p class="theater-address">📍 Burgemeester Fockemaplein 20, 3543 AS Utrecht</p>
+                            <p class="theater-features">🎬 10 screens • 🍿 IMAX • 🎵 Dolby Atmos • 🛍️ Shopping center
+                            </p>
+                            <p class="theater-description">Modern cinema in the heart of Leidsche Rijn Center.
+                                Part of a large shopping center with extensive restaurants and shops.</p>
+                            <div class="theater-contact">
+                                <span>📞 030 - 240 7777</span>
+                                <span>🚇 Station Utrecht Leidsche Rijn</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="theater-card">
+                        <div class="theater-info">
+                            <h3 class="theater-name">Pathé Eindhoven</h3>
+                            <p class="theater-address">📍 Dommelstraat 27, 5611 CK Eindhoven</p>
+                            <p class="theater-features">🎬 7 screens • 🎵 Dolby Atmos • 🌟 Premium seats • 🚲
+                                Bike parking</p>
+                            <p class="theater-description">In the bustling center of Eindhoven, close to the central
+                                station. Perfectly accessible and surrounded by restaurants and cafés.</p>
+                            <div class="theater-contact">
+                                <span>📞 040 - 240 7777</span>
+                                <span>🚇 Station Eindhoven Centraal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="theater-card">
+                        <div class="theater-info">
+                            <h3 class="theater-name">Pathé De Munt - Roermond</h3>
+                            <p class="theater-address">📍 Kloosterwandstraat 311, 6041 HH Roermond</p>
+                            <p class="theater-features">🎬 6 screens • 🎵 Dolby Atmos • 🛍️ Designer Outlet • 🚗 Free
+                                parking</p>
+                            <p class="theater-description">Located in the popular Designer Outlet Roermond. Ideal
+                                for a day of shopping combined with a movie visit.</p>
+                            <div class="theater-contact">
+                                <span>📞 0475 - 240 777</span>
+                                <span>🚗 A73 Afrit Roermond</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Sectie -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <h2 class="section-title" style="margin-top: 4rem;">📧 Contact & Service</h2>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">🎫</div>
+                        <h3>Customer Service</h3>
+                        <p>Questions about tickets, reservations or your Club Pathé account?</p>
+                        <div class="contact-details">
+                            <p><strong>📞 0900 - 1458</strong></p>
+                            <p>Mon-Sun: 09:00 - 21:00</p>
+                            <p>€0,10 per minute</p>
+                        </div>
+                        <button class="contact-btn" onclick="window.open('mailto:klantenservice@pathe.nl')">📧 Email
+                            Contact</button>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">🎬</div>
+                        <h3>Group Reservations</h3>
+                        <p>For groups of 20 people or more you get special discounts.</p>
+                        <div class="contact-details">
+                            <p><strong>📞 020 - 540 0180</strong></p>
+                            <p>Mon-Fri: 09:00 - 17:00</p>
+                            <p>Minimum 20 people</p>
+                        </div>
+                        <button class="contact-btn" onclick="window.open('mailto:groepen@pathe.nl')">🎪 Request
+                            Group</button>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">🎉</div>
+                        <h3>Parties & Events</h3>
+                        <p>Organize your children's party, company outing or private screening at Pathé.</p>
+                        <div class="contact-details">
+                            <p><strong>📞 020 - 540 0190</strong></p>
+                            <p>Mon-Fri: 09:00 - 17:00</p>
+                            <p>Customized arrangements</p>
+                        </div>
+                        <button class="contact-btn" onclick="window.open('mailto:evenementen@pathe.nl')">🎈 Plan
+                            Event</button>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">💼</div>
+                        <h3>Business Rental</h3>
+                        <p>Rent a theater for presentations, meetings or corporate events.</p>
+                        <div class="contact-details">
+                            <p><strong>📞 020 - 540 0200</strong></p>
+                            <p>Mon-Fri: 08:00 - 18:00</p>
+                            <p>Professional AV facilities</p>
+                        </div>
+                        <button class="contact-btn" onclick="window.open('mailto:verhuur@pathe.nl')">🏢 Request
+                            Quote</button>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">🎁</div>
+                        <h3>Gift Cards & Subscriptions</h3>
+                        <p>Questions about your Pathé Unlimited, gift cards or discount promotions?</p>
+                        <div class="contact-details">
+                            <p><strong>💬 Live Chat</strong></p>
+                            <p>Mon-Sun: 10:00 - 20:00</p>
+                            <p>Direct help via the website</p>
+                        </div>
+                        <button class="contact-btn" onclick="window.open('https://www.pathe.nl/help', '_blank')">💬
+                            Start Chat</button>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">🌐</div>
+                        <h3>Social Media</h3>
+                        <p>Follow us for the latest movie news, previews and exclusive promotions.</p>
+                        <div class="contact-details">
+                            <div class="social-links">
+                                <button class="social-btn"
+                                    onclick="window.open('https://www.facebook.com/pathenederland', '_blank')">📘
+                                    Facebook</button>
+                                <button class="social-btn"
+                                    onclick="window.open('https://www.instagram.com/pathenederland', '_blank')">📷
+                                    Instagram</button>
+                                <button class="social-btn"
+                                    onclick="window.open('https://twitter.com/pathenederland', '_blank')">🐦
+                                    Twitter</button>
+                                <button class="social-btn"
+                                    onclick="window.open('https://www.tiktok.com/@pathenederland', '_blank')">🎵
+                                    TikTok</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Sectie -->
+        <section class="settings-section" id="settings">
+            <div class="container">
+                <h2 class="section-title">⚙️ Instellingen & Voorkeuren</h2>
+                <div class="settings-grid">
+                    <!-- Account Instellingen -->
+                    <div class="settings-card">
+                        <div class="settings-icon">👤</div>
+                        <h3>Account Instellingen</h3>
+                        <p>Beheer je persoonlijke gegevens en account voorkeuren</p>
+                        <div class="settings-options">
+                            <div class="setting-item">
+                                <label for="displayName">📛 Weergavenaam</label>
+                                <input type="text" id="displayName" placeholder="Hoe wil je worden aangesproken?">
+                            </div>
+                            <div class="setting-item">
+                                <label for="profileLanguage">🌍 Taal</label>
+                                <select id="profileLanguage">
+                                    <option value="nl">🇳🇱 Nederlands</option>
+                                    <option value="en">🇬🇧 English</option>
+                                    <option value="de">🇩🇪 Deutsch</option>
+                                    <option value="fr">🇫🇷 Français</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="publicProfile">
+                                    <span class="checkmark-setting"></span>
+                                    Openbaar profiel (anderen kunnen je reviews zien)
+                                </label>
+                            </div>
+                        </div>
+                        <button class="settings-btn" onclick="saveAccountSettings()">💾 Account Opslaan</button>
+                    </div>
+
+                    <!-- Notificatie Instellingen -->
+                    <div class="settings-card">
+                        <div class="settings-icon">🔔</div>
+                        <h3>Notificaties</h3>
+                        <p>Bepaal welke meldingen je wilt ontvangen</p>
+                        <div class="settings-options">
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="emailNotifications" checked>
+                                    <span class="checkmark-setting"></span>
+                                    📧 E-mail notificaties
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="movieReleases" checked>
+                                    <span class="checkmark-setting"></span>
+                                    🎬 Nieuwe film releases
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="specialOffers" checked>
+                                    <span class="checkmark-setting"></span>
+                                    🎫 Speciale aanbiedingen
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="reminderNotifications">
+                                    <span class="checkmark-setting"></span>
+                                    ⏰ Herinneringen voor geboekte tickets
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="newsUpdates">
+                                    <span class="checkmark-setting"></span>
+                                    📰 Pathé nieuws en updates
+                                </label>
+                            </div>
+                        </div>
+                        <button class="settings-btn" onclick="saveNotificationSettings()">🔔 Notificaties
+                            Opslaan</button>
+                    </div>
+
+                    <!-- Privacy & Beveiliging -->
+                    <div class="settings-card">
+                        <div class="settings-icon">🔒</div>
+                        <h3>Privacy & Beveiliging</h3>
+                        <p>Beheer je privacy instellingen en account beveiliging</p>
+                        <div class="settings-options">
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="dataCollection">
+                                    <span class="checkmark-setting"></span>
+                                    📊 Sta data analyse toe voor betere aanbevelingen
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="locationTracking">
+                                    <span class="checkmark-setting"></span>
+                                    📍 Locatie toegang voor dichtstbijzijnde bioscopen
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="cookiePreferences" checked>
+                                    <span class="checkmark-setting"></span>
+                                    🍪 Functionele cookies toestaan
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <button class="privacy-btn" onclick="changePassword()">🔑 Wachtwoord Wijzigen</button>
+                                <button class="privacy-btn" onclick="downloadData()">📥 Mijn Data Downloaden</button>
+                            </div>
+                        </div>
+                        <button class="settings-btn" onclick="savePrivacySettings()">🔒 Privacy Opslaan</button>
+                    </div>
+
+                    <!-- Film Voorkeuren -->
+                    <div class="settings-card">
+                        <div class="settings-icon">🎭</div>
+                        <h3>Film Voorkeuren</h3>
+                        <p>Personaliseer je filmervaring en aanbevelingen</p>
+                        <div class="settings-options">
+                            <div class="setting-item">
+                                <label for="favoriteGenres">🎪 Favoriete genres</label>
+                                <div class="genre-grid">
+                                    <label class="genre-tag">
+                                        <input type="checkbox" name="genre" value="action">
+                                        <span>⚡ Actie</span>
+                                    </label>
+                                    <label class="genre-tag">
+                                        <input type="checkbox" name="genre" value="comedy">
+                                        <span>😂 Komedie</span>
+                                    </label>
+                                    <label class="genre-tag">
+                                        <input type="checkbox" name="genre" value="drama">
+                                        <span>🎭 Drama</span>
+                                    </label>
+                                    <label class="genre-tag">
+                                        <input type="checkbox" name="genre" value="horror">
+                                        <span>👻 Horror</span>
+                                    </label>
+                                    <label class="genre-tag">
+                                        <input type="checkbox" name="genre" value="romance">
+                                        <span>💕 Romance</span>
+                                    </label>
+                                    <label class="genre-tag">
+                                        <input type="checkbox" name="genre" value="scifi">
+                                        <span>🚀 Sci-Fi</span>
+                                    </label>
+                                    <label class="genre-tag">
+                                        <input type="checkbox" name="genre" value="animation">
+                                        <span>🎨 Animatie</span>
+                                    </label>
+                                    <label class="genre-tag">
+                                        <input type="checkbox" name="genre" value="family">
+                                        <span>👨‍👩‍👧‍👦 Familie</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <label for="preferredCinema">🏢 Voorkeur bioscoop</label>
+                                <select id="preferredCinema">
+                                    <option value="">Geen voorkeur</option>
+                                    <option value="amsterdam-arena">Pathé Arena - Amsterdam</option>
+                                    <option value="rotterdam-schouwburgplein">Pathé Schouwburgplein - Rotterdam</option>
+                                    <option value="den-haag">Pathé Spuimarkt - Den Haag</option>
+                                    <option value="utrecht-leidsche-rijn">Pathé Leidsche Rijn - Utrecht</option>
+                                    <option value="eindhoven">Pathé Eindhoven</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <label for="preferredShowtime">🕐 Voorkeur tijdstip</label>
+                                <select id="preferredShowtime">
+                                    <option value="">Geen voorkeur</option>
+                                    <option value="matinee">🌅 Matinee (voor 16:00)</option>
+                                    <option value="evening">🌆 Avond (16:00 - 20:00)</option>
+                                    <option value="late">🌙 Late voorstelling (na 20:00)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="settings-btn" onclick="saveMoviePreferences()">🎬 Voorkeuren Opslaan</button>
+                    </div>
+
+                    <!-- Toegankelijkheid -->
+                    <div class="settings-card">
+                        <div class="settings-icon">♿</div>
+                        <h3>Toegankelijkheid</h3>
+                        <p>Aanpassingen voor een betere gebruikerservaring</p>
+                        <div class="settings-options">
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="subtitlesDefault">
+                                    <span class="checkmark-setting"></span>
+                                    📝 Standaard ondertiteling aan
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="audiodescription">
+                                    <span class="checkmark-setting"></span>
+                                    🔊 Audiodescriptie voorkeuren
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="wheelchairAccess">
+                                    <span class="checkmark-setting"></span>
+                                    ♿ Rolstoel toegankelijke stoelen
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label for="textSize">📝 Tekst grootte</label>
+                                <select id="textSize">
+                                    <option value="small">Klein</option>
+                                    <option value="normal" selected>Normaal</option>
+                                    <option value="large">Groot</option>
+                                    <option value="extra-large">Extra Groot</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <label for="themePreference">🎨 Thema voorkeur</label>
+                                <select id="themePreference">
+                                    <option value="dark" selected>🌙 Donker thema</option>
+                                    <option value="light">☀️ Licht thema</option>
+                                    <option value="auto">🔄 Systeem voorkeur</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="settings-btn" onclick="saveAccessibilitySettings()">♿ Toegankelijkheid
+                            Opslaan</button>
+                    </div>
+
+                    <!-- App Instellingen -->
+                    <div class="settings-card">
+                        <div class="settings-icon">📱</div>
+                        <h3>App & Website</h3>
+                        <p>Technische instellingen en voorkeuren</p>
+                        <div class="settings-options">
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="autoplayTrailers" checked>
+                                    <span class="checkmark-setting"></span>
+                                    ▶️ Trailers automatisch afspelen
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="chatbotEnabled" checked>
+                                    <span class="checkmark-setting"></span>
+                                    🤖 Chatbot assistent inschakelen
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label class="checkbox-setting">
+                                    <input type="checkbox" id="soundEffects" checked>
+                                    <span class="checkmark-setting"></span>
+                                    🔊 Geluidseffecten
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label for="autoLogout">⏰ Automatisch uitloggen na</label>
+                                <select id="autoLogout">
+                                    <option value="never">Nooit</option>
+                                    <option value="1hour">1 uur</option>
+                                    <option value="6hours">6 uren</option>
+                                    <option value="1day" selected>1 dag</option>
+                                    <option value="1week">1 week</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <button class="app-btn" onclick="clearCache()">🗑️ Cache Wissen</button>
+                                <button class="app-btn" onclick="resetSettings()">🔄 Reset Instellingen</button>
+                            </div>
+                        </div>
+                        <button class="settings-btn" onclick="saveAppSettings()">📱 App Instellingen Opslaan</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Ticket Booking Modal -->
+    <div id="ticketModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeTicketModal()">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalMovieTitle">Book Tickets</h2>
+                <p>Choose your screening and seats</p>
+            </div>
+
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="cinemaSelect">🏢 Theater</label>
+                    <select id="cinemaSelect" required>
+                        <option value="">Choose a theater</option>
+                        <option value="amsterdam-arena">Pathé Arena - Amsterdam</option>
+                        <option value="rotterdam-schouwburgplein">Pathé Schouwburgplein - Rotterdam</option>
+                        <option value="den-haag">Pathé Spuimarkt - The Hague</option>
+                        <option value="utrecht-leidsche-rijn">Pathé Leidsche Rijn - Utrecht</option>
+                        <option value="eindhoven">Pathé Eindhoven</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="dateSelect">📅 Date</label>
+                    <select id="dateSelect" required>
+                        <option value="">Choose a date</option>
+                        <option value="today">Today</option>
+                        <option value="tomorrow">Tomorrow</option>
+                        <option value="day-after">Day after tomorrow</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="timeSelect">🕐 Time</label>
+                    <select id="timeSelect" required>
+                        <option value="">Choose a time</option>
+                        <option value="14:00">14:00</option>
+                        <option value="16:30">16:30</option>
+                        <option value="19:00">19:00</option>
+                        <option value="21:30">21:30</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>🪑 Select Seats (Click to select)</label>
+                    <div class="seats-grid" id="seatsGrid">
+                        <!-- Seats will be generated by JavaScript -->
+                    </div>
+                    <small style="color: #999;">🔴 Occupied | ⚪ Available | 🎯 Selected</small>
+                </div>
+
+                <div class="booking-summary" id="bookingSummary" style="display: none;">
+                    <h4>📋 Booking Summary</h4>
+                    <div class="summary-line">
+                        <span>Movie:</span>
+                        <span id="summaryMovie"></span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Theater:</span>
+                        <span id="summaryCinema"></span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Date & Time:</span>
+                        <span id="summaryDateTime"></span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Seats:</span>
+                        <span id="summarySeats"></span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Number of tickets:</span>
+                        <span id="summaryTickets"></span>
+                    </div>
+                    <div class="summary-line total-price">
+                        <span>Total:</span>
+                        <span id="summaryTotal"></span>
+                    </div>
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" class="modal-btn cancel-btn" onclick="closeTicketModal()">Cancel</button>
+                    <button type="button" class="modal-btn confirm-btn" id="confirmBtn" onclick="goToPathe()" disabled>
+                        🌐 Go to Pathé.nl
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Login/Register Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content login-modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="loginTitle">👤 Login to Pathé</h2>
+                <button class="close-btn" onclick="closeLoginModal()">✕</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">📧 Email address</label>
+                    <input type="email" id="loginEmail" name="email" placeholder="you@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">🔒 Password</label>
+                    <input type="password" id="loginPassword" name="password" placeholder="Password" required>
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+                <button type="submit" class="auth-btn login-btn-submit">🔑 Login</button>
+                <p class="auth-switch">
+                    Don't have an account yet? <a href="#" onclick="switchToRegister()">Register here</a>
+                </p>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="auth-form" style="display: none;">
+                <div class="form-group">
+                    <label for="registerName">👤 Full name</label>
+                    <input type="text" id="registerName" name="name" placeholder="First and last name" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">📧 Email address</label>
+                    <input type="email" id="registerEmail" name="email" placeholder="you@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">🔒 Password</label>
+                    <input type="password" id="registerPassword" name="password" placeholder="Minimum 6 characters"
+                        required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">🔒 Bevestig wachtwoord</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat password"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="birthDate">🎂 Date of birth</label>
+                    <input type="date" id="birthDate" name="birthDate" required>
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <span class="checkmark"></span>
+                        I agree to the <a href="#" class="terms-link">terms and conditions</a>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="newsletter">
+                        <span class="checkmark"></span>
+                        Receive our newsletter
+                    </label>
+                </div>
+                <button type="submit" class="auth-btn register-btn-submit">🎯 Account aanmaken</button>
+                <p class="auth-switch">
+                    Al een account? <a href="#" onclick="switchToLogin()">Log hier in</a>
+                </p>
+            </form>
+
+            <!-- User Profile (when logged in) -->
+            <div id="userProfile" class="user-profile" style="display: none;">
+                <div class="profile-header">
+                    <div class="profile-avatar">👤</div>
+                    <div class="profile-info">
+                        <h3 id="userName">Welkom terug!</h3>
+                        <p id="userEmail">gebruiker@email.com</p>
+                        <span class="membership-badge">🎭 Club Pathé Member</span>
+                    </div>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="ticketsBooked">0</span>
+                        <span class="stat-label">Tickets geboekt</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="moviesWatched">0</span>
+                        <span class="stat-label">Films gezien</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="memberSince">2025</span>
+                        <span class="stat-label">Lid sinds</span>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button class="profile-btn">🎫 Mijn Tickets</button>
+                    <button class="profile-btn" onclick="showFavorites()">⭐ Favorieten</button>
+                    <button class="profile-btn" onclick="goToSettings()">⚙️ Instellingen</button>
+                    <button class="profile-btn logout-btn" onclick="logout()">🚪 Uitloggen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Verification Modal -->
+    <div id="verificationModal" class="modal">
+        <div class="modal-content verification-modal">
+            <div class="modal-header">
+                <h2 class="modal-title">📧 E-mail Verificatie</h2>
+                <button class="close-btn" onclick="closeVerificationModal()">✕</button>
+            </div>
+
+            <div class="verification-content">
+                <div class="verification-icon">📮</div>
+                <h3>Verificeer je e-mailadres</h3>
+                <p id="verificationMessage">We hebben een verificatiecode verzonden naar <strong
+                        id="verificationEmail">je@email.com</strong></p>
+
+                <form id="verificationForm" class="verification-form">
+                    <div class="form-group">
+                        <label for="verificationCode">🔐 Verificatiecode (6 cijfers)</label>
+                        <input type="text" id="verificationCode" name="verificationCode" placeholder="123456"
+                            maxlength="6" pattern="[0-9]{6}" required>
+                    </div>
+
+                    <button type="submit" class="auth-btn verification-btn">✅ Verifieer Account</button>
+
+                    <div class="verification-help">
+                        <p>Geen e-mail ontvangen?</p>
+                        <button type="button" class="resend-btn" onclick="resendVerificationCode()">
+                            📤 Verstuur opnieuw
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Simulated Email Display -->
+                <div id="simulatedEmail" class="simulated-email">
+                    <div class="email-header">
+                        <h4>📧 Pathé Verificatie E-mail</h4>
+                        <span class="email-from">Van: noreply@pathe.nl</span>
+                    </div>
+                    <div class="email-body">
+                        <h3>Welkom bij Pathé! 🎬</h3>
+                        <p>Hallo <span id="emailUserName">Gebruiker</span>,</p>
+                        <p>Bedankt voor je registratie bij Pathé! Om je account te activeren, voer de onderstaande
+                            verificatiecode in:</p>
+
+                        <div class="verification-code-display">
+                            <span id="displayedCode">123456</span>
+                        </div>
+
+                        <p>Deze code is 10 minuten geldig.</p>
+                        <p>Veel plezier met films kijken!</p>
+                        <p><strong>Het Pathé Team</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Chatbot Button -->
+    <div id="chatbotButton" class="chatbot-float-btn" onclick="toggleChatbot()">
+        <div class="chatbot-btn-icon">🤖</div>
+        <div class="chatbot-btn-text">Chat with us!</div>
+        <div class="chatbot-btn-pulse"></div>
+    </div>
+
+    <!-- AI Chatbot -->
+    <div id="aiChatbot" class="chatbot-container">
+        <div class="chatbot-header">
+            <div class="chatbot-avatar">🤖</div>
+            <div class="chatbot-info">
+                <h3>Pathé Assistant</h3>
+                <p>How can I help you?</p>
+            </div>
+            <button class="chatbot-close" onclick="closeChatbot()">✕</button>
+        </div>
+
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">
+                    Hello! I'm your Pathé assistant. I can help you with:
+                    <ul>
+                        <li>🎬 Movie information</li>
+                        <li>🎫 Booking tickets</li>
+                        <li>🏢 Theater locations</li>
+                        <li>📞 Contact information</li>
+                    </ul>
+                    How can I help you?
+                </div>
+            </div>
+        </div>
+
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Type your question here..."
+                onkeypress="handleChatKeyPress(event)">
+            <button onclick="sendMessage()">📤</button>
+        </div>
+    </div>
+
+    <script>
+        let currentMovie = '';
+        let selectedSeats = [];
+        const ticketPrice = 12.50;
+
+        // Initialize seat grid
+        function initSeats() {
+            const seatsGrid = document.getElementById('seatsGrid');
+            seatsGrid.innerHTML = '';
+
+            for (let i = 1; i <= 50; i++) {
+                const seat = document.createElement('div');
+                seat.className = 'seat';
+                seat.textContent = i;
+                seat.onclick = () => toggleSeat(i, seat);
+
+                // Randomly make some seats occupied (for demo)
+                if (Math.random() < 0.15) {
+                    seat.className = 'seat occupied';
+                    seat.textContent = '✗';
+                    seat.onclick = null;
+                }
+
+                seatsGrid.appendChild(seat);
+            }
+        }
+
+        // Toggle seat selection
+        function toggleSeat(seatNumber, seatElement) {
+            if (seatElement.classList.contains('occupied')) return;
+
+            if (seatElement.classList.contains('selected')) {
+                seatElement.classList.remove('selected');
+                selectedSeats = selectedSeats.filter(s => s !== seatNumber);
+            } else {
+                if (selectedSeats.length < 8) { // Max 8 tickets
+                    seatElement.classList.add('selected');
+                    selectedSeats.push(seatNumber);
+                } else {
+                    alert('🎫 Maximum 8 tickets per order');
+                }
+            }
+
+            updateSummary();
+        }
+
+        // Open ticket modal
+        function openTicketModal(movieTitle) {
+            currentMovie = movieTitle;
+            document.getElementById('modalMovieTitle').textContent = `Tickets voor ${movieTitle}`;
+            document.getElementById('ticketModal').classList.add('active');
+            selectedSeats = [];
+            initSeats();
+            updateSummary();
+        }
+
+        // Close ticket modal
+        function closeTicketModal() {
+            document.getElementById('ticketModal').classList.remove('active');
+            document.getElementById('bookingForm').reset();
+            selectedSeats = [];
+            updateSummary();
+        }
+
+        // Update booking summary
+        function updateSummary() {
+            const cinema = document.getElementById('cinemaSelect').value;
+            const date = document.getElementById('dateSelect').value;
+            const time = document.getElementById('timeSelect').value;
+            const summary = document.getElementById('bookingSummary');
+            const confirmBtn = document.getElementById('confirmBtn');
+
+            if (cinema && date && time && selectedSeats.length > 0) {
+                summary.style.display = 'block';
+
+                const cinemaNames = {
+                    'amsterdam-arena': 'Pathé Arena - Amsterdam',
+                    'rotterdam-schouwburgplein': 'Pathé Schouwburgplein - Rotterdam',
+                    'den-haag': 'Pathé Spuimarkt - Den Haag',
+                    'utrecht-leidsche-rijn': 'Pathé Leidsche Rijn - Utrecht',
+                    'eindhoven': 'Pathé Eindhoven'
+                };
+
+                const dateNames = {
+                    'today': 'Vandaag',
+                    'tomorrow': 'Morgen',
+                    'day-after': 'Overmorgen'
+                };
+
+                document.getElementById('summaryMovie').textContent = currentMovie;
+                document.getElementById('summaryCinema').textContent = cinemaNames[cinema] || cinema;
+                document.getElementById('summaryDateTime').textContent = `${dateNames[date]} om ${time}`;
+                document.getElementById('summarySeats').textContent = selectedSeats.sort((a, b) => a - b).join(', ');
+                document.getElementById('summaryTickets').textContent = selectedSeats.length;
+                document.getElementById('summaryTotal').textContent = `€${(selectedSeats.length * ticketPrice).toFixed(2)}`;
+
+                confirmBtn.disabled = false;
+            } else {
+                summary.style.display = 'none';
+                confirmBtn.disabled = true;
+            }
+        }
+
+        // Go to real Pathé website
+        function goToPathe() {
+            const confirmed = confirm(`🎬 You will be redirected to the official Pathé website!
+
+Movie: ${currentMovie}
+Seats: ${selectedSeats.length} ticket(s)
+Total: €${(selectedSeats.length * ticketPrice).toFixed(2)}
+
+Click OK to go to Pathé.nl for the actual booking!`);
+
+            if (confirmed) {
+                // Open official Pathé website
+                window.open('https://www.pathe.nl/tickets', '_blank');
+
+                // Show success message and close modal
+                setTimeout(() => {
+                    alert('🍿 Thank you for your visit! You have been redirected to Pathé.nl');
+                    closeTicketModal();
+                }, 1000);
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            ['cinemaSelect', 'dateSelect', 'timeSelect'].forEach(id => {
+                document.getElementById(id).addEventListener('change', updateSummary);
+            });
+
+            // Close modal when clicking outside
+            document.getElementById('ticketModal').addEventListener('click', (e) => {
+                if (e.target.id === 'ticketModal') {
+                    closeTicketModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && document.getElementById('ticketModal').classList.contains('active')) {
+                    closeTicketModal();
+                }
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // AI Chatbot functionality
+        let chatbotActive = false;
+
+        function toggleChatbot() {
+            const chatbot = document.getElementById('aiChatbot');
+            const floatBtn = document.getElementById('chatbotButton');
+            chatbotActive = !chatbotActive;
+
+            if (chatbotActive) {
+                chatbot.classList.add('active');
+                floatBtn.classList.add('hidden');
+            } else {
+                chatbot.classList.remove('active');
+                floatBtn.classList.remove('hidden');
+            }
+        }
+
+        function closeChatbot() {
+            const chatbot = document.getElementById('aiChatbot');
+            const floatBtn = document.getElementById('chatbotButton');
+            chatbot.classList.remove('active');
+            floatBtn.classList.remove('hidden');
+            chatbotActive = false;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+
+            if (message === '') return;
+
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+
+            // Simulate AI response
+            setTimeout(() => {
+                const response = generateAIResponse(message);
+                addMessage(response, 'bot');
+            }, 1000);
+        }
+
+        function addMessage(text, sender) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = sender === 'bot' ? '🤖' : '👤';
+
+            const content = document.createElement('div');
+            content.className = 'message-content';
+            content.innerHTML = text;
+
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
+            messagesContainer.appendChild(messageDiv);
+
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function generateAIResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+
+            // Film gerelateerde vragen
+            if (message.includes('film') || message.includes('movie') || message.includes('bioscoops') || message.includes('nu spelen')) {
+                return `🎬 <strong>Current movies at Pathé:</strong><br><br>
+                • <strong>The Conjuring: Last Rites</strong> - Horror Thriller<br>
+                • <strong>Downton Abbey: The Grand Finale</strong> - Period Drama<br>
+                • <strong>Nobody 2</strong> - Action Thriller<br>
+                • <strong>The Fantastic Four: First Steps</strong> - Superhero Action<br>
+                • <strong>Jurassic World: Rebirth</strong> - Action Adventure<br>
+                • <strong>Lilo & Stitch</strong> - Family Animation<br>
+                • <strong>Elio</strong> - Family Animation<br>
+                • <strong>Superman</strong> - Coming Soon<br>
+                • <strong>How To Train Your Dragon</strong> - Coming Soon<br><br>
+                Click on a movie for more information and to book tickets! 🎫`;
+            }
+
+            // Ticket boeken
+            if (message.includes('ticket') || message.includes('boeken') || message.includes('reserveren')) {
+                return `🎫 <strong>Booking tickets is super easy!</strong><br><br>
+                1. Choose your favorite movie<br>
+                2. Select your preferred date and time<br>
+                3. Choose your seats<br>
+                4. Fill in your details<br>
+                5. Pay securely via Pathé.nl<br><br>
+                Tip: With Club Pathé you get discounts on all tickets! 💰`;
+            }
+
+            // Bioscoop locaties
+            if (message.includes('bioscoop') || message.includes('locatie') || message.includes('adres') || message.includes('waar')) {
+                return `🏢 <strong>Pathé theaters in the Netherlands:</strong><br><br>
+                📍 <strong>Amsterdam Arena</strong> - 14 screens, IMAX<br>
+                📍 <strong>Rotterdam Schouwburgplein</strong> - 9 screens<br>
+                📍 <strong>The Hague Spuimarkt</strong> - 8 screens<br>
+                📍 <strong>Utrecht Leidsche Rijn</strong> - 10 screens, IMAX<br>
+                📍 <strong>Eindhoven</strong> - 7 screens<br>
+                📍 <strong>Roermond De Munt</strong> - 6 screens<br><br>
+                Scroll to the theaters section for more details! 🚇`;
+            }
+
+            // Contact en openingstijden
+            if (message.includes('contact') || message.includes('telefoon') || message.includes('email') || message.includes('openingstijden')) {
+                return `📞 <strong>Contact information:</strong><br><br>
+                🎫 <strong>Customer service:</strong> 0900-1458<br>
+                🕐 Mon-Sun: 09:00 - 21:00<br><br>
+                🎪 <strong>Groups:</strong> 020-540 0180<br>
+                🎉 <strong>Events:</strong> 020-540 0190<br>
+                💼 <strong>Business rental:</strong> 020-540 0200<br><br>
+                💬 Or start a live chat on Pathé.nl!`;
+            }
+
+            // Prijzen en aanbiedingen
+            if (message.includes('prijs') || message.includes('kosten') || message.includes('korting') || message.includes('aanbieding')) {
+                return `💰 <strong>Pathé prices and benefits:</strong><br><br>
+                🎫 <strong>Standard ticket:</strong> €12,50 - €15,50<br>
+                🌟 <strong>Premium seats:</strong> €16,50 - €19,50<br>
+                🎬 <strong>IMAX experience:</strong> €17,50 - €21,50<br><br>
+                💳 <strong>Club Pathé benefits:</strong><br>
+                • Discount on all tickets<br>
+                • Free upgrade to premium seats<br>
+                • Exclusive previews<br><br>
+                Check Pathé.nl for current prices! 💎`;
+            }
+
+            // Standaard respons
+            const responses = [
+                `Thank you for your question! 😊 I'm happy to help you with information about Pathé. You can ask me about:<br><br>🎬 Movies and screenings<br>🎫 Booking tickets<br>🏢 Theater locations<br>📞 Contact information<br>💰 Prices and discounts`,
+
+                `Hello! 👋 I'm here to help you with everything about Pathé! What are you looking for?<br><br>🎭 Want to know which movies are playing now?<br>🎪 Looking for information about group reservations?<br>🗺️ Do you have questions about our theater locations?`,
+
+                `Great that you're getting in touch! 🌟 As a Pathé assistant I can help you with:<br><br>📽️ Movie overview and trailers<br>🎯 Ticket reservations<br>🏛️ Theater information<br>🔧 Technical questions<br><br>What can I do for you?`
+            ];
+
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Auto-focus input when chatbot opens
+        document.getElementById('aiChatbot').addEventListener('transitionend', function () {
+            if (this.classList.contains('active')) {
+                document.getElementById('chatInput').focus();
+            }
+        });
+
+        // Login/Register System
+        let currentUser = null;
+
+        // Check if user is already logged in on page load
+        window.addEventListener('DOMContentLoaded', function () {
+            const savedUser = localStorage.getItem('patheUser');
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                // Only auto-login if email is verified
+                if (user.emailVerified) {
+                    currentUser = user;
+                    updateNavigationForLoggedInUser();
+                } else {
+                    // Remove unverified user from auto-login
+                    localStorage.removeItem('patheUser');
+                }
+            }
+        });
+
+        function openLoginModal() {
+            if (currentUser) {
+                // If user is logged in, show profile
+                showUserProfile();
+            }
+            const modal = document.getElementById('loginModal');
+            modal.style.display = 'block';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closeLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        function switchToRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('userProfile').style.display = 'none';
+            document.getElementById('loginTitle').textContent = '🎯 Registreren bij Pathé';
+        }
+
+        function switchToLogin() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('userProfile').style.display = 'none';
+            document.getElementById('loginTitle').textContent = '👤 Inloggen bij Pathé';
+        }
+
+        function showUserProfile() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('userProfile').style.display = 'block';
+            document.getElementById('loginTitle').textContent = '👤 Mijn Pathé Account';
+
+            if (currentUser) {
+                document.getElementById('userName').textContent = `Welkom, ${currentUser.name}!`;
+                document.getElementById('userEmail').textContent = currentUser.email;
+                document.getElementById('memberSince').textContent = new Date(currentUser.joinDate).getFullYear();
+                document.getElementById('ticketsBooked').textContent = currentUser.ticketsBooked || 0;
+                document.getElementById('moviesWatched').textContent = currentUser.moviesWatched || 0;
+            }
+        }
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            // Check if user exists in localStorage
+            const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                // Check if email is verified
+                if (!user.emailVerified) {
+                    showNotification('⚠️ Je account is nog niet geverifieerd. Check je e-mail voor de verificatiecode.', 'error');
+                    showVerificationModal(user.email);
+                    return;
+                }
+
+                currentUser = user;
+                if (rememberMe) {
+                    localStorage.setItem('patheUser', JSON.stringify(user));
+                }
+                updateNavigationForLoggedInUser();
+                showUserProfile();
+                showNotification('✅ Succesvol ingelogd! Welkom terug bij Pathé.', 'success');
+            } else {
+                showNotification('❌ Ongeldig e-mailadres of wachtwoord.', 'error');
+            }
+        });
+
+        // Register form submission
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const birthDate = document.getElementById('birthDate').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            const newsletter = document.getElementById('newsletter').checked;
+
+            // Validation
+            if (password !== confirmPassword) {
+                showNotification('❌ Wachtwoorden komen niet overeen.', 'error');
+                return;
+            }
+
+            if (!agreeTerms) {
+                showNotification('❌ You must agree to the terms and conditions.', 'error');
+                return;
+            }
+
+            // Check if user already exists
+            const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+            if (users.find(u => u.email === email)) {
+                showNotification('❌ Er bestaat al een account met dit e-mailadres.', 'error');
+                return;
+            }
+
+            // Create new user
+            const newUser = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                password: password,
+                birthDate: birthDate,
+                newsletter: newsletter,
+                joinDate: new Date().toISOString(),
+                ticketsBooked: 0,
+                moviesWatched: 0,
+                emailVerified: false,
+                verificationCode: generateVerificationCode()
+            };
+
+            // Save user (but don't log in yet)
+            users.push(newUser);
+            localStorage.setItem('patheUsers', JSON.stringify(users));
+
+            // Send verification email simulation
+            sendVerificationEmail(newUser);
+            showVerificationModal(email);
+            showNotification('📧 Verificatie e-mail verzonden! Check je inbox.', 'success');
+        });
+
+        // Email Verification Functions
+        function generateVerificationCode() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        function sendVerificationEmail(user) {
+            // Simulate sending email - in real app this would be a server call
+            console.log(`Verification email sent to ${user.email} with code: ${user.verificationCode}`);
+
+            // Update the simulated email display
+            document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+            document.getElementById('displayedCode').textContent = user.verificationCode;
+        }
+
+        function showVerificationModal(email) {
+            closeLoginModal(); // Close login modal first
+
+            const modal = document.getElementById('verificationModal');
+            const emailSpan = document.getElementById('verificationEmail');
+
+            emailSpan.textContent = email;
+            modal.style.display = 'block';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closeVerificationModal() {
+            const modal = document.getElementById('verificationModal');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        function resendVerificationCode() {
+            const email = document.getElementById('verificationEmail').textContent;
+            const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+            const user = users.find(u => u.email === email);
+
+            if (user) {
+                // Generate new code
+                user.verificationCode = generateVerificationCode();
+
+                // Update user in localStorage
+                const userIndex = users.findIndex(u => u.email === email);
+                users[userIndex] = user;
+                localStorage.setItem('patheUsers', JSON.stringify(users));
+
+                // Send new email
+                sendVerificationEmail(user);
+                showNotification('📧 Nieuwe verificatiecode verzonden!', 'success');
+            }
+        }
+
+        // Verification form submission
+        document.getElementById('verificationForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const enteredCode = document.getElementById('verificationCode').value;
+            const email = document.getElementById('verificationEmail').textContent;
+
+            const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+            const userIndex = users.findIndex(u => u.email === email);
+
+            if (userIndex !== -1) {
+                const user = users[userIndex];
+
+                if (user.verificationCode === enteredCode) {
+                    // Verification successful
+                    user.emailVerified = true;
+                    users[userIndex] = user;
+                    localStorage.setItem('patheUsers', JSON.stringify(users));
+                    localStorage.setItem('patheUser', JSON.stringify(user));
+
+                    currentUser = user;
+                    updateNavigationForLoggedInUser();
+                    closeVerificationModal();
+                    openLoginModal();
+                    showUserProfile();
+
+                    showNotification('🎉 E-mail succesvol geverifieerd! Welkom bij Pathé!', 'success');
+                } else {
+                    showNotification('❌ Ongeldige verificatiecode. Probeer opnieuw.', 'error');
+                }
+            }
+        });
+
+        function updateNavigationForLoggedInUser() {
+            const loginBtn = document.querySelector('.nav-links .login-btn');
+            if (currentUser && loginBtn) {
+                loginBtn.textContent = `👤 ${currentUser.name.split(' ')[0]}`;
+                loginBtn.classList.add('user-nav');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('patheUser');
+
+            // Reset navigation
+            const loginBtn = document.querySelector('.nav-links .login-btn');
+            if (loginBtn) {
+                loginBtn.textContent = '👤 Inloggen';
+                loginBtn.classList.remove('user-nav');
+            }
+
+            closeLoginModal();
+            showNotification('👋 Je bent uitgelogd. Tot ziens!', 'info');
+        }
+
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = message;
+
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#4caf50' : type === 'error' ? '#f44336' : '#2196f3'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                max-width: 300px;
+                font-weight: 500;
+            `;
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Remove after 4 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function (event) {
+            const loginModal = document.getElementById('loginModal');
+            const verificationModal = document.getElementById('verificationModal');
+
+            if (event.target === loginModal) {
+                closeLoginModal();
+            }
+
+            if (event.target === verificationModal) {
+                closeVerificationModal();
+            }
+        });
+
+        // Favorites System
+        let userFavorites = [];
+
+        // Load favorites on page load
+        window.addEventListener('DOMContentLoaded', function () {
+            loadFavorites();
+            updateFavoriteButtons();
+        });
+
+        function loadFavorites() {
+            const savedFavorites = localStorage.getItem('patheFavorites');
+            if (savedFavorites) {
+                userFavorites = JSON.parse(savedFavorites);
+            }
+        }
+
+        function saveFavorites() {
+            localStorage.setItem('patheFavorites', JSON.stringify(userFavorites));
+        }
+
+        function toggleFavorite(movieTitle) {
+            // Check if user is logged in
+            if (!currentUser) {
+                showNotification('⚠️ Je moet ingelogd zijn om favorieten toe te voegen.', 'error');
+                openLoginModal();
+                return;
+            }
+
+            const index = userFavorites.indexOf(movieTitle);
+
+            if (index === -1) {
+                // Add to favorites
+                userFavorites.push(movieTitle);
+                showNotification(`❤️ ${movieTitle} toegevoegd aan favorieten!`, 'success');
+            } else {
+                // Remove from favorites
+                userFavorites.splice(index, 1);
+                showNotification(`💔 ${movieTitle} verwijderd uit favorieten.`, 'info');
+            }
+
+            saveFavorites();
+            updateFavoriteButtons();
+        }
+
+        function updateFavoriteButtons() {
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
+
+            favoriteButtons.forEach(button => {
+                const movieTitle = button.getAttribute('data-movie');
+                const heart = button.querySelector('.heart');
+
+                if (userFavorites.includes(movieTitle)) {
+                    button.classList.add('favorited');
+                    heart.textContent = '❤️';
+                } else {
+                    button.classList.remove('favorited');
+                    heart.textContent = '🤍';
+                }
+            });
+        }
+
+        function getFavoriteMovies() {
+            return userFavorites;
+        }
+
+        function showFavorites() {
+            if (!currentUser) {
+                showNotification('⚠️ Je moet ingelogd zijn om je favorieten te bekijken.', 'error');
+                return;
+            }
+
+            if (userFavorites.length === 0) {
+                showNotification('📽️ Je hebt nog geen favoriete films toegevoegd.', 'info');
+                return;
+            }
+
+            let favoritesList = userFavorites.map(movie => `• ${movie}`).join('\n');
+            showNotification(`⭐ Je favoriete films:\n${favoritesList}`, 'success');
+        }
+
+        // Update the existing profile button click handler
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add click handler for favorites button in profile
+            const favoriteProfileBtn = document.querySelector('.profile-btn');
+            if (favoriteProfileBtn && favoriteProfileBtn.textContent.includes('Favorieten')) {
+                favoriteProfileBtn.addEventListener('click', showFavorites);
+            }
+        });
+
+        // Settings System
+        let userSettings = {
+            account: {
+                displayName: '',
+                language: 'nl',
+                publicProfile: false
+            },
+            notifications: {
+                email: true,
+                movieReleases: true,
+                specialOffers: true,
+                reminders: false,
+                news: false
+            },
+            privacy: {
+                dataCollection: false,
+                locationTracking: false,
+                cookies: true
+            },
+            moviePreferences: {
+                genres: [],
+                preferredCinema: '',
+                preferredShowtime: ''
+            },
+            accessibility: {
+                subtitles: false,
+                audiodescription: false,
+                wheelchairAccess: false,
+                textSize: 'normal',
+                theme: 'dark'
+            },
+            app: {
+                autoplayTrailers: true,
+                chatbotEnabled: true,
+                soundEffects: true,
+                autoLogout: '1day'
+            }
+        };
+
+        // Load settings on page load
+        window.addEventListener('DOMContentLoaded', function () {
+            loadUserSettings();
+            applyUserSettings();
+        });
+
+        function loadUserSettings() {
+            const savedSettings = localStorage.getItem('patheSettings');
+            if (savedSettings) {
+                userSettings = { ...userSettings, ...JSON.parse(savedSettings) };
+            }
+            populateSettingsForm();
+        }
+
+        function saveUserSettings() {
+            localStorage.setItem('patheSettings', JSON.stringify(userSettings));
+        }
+
+        function populateSettingsForm() {
+            // Account settings
+            if (document.getElementById('displayName')) {
+                document.getElementById('displayName').value = userSettings.account.displayName || '';
+                document.getElementById('profileLanguage').value = userSettings.account.language || 'nl';
+                document.getElementById('publicProfile').checked = userSettings.account.publicProfile || false;
+            }
+
+            // Notification settings
+            if (document.getElementById('emailNotifications')) {
+                document.getElementById('emailNotifications').checked = userSettings.notifications.email !== false;
+                document.getElementById('movieReleases').checked = userSettings.notifications.movieReleases !== false;
+                document.getElementById('specialOffers').checked = userSettings.notifications.specialOffers !== false;
+                document.getElementById('reminderNotifications').checked = userSettings.notifications.reminders || false;
+                document.getElementById('newsUpdates').checked = userSettings.notifications.news || false;
+            }
+
+            // Privacy settings
+            if (document.getElementById('dataCollection')) {
+                document.getElementById('dataCollection').checked = userSettings.privacy.dataCollection || false;
+                document.getElementById('locationTracking').checked = userSettings.privacy.locationTracking || false;
+                document.getElementById('cookiePreferences').checked = userSettings.privacy.cookies !== false;
+            }
+
+            // Movie preferences
+            if (document.getElementById('preferredCinema')) {
+                document.getElementById('preferredCinema').value = userSettings.moviePreferences.preferredCinema || '';
+                document.getElementById('preferredShowtime').value = userSettings.moviePreferences.preferredShowtime || '';
+
+                // Set genre checkboxes
+                const genreInputs = document.querySelectorAll('input[name="genre"]');
+                genreInputs.forEach(input => {
+                    input.checked = userSettings.moviePreferences.genres.includes(input.value);
+                });
+            }
+
+            // Accessibility settings
+            if (document.getElementById('subtitlesDefault')) {
+                document.getElementById('subtitlesDefault').checked = userSettings.accessibility.subtitles || false;
+                document.getElementById('audiodescription').checked = userSettings.accessibility.audiodescription || false;
+                document.getElementById('wheelchairAccess').checked = userSettings.accessibility.wheelchairAccess || false;
+                document.getElementById('textSize').value = userSettings.accessibility.textSize || 'normal';
+                document.getElementById('themePreference').value = userSettings.accessibility.theme || 'dark';
+            }
+
+            // App settings
+            if (document.getElementById('autoplayTrailers')) {
+                document.getElementById('autoplayTrailers').checked = userSettings.app.autoplayTrailers !== false;
+                document.getElementById('chatbotEnabled').checked = userSettings.app.chatbotEnabled !== false;
+                document.getElementById('soundEffects').checked = userSettings.app.soundEffects !== false;
+                document.getElementById('autoLogout').value = userSettings.app.autoLogout || '1day';
+            }
+        }
+
+        function applyUserSettings() {
+            // Apply text size
+            const textSize = userSettings.accessibility.textSize || 'normal';
+            document.body.classList.remove('text-small', 'text-large', 'text-extra-large');
+            if (textSize !== 'normal') {
+                document.body.classList.add(`text-${textSize.replace('-', '-')}`);
+            }
+
+            // Apply theme
+            const theme = userSettings.accessibility.theme || 'dark';
+            document.body.classList.remove('theme-light', 'theme-dark');
+            document.body.classList.add(`theme-${theme}`);
+
+            // Apply chatbot setting
+            const chatbotEnabled = userSettings.app.chatbotEnabled !== false;
+            const chatbotBtn = document.getElementById('chatbotButton');
+            if (chatbotBtn) {
+                chatbotBtn.style.display = chatbotEnabled ? 'flex' : 'none';
+            }
+        }
+
+        // Settings save functions
+        function saveAccountSettings() {
+            if (!currentUser) {
+                showNotification('⚠️ Je moet ingelogd zijn om instellingen op te slaan.', 'error');
+                return;
+            }
+
+            userSettings.account.displayName = document.getElementById('displayName').value;
+            userSettings.account.language = document.getElementById('profileLanguage').value;
+            userSettings.account.publicProfile = document.getElementById('publicProfile').checked;
+
+            saveUserSettings();
+            showNotification('✅ Account instellingen opgeslagen!', 'success');
+        }
+
+        function saveNotificationSettings() {
+            userSettings.notifications.email = document.getElementById('emailNotifications').checked;
+            userSettings.notifications.movieReleases = document.getElementById('movieReleases').checked;
+            userSettings.notifications.specialOffers = document.getElementById('specialOffers').checked;
+            userSettings.notifications.reminders = document.getElementById('reminderNotifications').checked;
+            userSettings.notifications.news = document.getElementById('newsUpdates').checked;
+
+            saveUserSettings();
+            showNotification('🔔 Notificatie instellingen opgeslagen!', 'success');
+        }
+
+        function savePrivacySettings() {
+            userSettings.privacy.dataCollection = document.getElementById('dataCollection').checked;
+            userSettings.privacy.locationTracking = document.getElementById('locationTracking').checked;
+            userSettings.privacy.cookies = document.getElementById('cookiePreferences').checked;
+
+            saveUserSettings();
+            showNotification('🔒 Privacy instellingen opgeslagen!', 'success');
+        }
+
+        function saveMoviePreferences() {
+            userSettings.moviePreferences.preferredCinema = document.getElementById('preferredCinema').value;
+            userSettings.moviePreferences.preferredShowtime = document.getElementById('preferredShowtime').value;
+
+            // Get selected genres
+            const selectedGenres = [];
+            const genreInputs = document.querySelectorAll('input[name="genre"]:checked');
+            genreInputs.forEach(input => selectedGenres.push(input.value));
+            userSettings.moviePreferences.genres = selectedGenres;
+
+            saveUserSettings();
+            showNotification('🎬 Film voorkeuren opgeslagen!', 'success');
+        }
+
+        function saveAccessibilitySettings() {
+            userSettings.accessibility.subtitles = document.getElementById('subtitlesDefault').checked;
+            userSettings.accessibility.audiodescription = document.getElementById('audiodescription').checked;
+            userSettings.accessibility.wheelchairAccess = document.getElementById('wheelchairAccess').checked;
+            userSettings.accessibility.textSize = document.getElementById('textSize').value;
+            userSettings.accessibility.theme = document.getElementById('themePreference').value;
+
+            saveUserSettings();
+            applyUserSettings(); // Apply changes immediately
+            showNotification('♿ Toegankelijkheid instellingen opgeslagen!', 'success');
+        }
+
+        function saveAppSettings() {
+            userSettings.app.autoplayTrailers = document.getElementById('autoplayTrailers').checked;
+            userSettings.app.chatbotEnabled = document.getElementById('chatbotEnabled').checked;
+            userSettings.app.soundEffects = document.getElementById('soundEffects').checked;
+            userSettings.app.autoLogout = document.getElementById('autoLogout').value;
+
+            saveUserSettings();
+            applyUserSettings(); // Apply changes immediately
+            showNotification('📱 App instellingen opgeslagen!', 'success');
+        }
+
+        // Additional settings functions
+        function goToSettings() {
+            closeLoginModal();
+            const settingsSection = document.getElementById('settings');
+            if (settingsSection) {
+                settingsSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        function changePassword() {
+            if (!currentUser) {
+                showNotification('⚠️ Je moet ingelogd zijn om je wachtwoord te wijzigen.', 'error');
+                return;
+            }
+
+            const newPassword = prompt('Enter your new password (minimum 6 characters):');
+            if (newPassword && newPassword.length >= 6) {
+                // Update password in localStorage
+                const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+                const userIndex = users.findIndex(u => u.email === currentUser.email);
+                if (userIndex !== -1) {
+                    users[userIndex].password = newPassword;
+                    currentUser.password = newPassword;
+                    localStorage.setItem('patheUsers', JSON.stringify(users));
+                    localStorage.setItem('patheUser', JSON.stringify(currentUser));
+                    showNotification('🔑 Wachtwoord succesvol gewijzigd!', 'success');
+                }
+            } else if (newPassword !== null) {
+                showNotification('❌ Password must contain at least 6 characters.', 'error');
+            }
+        }
+
+        function downloadData() {
+            if (!currentUser) {
+                showNotification('⚠️ You must be logged in to download your data.', 'error');
+                return;
+            }
+
+            const userData = {
+                user: currentUser,
+                settings: userSettings,
+                favorites: userFavorites,
+                downloadDate: new Date().toISOString()
+            };
+
+            const dataStr = JSON.stringify(userData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `pathe-data-${currentUser.email.replace('@', '_')}.json`;
+            link.click();
+
+            URL.revokeObjectURL(url);
+            showNotification('📥 Your data is being downloaded!', 'success');
+        }
+
+        function clearCache() {
+            if (confirm('Weet je zeker dat je alle cache wilt wissen? Dit kan de laadtijd van de website verhogen.')) {
+                // Clear specific cache items but keep user data
+                const keysToKeep = ['patheUser', 'patheUsers', 'patheSettings', 'patheFavorites'];
+                const allKeys = Object.keys(localStorage);
+
+                allKeys.forEach(key => {
+                    if (!keysToKeep.includes(key)) {
+                        localStorage.removeItem(key);
+                    }
+                });
+
+                showNotification('🗑️ Cache gewist!', 'success');
+            }
+        }
+
+        function resetSettings() {
+            if (confirm('Weet je zeker dat je alle instellingen wilt resetten naar de standaardwaarden?')) {
+                // Reset settings to default
+                userSettings = {
+                    account: { displayName: '', language: 'nl', publicProfile: false },
+                    notifications: { email: true, movieReleases: true, specialOffers: true, reminders: false, news: false },
+                    privacy: { dataCollection: false, locationTracking: false, cookies: true },
+                    moviePreferences: { genres: [], preferredCinema: '', preferredShowtime: '' },
+                    accessibility: { subtitles: false, audiodescription: false, wheelchairAccess: false, textSize: 'normal', theme: 'dark' },
+                    app: { autoplayTrailers: true, chatbotEnabled: true, soundEffects: true, autoLogout: '1day' }
+                };
+
+                saveUserSettings();
+                populateSettingsForm();
+                applyUserSettings();
+                showNotification('🔄 Settings reset to default values!', 'success');
+            }
+        }
+
+        // Add CSS for text size settings
+        const textSizeCSS = `
+            .text-small { font-size: 0.9em; }
+            .text-large { font-size: 1.1em; }
+            .text-extra-large { font-size: 1.3em; }
+            .theme-light { 
+                background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 50%, #d5d5d5 100%) !important;
+                color: #333 !important;
+            }
+            .theme-light .movie-card,
+            .theme-light .theater-card,
+            .theme-light .contact-card,
+            .theme-light .settings-card {
+                background: linear-gradient(145deg, #ffffff, #f0f0f0) !important;
+                color: #333 !important;
+            }
+            .theme-light .modal-content {
+                background: linear-gradient(145deg, #ffffff, #f0f0f0) !important;
+                color: #333 !important;
+            }
+        `;
+
+        // Inject CSS
+        const style = document.createElement('style');
+        style.textContent = textSizeCSS;
+        document.head.appendChild(style);
+
+        // Copyright Footer Functions
+        function showPrivacyPolicy() {
+            showNotification('📄 Privacy Policy page would open here', 'info');
+            // In a real implementation, this would navigate to the privacy policy page
+            // window.open('/privacy-policy', '_blank');
+        }
+
+        function showTermsOfService() {
+            showNotification('📜 Terms of Service page would open here', 'info');
+            // In a real implementation, this would navigate to the terms page
+            // window.open('/terms-of-service', '_blank');
+        }
+
+        function showCookiePolicy() {
+            showNotification('🍪 Cookie Policy page would open here', 'info');
+            // In a real implementation, this would navigate to the cookie policy page
+            // window.open('/cookie-policy', '_blank');
+        }
+
+        function showAccessibility() {
+            showNotification('♿ Accessibility information page would open here', 'info');
+            // In a real implementation, this would navigate to the accessibility page
+            // window.open('/accessibility', '_blank');
+        }
+    </script>
+
+    <!-- Copyright Footer -->
+    <footer class="copyright-footer">
+        <div class="container">
+            <div class="copyright-content">
+                <div class="copyright-text">
+                    <p>&copy; 2025 Pathé Netherlands. All rights reserved.</p>
+                    <p>Experience the ultimate movie journey with Pathé - Your premier cinema destination.</p>
+                </div>
+                <div class="copyright-links">
+                    <a href="#" onclick="showPrivacyPolicy()">Privacy Policy</a> |
+                    <a href="#" onclick="showTermsOfService()">Terms of Service</a> |
+                    <a href="#" onclick="showCookiePolicy()">Cookie Policy</a> |
+                    <a href="#" onclick="showAccessibility()">Accessibility</a>
+                </div>
+                <div class="copyright-social">
+                    <span>Follow us:</span>
+                    <a href="https://www.facebook.com/pathenederland" target="_blank" title="Facebook">📘</a>
+                    <a href="https://www.instagram.com/pathenederland" target="_blank" title="Instagram">📷</a>
+                    <a href="https://www.twitter.com/pathenl" target="_blank" title="Twitter">🐦</a>
+                    <a href="https://www.youtube.com/user/PatheNL" target="_blank" title="YouTube">📺</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
