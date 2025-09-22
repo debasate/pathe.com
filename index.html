@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pathé Cinema - The Ultimate Movie Experience</title>
+    
+    <!-- EmailJS for real email sending -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
@@ -2949,6 +2953,9 @@
 
         // Go to real Pathé website
         function goToPathe() {
+            // Check if user is logged in for email confirmation
+            const user = currentUser;
+            
             const confirmed = confirm(`🎬 You will be redirected to the official Pathé website!
 
 Movie: ${currentMovie}
@@ -2958,12 +2965,20 @@ Total: €${(selectedSeats.length * ticketPrice).toFixed(2)}
 Click OK to go to Pathé.nl for the actual booking!`);
 
             if (confirmed) {
+                // Send booking confirmation email if user is logged in and email is verified
+                if (user && user.emailVerified) {
+                    sendBookingConfirmationEmail(user);
+                }
+                
                 // Open official Pathé website
                 window.open('https://www.pathe.nl/tickets', '_blank');
 
                 // Show success message and close modal
                 setTimeout(() => {
-                    alert('🍿 Thank you for your visit! You have been redirected to Pathé.nl');
+                    const message = user && user.emailVerified ? 
+                        '🍿 Thank you! Booking confirmation sent to your email. You have been redirected to Pathé.nl' :
+                        '🍿 Thank you for your visit! You have been redirected to Pathé.nl';
+                    alert(message);
                     closeTicketModal();
                 }, 1000);
             }
@@ -3404,12 +3419,81 @@ Click OK to go to Pathé.nl for the actual booking!`);
         }
 
         function sendVerificationEmail(user) {
-            // Simulate sending email - in real app this would be a server call
-            console.log(`Verification email sent to ${user.email} with code: ${user.verificationCode}`);
+            // Initialize EmailJS (you need to replace 'YOUR_PUBLIC_KEY' with actual key)
+            emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS public key
+            
+            // Email template parameters
+            const templateParams = {
+                to_name: user.name.split(' ')[0],
+                to_email: user.email,
+                verification_code: user.verificationCode,
+                cinema_name: 'Pathé Cinema',
+                website_url: window.location.origin
+            };
 
-            // Update the simulated email display
-            document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
-            document.getElementById('displayedCode').textContent = user.verificationCode;
+            // Send real email using EmailJS
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+                .then(function(response) {
+                    console.log('Verification email sent successfully!', response.status, response.text);
+                    
+                    // Show success message
+                    alert('✅ Verification email sent! Check your inbox and spam folder.');
+                    
+                    // Update the simulated email display as fallback
+                    document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                    document.getElementById('displayedCode').textContent = user.verificationCode;
+                }, function(error) {
+                    console.log('Failed to send email:', error);
+                    
+                    // Fallback: show alert with code if email fails
+                    alert(`📧 Email service temporarily unavailable. Your verification code is: ${user.verificationCode}`);
+                    
+                    // Still update the simulated display
+                    document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                    document.getElementById('displayedCode').textContent = user.verificationCode;
+                });
+        }
+
+        // Send booking confirmation email
+        function sendBookingConfirmationEmail(user) {
+            // Get booking details
+            const cinema = document.getElementById('cinemaSelect');
+            const date = document.getElementById('dateSelect');
+            const time = document.getElementById('timeSelect');
+            
+            const cinemaNames = {
+                'amsterdam-arena': 'Pathé Arena - Amsterdam',
+                'rotterdam-schouwburgplein': 'Pathé Schouwburgplein - Rotterdam',
+                'den-haag': 'Pathé Spuimarkt - The Hague',
+                'utrecht-leidsche-rijn': 'Pathé Leidsche Rijn - Utrecht',
+                'eindhoven': 'Pathé Eindhoven'
+            };
+
+            // Generate booking reference
+            const bookingRef = 'PTH' + Date.now().toString().slice(-6);
+            
+            // Email template parameters for booking confirmation
+            const templateParams = {
+                to_name: user.name.split(' ')[0],
+                to_email: user.email,
+                movie_title: currentMovie,
+                cinema_name: cinemaNames[cinema.value] || cinema.value,
+                booking_date: date.options[date.selectedIndex].text,
+                showtime: time.options[time.selectedIndex].text,
+                seat_count: selectedSeats.length,
+                total_price: (selectedSeats.length * ticketPrice).toFixed(2),
+                booking_reference: bookingRef,
+                seats_list: selectedSeats.join(', '),
+                website_url: window.location.origin
+            };
+
+            // Send booking confirmation email
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_BOOKING_TEMPLATE_ID', templateParams)
+                .then(function(response) {
+                    console.log('Booking confirmation sent!', response.status, response.text);
+                }, function(error) {
+                    console.log('Failed to send booking confirmation:', error);
+                });
         }
 
         function showVerificationModal(email) {
