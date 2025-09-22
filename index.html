@@ -3482,27 +3482,37 @@ Click OK to go to Pathé.nl for the actual booking!`);
                         website_url: window.location.origin
                     };
 
-                    // Send real email using EmailJS
-                    emailjs.send('service_doc2eqt', 'YOUR_TEMPLATE_ID', templateParams)
-                        .then(function (response) {
-                            console.log('Verification email sent successfully!', response.status, response.text);
+                    // Check if EmailJS templates are configured
+                    if (templateParams.template_id === 'YOUR_TEMPLATE_ID') {
+                        // Templates not yet configured, show code directly
+                        alert(`📧 EmailJS templates not configured yet.\n\nYour verification code is: ${user.verificationCode}\n\nTo setup real emails, check EMAILJS-SETUP.md`);
+                        
+                        // Update the simulated email display
+                        document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                        document.getElementById('displayedCode').textContent = user.verificationCode;
+                    } else {
+                        // Send real email using EmailJS
+                        emailjs.send('service_doc2eqt', 'YOUR_TEMPLATE_ID', templateParams)
+                            .then(function (response) {
+                                console.log('Verification email sent successfully!', response.status, response.text);
 
-                            // Show success message
-                            alert('✅ Verification email sent! Check your inbox and spam folder.');
+                                // Show success message
+                                alert('✅ Verification email sent! Check your inbox and spam folder.');
 
-                            // Update the simulated email display as fallback
-                            document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
-                            document.getElementById('displayedCode').textContent = user.verificationCode;
-                        }, function (error) {
-                            console.log('Failed to send email:', error);
+                                // Update the simulated email display as fallback
+                                document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                                document.getElementById('displayedCode').textContent = user.verificationCode;
+                            }, function (error) {
+                                console.log('Failed to send email:', error);
 
-                            // Fallback: show alert with code if email fails
-                            alert(`📧 Email service temporarily unavailable. Your verification code is: ${user.verificationCode}`);
+                                // Fallback: show alert with code if email fails
+                                alert(`📧 Email service temporarily unavailable. Your verification code is: ${user.verificationCode}`);
 
-                            // Still update the simulated display
-                            document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
-                            document.getElementById('displayedCode').textContent = user.verificationCode;
-                        });
+                                // Still update the simulated display
+                                document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                                document.getElementById('displayedCode').textContent = user.verificationCode;
+                            });
+                    }
                 } catch (error) {
                     console.log('EmailJS error:', error);
                     alert(`📧 EmailJS error. Your verification code is: ${user.verificationCode}`);
@@ -3622,15 +3632,21 @@ Click OK to go to Pathé.nl for the actual booking!`);
                         website_url: window.location.origin
                     };
 
-                    // Send 2FA email using EmailJS (you need to create a 2FA template)
-                    emailjs.send('service_doc2eqt', 'YOUR_2FA_TEMPLATE_ID', templateParams)
-                        .then(function (response) {
-                            console.log('2FA email sent successfully!', response.status, response.text);
-                        }, function (error) {
-                            console.log('Failed to send 2FA email:', error);
-                            // Show code in alert for debugging
-                            alert(`📧 2FA email service temporarily unavailable. Your 2FA code is: ${user.twoFactorCode}`);
-                        });
+                    // Check if 2FA template is configured
+                    if ('YOUR_2FA_TEMPLATE_ID' === 'YOUR_2FA_TEMPLATE_ID') {
+                        // Template not configured, show code directly
+                        alert(`🔐 EmailJS 2FA template not configured yet.\n\nYour 2FA code is: ${user.twoFactorCode}\n\nTo setup real emails, check EMAILJS-SETUP.md`);
+                    } else {
+                        // Send 2FA email using EmailJS (you need to create a 2FA template)
+                        emailjs.send('service_doc2eqt', 'YOUR_2FA_TEMPLATE_ID', templateParams)
+                            .then(function (response) {
+                                console.log('2FA email sent successfully!', response.status, response.text);
+                            }, function (error) {
+                                console.log('Failed to send 2FA email:', error);
+                                // Show code in alert for debugging
+                                alert(`📧 2FA email service temporarily unavailable. Your 2FA code is: ${user.twoFactorCode}`);
+                            });
+                    }
                 } catch (error) {
                     console.log('EmailJS error:', error);
                     // Show code in alert for debugging

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📧 EmailJS Setup Assistant - Pathé Cinema</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+            color: white;
+            line-height: 1.6;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        h1 {
+            color: #d32f2f;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #ff6b6b;
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 10px;
+        }
+        .step {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #d32f2f;
+        }
+        .step h3 {
+            color: #ff9800;
+            margin-bottom: 15px;
+        }
+        button {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #b71c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+        }
+        .template-box {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #333;
+        }
+        .template-box textarea {
+            width: 100%;
+            height: 200px;
+            background: #1a1a1a;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: monospace;
+            resize: vertical;
+        }
+        .code-input {
+            background: #1a1a1a;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+            padding: 10px;
+            width: 200px;
+            margin: 5px;
+        }
+        .success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4caf50;
+            color: #81c784;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .warning {
+            background: rgba(255, 152, 0, 0.2);
+            border: 1px solid #ff9800;
+            color: #ffb74d;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .links {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .links a {
+            color: #64b5f6;
+            text-decoration: none;
+            padding: 10px 15px;
+            border: 1px solid #64b5f6;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .links a:hover {
+            background: #64b5f6;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📧 EmailJS Setup Assistant voor Pathé Cinema</h1>
+        
+        <div class="warning">
+            <strong>⚠️ Je emails werken nog niet omdat EmailJS templates nog niet zijn geconfigureerd!</strong><br>
+            Volg deze stappen om echte emails in te schakelen.
+        </div>
+
+        <h2>🚀 Quick Start</h2>
+        <div class="links">
+            <a href="https://www.emailjs.com/" target="_blank">📧 Open EmailJS Dashboard</a>
+            <a href="./index.html" target="_blank">🎬 Terug naar Pathé Cinema</a>
+            <a href="./test-login.html" target="_blank">🧪 Test Login Pagina</a>
+        </div>
+
+        <div class="step">
+            <h3>Stap 1: EmailJS Account & Service</h3>
+            <p>1. Maak account aan op <strong>emailjs.com</strong></p>
+            <p>2. Voeg een email service toe (Gmail/Outlook)</p>
+            <p>3. Kopieer je <strong>Service ID</strong>:</p>
+            <input type="text" class="code-input" id="serviceId" placeholder="service_xxxxxxx" value="service_doc2eqt">
+            <p><em>Je huidige Service ID is al ingevuld.</em></p>
+        </div>
+
+        <div class="step">
+            <h3>Stap 2: Template 1 - Verificatie Email</h3>
+            <p>Maak een nieuwe template in EmailJS met deze content:</p>
+            <div class="template-box">
+                <strong>Subject:</strong> 🎬 Pathé Cinema - Email Verification<br><br>
+                <textarea readonly>Hello {{to_name}}!
+
+Welcome to Pathé Cinema! 🍿
+
+Your verification code is: {{verification_code}}
+
+Please enter this code on our website to verify your account.
+
+Thanks for joining Pathé!
+
+Best regards,
+The Pathé Cinema Team
+
+Visit us: {{website_url}}</textarea>
+            </div>
+            <p>Template ID:</p>
+            <input type="text" class="code-input" id="verifyTemplateId" placeholder="template_xxxxxxx">
+        </div>
+
+        <div class="step">
+            <h3>Stap 3: Template 2 - 2FA Login Code</h3>
+            <div class="template-box">
+                <strong>Subject:</strong> 🔐 Pathé Cinema - Login Verification<br><br>
+                <textarea readonly>Hello {{to_name}}!
+
+Someone is trying to log into your Pathé account.
+
+Login Details:
+🕐 Time: {{login_time}}
+💻 Location: {{website_url}}
+
+Your 2FA Code: {{two_factor_code}}
+
+⚠️ If this wasn't you, change your password immediately!
+
+This code expires in 10 minutes.
+
+Best regards,
+The Pathé Security Team</textarea>
+            </div>
+            <p>Template ID:</p>
+            <input type="text" class="code-input" id="twoFaTemplateId" placeholder="template_xxxxxxx">
+        </div>
+
+        <div class="step">
+            <h3>Stap 4: Template 3 - Booking Confirmation</h3>
+            <div class="template-box">
+                <strong>Subject:</strong> 🎫 Pathé Cinema - Booking Confirmation<br><br>
+                <textarea readonly>Hello {{to_name}}!
+
+Your movie booking has been confirmed! 🎬
+
+Booking Details:
+🎬 Movie: {{movie_title}}
+🏢 Cinema: {{cinema_name}}
+📅 Date: {{booking_date}}
+🕐 Time: {{showtime}}
+🪑 Seats: {{seats_list}} ({{seat_count}} tickets)
+💰 Total: €{{total_price}}
+
+Booking Reference: {{booking_reference}}
+
+Please arrive 15 minutes before showtime.
+
+Enjoy your movie! 🍿
+
+Best regards,
+The Pathé Cinema Team
+
+Visit us: {{website_url}}</textarea>
+            </div>
+            <p>Template ID:</p>
+            <input type="text" class="code-input" id="bookingTemplateId" placeholder="template_xxxxxxx">
+        </div>
+
+        <div class="step">
+            <h3>Stap 5: Code Generator</h3>
+            <p>Nadat je alle templates hebt gemaakt, klik hier om de code te genereren:</p>
+            <button onclick="generateCode()">🔧 Genereer Update Code</button>
+            <div id="generatedCode"></div>
+        </div>
+
+        <div class="step">
+            <h3>Stap 6: Code Toepassen</h3>
+            <p>1. Kopieer de gegenereerde code</p>
+            <p>2. Open <strong>index.html</strong> in een text editor</p>
+            <p>3. Zoek naar de oude template IDs en vervang ze</p>
+            <p>4. Sla op en upload naar GitHub</p>
+            <button onclick="testEmailSetup()">📧 Test Email Setup</button>
+        </div>
+
+        <div id="testResult"></div>
+    </div>
+
+    <script>
+        function generateCode() {
+            const serviceId = document.getElementById('serviceId').value;
+            const verifyId = document.getElementById('verifyTemplateId').value;
+            const twoFaId = document.getElementById('twoFaTemplateId').value;
+            const bookingId = document.getElementById('bookingTemplateId').value;
+
+            if (!verifyId || !twoFaId || !bookingId) {
+                alert('❌ Vul alle Template IDs in!');
+                return;
+            }
+
+            const code = `
+<!-- 🔧 EmailJS Template Updates -->
+<!-- Vervang deze regels in je index.html: -->
+
+<!-- Voor Verificatie Email (rond regel 3486): -->
+emailjs.send('${serviceId}', '${verifyId}', templateParams)
+
+<!-- Voor 2FA Email (rond regel 3626): -->
+emailjs.send('${serviceId}', '${twoFaId}', templateParams)
+
+<!-- Voor Booking Email (rond regel 3561): -->
+emailjs.send('${serviceId}', '${bookingId}', templateParams)
+
+<!-- ✅ Na deze wijzigingen werken je emails! -->
+            `;
+
+            const resultDiv = document.getElementById('generatedCode');
+            resultDiv.innerHTML = `
+                <div class="success">
+                    <h4>✅ Code Gegenereerd!</h4>
+                    <p>Kopieer deze updates voor je index.html:</p>
+                    <textarea style="width:100%;height:200px;background:#000;color:#0f0;padding:15px;border:none;border-radius:5px;">${code}</textarea>
+                    <button onclick="copyCode()">📋 Kopieer Code</button>
+                </div>
+            `;
+        }
+
+        function copyCode() {
+            const textarea = document.querySelector('#generatedCode textarea');
+            textarea.select();
+            textarea.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            alert('✅ Code gekopieerd naar clipboard!');
+        }
+
+        function testEmailSetup() {
+            const resultDiv = document.getElementById('testResult');
+            resultDiv.innerHTML = `
+                <div class="warning">
+                    <h4>🧪 Email Test</h4>
+                    <p>Ga naar je website en probeer:</p>
+                    <ol>
+                        <li><strong>Registreer</strong> een nieuw account → Verificatie email</li>
+                        <li><strong>Log in</strong> → 2FA email</li>
+                        <li><strong>Book een film</strong> → Booking confirmation</li>
+                    </ol>
+                    <p>Check je inbox (en spam folder) voor alle 3 email types!</p>
+                    <a href="./test-login.html" target="_blank" style="color:#64b5f6;">🧪 Gebruik Test Pagina</a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
