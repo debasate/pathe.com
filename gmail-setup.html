@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📧 Gmail Setup voor Pathé Cinema</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+            color: white;
+            line-height: 1.6;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        h1 {
+            color: #d32f2f;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #ff6b6b;
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 10px;
+        }
+        .step {
+            background: rgba(0,0,0,0.3);
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #d32f2f;
+        }
+        .step h3 {
+            color: #ff9800;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .step-number {
+            background: #d32f2f;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        button {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #b71c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+        }
+        .code-box {
+            background: #1a1a1a;
+            color: #0f0;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .template-box {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #333;
+        }
+        .template-box textarea {
+            width: 100%;
+            height: 180px;
+            background: #1a1a1a;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: monospace;
+            resize: vertical;
+        }
+        .success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4caf50;
+            color: #81c784;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .warning {
+            background: rgba(255, 152, 0, 0.2);
+            border: 1px solid #ff9800;
+            color: #ffb74d;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .info {
+            background: rgba(33, 150, 243, 0.2);
+            border: 1px solid #2196f3;
+            color: #90caf9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .links {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .links a {
+            color: #64b5f6;
+            text-decoration: none;
+            padding: 10px 15px;
+            border: 1px solid #64b5f6;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .links a:hover {
+            background: #64b5f6;
+            color: #000;
+        }
+        .input-group {
+            margin: 15px 0;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffb74d;
+            font-weight: bold;
+        }
+        .input-group input {
+            background: #1a1a1a;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+            padding: 10px;
+            width: 300px;
+            font-family: monospace;
+        }
+        .screenshot {
+            border: 2px solid #555;
+            border-radius: 8px;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📧 Gmail Setup voor Pathé Cinema EmailJS</h1>
+        
+        <div class="info">
+            <strong>🎯 Doel:</strong> Gmail configureren zodat je website echte emails verstuurt via jouw Gmail account.<br>
+            <strong>⏱️ Tijd:</strong> 10-15 minuten<br>
+            <strong>📧 Resultaat:</strong> Verificatie, 2FA en booking emails via Gmail!
+        </div>
+
+        <h2>📋 Voordat je begint</h2>
+        <div class="links">
+            <a href="https://www.emailjs.com/" target="_blank">📧 EmailJS Dashboard</a>
+            <a href="https://myaccount.google.com/security" target="_blank">🔐 Google Account Security</a>
+            <a href="./index.html" target="_blank">🎬 Pathé Cinema</a>
+            <a href="./test-login.html" target="_blank">🧪 Test Pagina</a>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">1</span>EmailJS Account Aanmaken</h3>
+            <p><strong>Ga naar:</strong> <a href="https://www.emailjs.com/" target="_blank">emailjs.com</a></p>
+            <ol>
+                <li>Klik <strong>"Sign Up"</strong></li>
+                <li>Gebruik je Gmail adres om te registreren</li>
+                <li>Verifieer je EmailJS account via email</li>
+                <li>Log in bij EmailJS dashboard</li>
+            </ol>
+            <div class="success">✅ <strong>Gratis plan:</strong> 200 emails per maand - perfect voor testing!</div>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">2</span>Gmail App Password Maken</h3>
+            <p><strong>Voor veiligheid gebruikt EmailJS app passwords, niet je gewone Gmail wachtwoord.</strong></p>
+            
+            <div class="warning">
+                <strong>⚠️ Vereiste:</strong> Je Gmail account moet 2-staps verificatie aan hebben staan!
+            </div>
+            
+            <ol>
+                <li>Ga naar: <a href="https://myaccount.google.com/security" target="_blank">Google Account Security</a></li>
+                <li>Zoek naar <strong>"2-Step Verification"</strong> en zet het AAN als het uit staat</li>
+                <li>Zoek naar <strong>"App passwords"</strong></li>
+                <li>Klik <strong>"Generate"</strong></li>
+                <li>Selecteer app: <strong>"Mail"</strong></li>
+                <li>Selecteer device: <strong>"Other"</strong></li>
+                <li>Typ: <strong>"EmailJS Pathé Cinema"</strong></li>
+                <li>Klik <strong>"Generate"</strong></li>
+                <li>Kopieer het 16-karakter app password (bijv: <code>abcd efgh ijkl mnop</code>)</li>
+            </ol>
+            
+            <div class="input-group">
+                <label>Je Gmail App Password:</label>
+                <input type="password" id="appPassword" placeholder="abcd efgh ijkl mnop">
+            </div>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">3</span>Gmail Service Toevoegen aan EmailJS</h3>
+            <p><strong>In je EmailJS dashboard:</strong></p>
+            <ol>
+                <li>Ga naar <strong>"Email Services"</strong></li>
+                <li>Klik <strong>"Add New Service"</strong></li>
+                <li>Selecteer <strong>"Gmail"</strong></li>
+                <li>Vul in:
+                    <ul>
+                        <li><strong>Service ID:</strong> <code>service_gmail_pathe</code></li>
+                        <li><strong>Email:</strong> jouw-email@gmail.com</li>
+                        <li><strong>Password:</strong> [het app password van stap 2]</li>
+                    </ul>
+                </li>
+                <li>Klik <strong>"Create Service"</strong></li>
+                <li>Test de service (EmailJS stuurt test email)</li>
+            </ol>
+            
+            <div class="input-group">
+                <label>Je Gmail adres:</label>
+                <input type="email" id="gmailAddress" placeholder="jouw-email@gmail.com">
+            </div>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">4</span>Email Templates Maken</h3>
+            <p><strong>Maak 3 templates in EmailJS dashboard → "Email Templates":</strong></p>
+            
+            <h4>📧 Template 1: Verificatie Email</h4>
+            <div class="template-box">
+                <strong>Template ID:</strong> <code>template_verification</code><br>
+                <strong>Subject:</strong> 🎬 Pathé Cinema - Email Verification<br><br>
+                <textarea readonly>Hello {{to_name}}!
+
+Welcome to Pathé Cinema! 🍿
+
+Your verification code is: {{verification_code}}
+
+Please enter this code on our website to verify your account.
+
+Thanks for joining Pathé!
+
+Best regards,
+The Pathé Cinema Team
+
+Visit us: {{website_url}}</textarea>
+            </div>
+
+            <h4>🔐 Template 2: 2FA Login Code</h4>
+            <div class="template-box">
+                <strong>Template ID:</strong> <code>template_2fa</code><br>
+                <strong>Subject:</strong> 🔐 Pathé Cinema - Login Verification<br><br>
+                <textarea readonly>Hello {{to_name}}!
+
+Someone is trying to log into your Pathé account.
+
+Login Details:
+🕐 Time: {{login_time}}
+💻 Location: {{website_url}}
+
+Your 2FA Code: {{two_factor_code}}
+
+⚠️ If this wasn't you, change your password immediately!
+
+This code expires in 10 minutes.
+
+Best regards,
+The Pathé Security Team</textarea>
+            </div>
+
+            <h4>🎫 Template 3: Booking Confirmation</h4>
+            <div class="template-box">
+                <strong>Template ID:</strong> <code>template_booking</code><br>
+                <strong>Subject:</strong> 🎫 Pathé Cinema - Booking Confirmation<br><br>
+                <textarea readonly>Hello {{to_name}}!
+
+Your movie booking has been confirmed! 🎬
+
+Booking Details:
+🎬 Movie: {{movie_title}}
+🏢 Cinema: {{cinema_name}}
+📅 Date: {{booking_date}}
+🕐 Time: {{showtime}}
+🪑 Seats: {{seats_list}} ({{seat_count}} tickets)
+💰 Total: €{{total_price}}
+
+Booking Reference: {{booking_reference}}
+
+Please arrive 15 minutes before showtime.
+
+Enjoy your movie! 🍿
+
+Best regards,
+The Pathé Cinema Team
+
+Visit us: {{website_url}}</textarea>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">5</span>Code Generator</h3>
+            <p><strong>Vul je EmailJS gegevens in:</strong></p>
+            
+            <div class="input-group">
+                <label>Service ID:</label>
+                <input type="text" id="serviceId" value="service_gmail_pathe">
+            </div>
+            
+            <div class="input-group">
+                <label>Public Key (uit EmailJS Account → General):</label>
+                <input type="text" id="publicKey" placeholder="Je EmailJS public key">
+            </div>
+            
+            <button onclick="generateGmailCode()">🔧 Genereer Gmail Code</button>
+            <div id="generatedCode"></div>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">6</span>Code Toepassen & Testen</h3>
+            <div id="instructions"></div>
+        </div>
+    </div>
+
+    <script>
+        function generateGmailCode() {
+            const serviceId = document.getElementById('serviceId').value;
+            const publicKey = document.getElementById('publicKey').value;
+            const gmailAddress = document.getElementById('gmailAddress').value;
+
+            if (!publicKey) {
+                alert('❌ Vul je EmailJS Public Key in!');
+                return;
+            }
+
+            const code = `
+// 🔧 Gmail EmailJS Updates voor index.html
+
+// 1. Zoek regel ~3440 en vervang:
+emailjs.init('${publicKey}'); // Je nieuwe public key
+
+// 2. Zoek regel ~3486 en vervang:
+emailjs.send('${serviceId}', 'template_verification', templateParams)
+
+// 3. Zoek regel ~3626 en vervang:
+emailjs.send('${serviceId}', 'template_2fa', templateParams)
+
+// 4. Zoek regel ~3561 en vervang:
+emailjs.send('${serviceId}', 'template_booking', templateParams)
+
+// 5. Update de template check (rond regel 3488):
+if ('template_verification' === 'YOUR_TEMPLATE_ID') {
+// Verander naar:
+if ('template_verification' === 'template_verification') {
+
+// 6. Update de 2FA template check (rond regel 3628):
+if ('template_2fa' === 'YOUR_2FA_TEMPLATE_ID') {
+// Verander naar:  
+if ('template_2fa' === 'template_2fa') {
+            `;
+
+            const resultDiv = document.getElementById('generatedCode');
+            resultDiv.innerHTML = `
+                <div class="success">
+                    <h4>✅ Gmail Code Gegenereerd!</h4>
+                    <div class="code-box">${code}</div>
+                    <button onclick="copyGmailCode()">📋 Kopieer Code</button>
+                </div>
+            `;
+
+            document.getElementById('instructions').innerHTML = `
+                <ol>
+                    <li><strong>Kopieer</strong> de bovenstaande code wijzigingen</li>
+                    <li><strong>Open</strong> index.html in VS Code</li>
+                    <li><strong>Vervang</strong> de oude EmailJS waarden</li>
+                    <li><strong>Sla op</strong> en push naar GitHub</li>
+                    <li><strong>Test</strong> je website!</li>
+                </ol>
+                <div class="success">
+                    <strong>🎉 Resultaat:</strong><br>
+                    ✅ Verificatie emails via Gmail<br>
+                    ✅ 2FA codes via Gmail<br>
+                    ✅ Booking confirmaties via Gmail<br>
+                    ✅ Van jouw Gmail adres: ${gmailAddress || 'jouw-email@gmail.com'}
+                </div>
+                <button onclick="testGmailSetup()">📧 Test Gmail Setup</button>
+            `;
+        }
+
+        function copyGmailCode() {
+            const codeText = document.querySelector('#generatedCode .code-box').textContent;
+            navigator.clipboard.writeText(codeText).then(() => {
+                alert('✅ Gmail code gekopieerd naar clipboard!');
+            });
+        }
+
+        function testGmailSetup() {
+            alert('🧪 Test je Gmail setup:\\n\\n1. Ga naar je website\\n2. Registreer nieuw account\\n3. Check je Gmail inbox voor verificatie\\n4. Log in voor 2FA test\\n5. Book film voor booking confirmation\\n\\n📧 Alle emails komen nu van jouw Gmail!');
+        }
+    </script>
+</body>
+</html>

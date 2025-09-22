@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,34 +15,40 @@
             color: white;
             line-height: 1.6;
         }
+
         .container {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             padding: 30px;
             border-radius: 15px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
         h1 {
             color: #d32f2f;
             text-align: center;
             margin-bottom: 30px;
         }
+
         h2 {
             color: #ff6b6b;
             border-bottom: 2px solid #d32f2f;
             padding-bottom: 10px;
         }
+
         .step {
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.3);
             padding: 20px;
             margin: 20px 0;
             border-radius: 10px;
             border-left: 4px solid #d32f2f;
         }
+
         .step h3 {
             color: #ff9800;
             margin-bottom: 15px;
         }
+
         button {
             background: #d32f2f;
             color: white;
@@ -53,18 +60,21 @@
             margin: 10px 5px;
             transition: all 0.3s ease;
         }
+
         button:hover {
             background: #b71c1c;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
         }
+
         .template-box {
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             padding: 20px;
             border-radius: 8px;
             margin: 15px 0;
             border: 1px solid #333;
         }
+
         .template-box textarea {
             width: 100%;
             height: 200px;
@@ -76,6 +86,7 @@
             font-family: monospace;
             resize: vertical;
         }
+
         .code-input {
             background: #1a1a1a;
             color: white;
@@ -85,6 +96,7 @@
             width: 200px;
             margin: 5px;
         }
+
         .success {
             background: rgba(76, 175, 80, 0.2);
             border: 1px solid #4caf50;
@@ -93,6 +105,7 @@
             border-radius: 8px;
             margin: 15px 0;
         }
+
         .warning {
             background: rgba(255, 152, 0, 0.2);
             border: 1px solid #ff9800;
@@ -101,11 +114,13 @@
             border-radius: 8px;
             margin: 15px 0;
         }
+
         .links {
             display: flex;
             gap: 15px;
             margin: 20px 0;
         }
+
         .links a {
             color: #64b5f6;
             text-decoration: none;
@@ -114,16 +129,18 @@
             border-radius: 5px;
             transition: all 0.3s ease;
         }
+
         .links a:hover {
             background: #64b5f6;
             color: #000;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>📧 EmailJS Setup Assistant voor Pathé Cinema</h1>
-        
+
         <div class="warning">
             <strong>⚠️ Je emails werken nog niet omdat EmailJS templates nog niet zijn geconfigureerd!</strong><br>
             Volg deze stappen om echte emails in te schakelen.
@@ -309,4 +326,5 @@ emailjs.send('${serviceId}', '${bookingId}', templateParams)
         }
     </script>
 </body>
+
 </html>

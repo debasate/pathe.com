@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Quick Gmail Update - Pathé Cinema</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        h1 {
+            color: #d32f2f;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .quick-form {
+            background: rgba(0,0,0,0.3);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #d32f2f;
+            margin: 20px 0;
+        }
+        .input-group {
+            margin: 15px 0;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ffb74d;
+            font-weight: bold;
+        }
+        .input-group input {
+            background: #1a1a1a;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+            padding: 12px;
+            width: 100%;
+            font-family: monospace;
+            box-sizing: border-box;
+        }
+        button {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        button:hover {
+            background: #b71c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+        }
+        .code-output {
+            background: #000;
+            color: #0f0;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4caf50;
+            color: #81c784;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .info {
+            background: rgba(33, 150, 243, 0.2);
+            border: 1px solid #2196f3;
+            color: #90caf9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        .step {
+            background: #333;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        .step.active {
+            background: #d32f2f;
+        }
+        .step.completed {
+            background: #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Quick Gmail Setup voor Pathé Cinema</h1>
+        
+        <div class="info">
+            <strong>🚀 Super snelle Gmail configuratie!</strong><br>
+            Vul je EmailJS gegevens in en krijg direct de code om Gmail emails in te schakelen.
+        </div>
+
+        <div class="step-indicator">
+            <div class="step completed">1. EmailJS Account</div>
+            <div class="step completed">2. Gmail Service</div>
+            <div class="step completed">3. Templates</div>
+            <div class="step active">4. Code Update</div>
+        </div>
+
+        <div class="quick-form">
+            <h3>📧 Je EmailJS Gegevens</h3>
+            
+            <div class="input-group">
+                <label>EmailJS Public Key</label>
+                <input type="text" id="publicKey" placeholder="Bijv: user_abcd1234efgh5678">
+                <small style="color: #999;">Te vinden in EmailJS Dashboard → Account → General</small>
+            </div>
+            
+            <div class="input-group">
+                <label>Gmail Service ID</label>
+                <input type="text" id="serviceId" value="service_gmail_pathe" placeholder="service_gmail_pathe">
+                <small style="color: #999;">De Service ID die je in EmailJS hebt aangemaakt</small>
+            </div>
+            
+            <div class="input-group">
+                <label>Je Gmail Adres</label>
+                <input type="email" id="gmailAddress" placeholder="jouw-naam@gmail.com">
+                <small style="color: #999;">Het Gmail adres gekoppeld aan EmailJS</small>
+            </div>
+
+            <button onclick="generateQuickCode()">⚡ Genereer Gmail Code</button>
+        </div>
+
+        <div id="output"></div>
+
+        <div class="info">
+            <strong>💡 Nog geen EmailJS setup?</strong><br>
+            <a href="./gmail-setup.html" style="color: #64b5f6;">📧 Volledige Gmail Setup Guide</a> | 
+            <a href="./emailjs-setup.html" style="color: #64b5f6;">📧 Algemene EmailJS Guide</a>
+        </div>
+    </div>
+
+    <script>
+        function generateQuickCode() {
+            const publicKey = document.getElementById('publicKey').value.trim();
+            const serviceId = document.getElementById('serviceId').value.trim();
+            const gmailAddress = document.getElementById('gmailAddress').value.trim();
+
+            if (!publicKey || !serviceId || !gmailAddress) {
+                alert('❌ Vul alle velden in!');
+                return;
+            }
+
+            const updateCode = `// 🔧 GMAIL EMAILJS UPDATES VOOR INDEX.HTML
+// Kopieer deze regels en vervang de oude waarden in je index.html
+
+// === UPDATE 1: Public Key (rond regel 3440) ===
+// Zoek naar: emailjs.init('902hWQUoBZdWzwVfH');
+// Vervang met:
+emailjs.init('${publicKey}');
+
+// === UPDATE 2: Verificatie Email Service + Template (rond regel 3486) ===
+// Zoek naar: emailjs.send('service_doc2eqt', 'YOUR_TEMPLATE_ID', templateParams)
+// Vervang met:
+emailjs.send('${serviceId}', 'template_verification', templateParams)
+
+// === UPDATE 3: 2FA Email Service + Template (rond regel 3626) ===
+// Zoek naar: emailjs.send('service_doc2eqt', 'YOUR_2FA_TEMPLATE_ID', templateParams)
+// Vervang met:
+emailjs.send('${serviceId}', 'template_2fa', templateParams)
+
+// === UPDATE 4: Booking Email Service + Template (rond regel 3561) ===
+// Zoek naar: emailjs.send('service_doc2eqt', 'YOUR_BOOKING_TEMPLATE_ID', templateParams)
+// Vervang met:
+emailjs.send('${serviceId}', 'template_booking', templateParams)
+
+// === UPDATE 5: Template Check Fix (rond regel 3488) ===
+// Zoek naar: if (templateParams.template_id === 'YOUR_TEMPLATE_ID') {
+// Deze regel kan weg, of vervang met:
+if (false) {  // Always send real emails now
+
+// === UPDATE 6: 2FA Template Check Fix (rond regel 3628) ===
+// Zoek naar: if ('YOUR_2FA_TEMPLATE_ID' === 'YOUR_2FA_TEMPLATE_ID') {
+// Vervang met:
+if (false) {  // Always send real emails now
+
+// ✅ NA DEZE UPDATES:
+// - Verificatie emails via Gmail: ${gmailAddress}
+// - 2FA codes via Gmail: ${gmailAddress}  
+// - Booking confirmaties via Gmail: ${gmailAddress}
+// - Geen alerts meer, alleen echte emails!`;
+
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = `
+                <div class="success">
+                    <h3>✅ Gmail Code Gegenereerd!</h3>
+                    <p><strong>Kopieer onderstaande code en vervang de oude waarden in index.html:</strong></p>
+                </div>
+                <div class="code-output">${updateCode}</div>
+                <button onclick="copyQuickCode()">📋 Kopieer Alle Updates</button>
+                <button onclick="showNextSteps()">🚀 Volgende Stappen</button>
+            `;
+        }
+
+        function copyQuickCode() {
+            const codeText = document.querySelector('.code-output').textContent;
+            navigator.clipboard.writeText(codeText).then(() => {
+                alert('✅ Alle Gmail updates gekopieerd naar clipboard!\\n\\nOpen nu index.html en vervang de oude waarden.');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = codeText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('✅ Code gekopieerd! Open index.html en vervang de oude waarden.');
+            });
+        }
+
+        function showNextSteps() {
+            alert('🚀 VOLGENDE STAPPEN:\\n\\n1. ✅ Code gekopieerd naar clipboard\\n2. 📝 Open index.html in VS Code\\n3. 🔍 Zoek de oude EmailJS waarden (Ctrl+F)\\n4. ✏️ Vervang met nieuwe Gmail waarden\\n5. 💾 Sla bestand op\\n6. 📤 Push naar GitHub\\n7. 🧪 Test je website!\\n\\n📧 Alle emails komen nu van jouw Gmail!');
+        }
+
+        // Auto-focus first input
+        document.getElementById('publicKey').focus();
+    </script>
+</body>
+</html>

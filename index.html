@@ -3486,7 +3486,7 @@ Click OK to go to Pathé.nl for the actual booking!`);
                     if (templateParams.template_id === 'YOUR_TEMPLATE_ID') {
                         // Templates not yet configured, show code directly
                         alert(`📧 EmailJS templates not configured yet.\n\nYour verification code is: ${user.verificationCode}\n\nTo setup real emails, check EMAILJS-SETUP.md`);
-                        
+
                         // Update the simulated email display
                         document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
                         document.getElementById('displayedCode').textContent = user.verificationCode;
