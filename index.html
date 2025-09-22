@@ -3070,78 +3070,168 @@ Click OK to go to Pathé.nl for the actual booking!`);
         function generateAIResponse(userMessage) {
             const message = userMessage.toLowerCase();
 
-            // Film gerelateerde vragen
-            if (message.includes('film') || message.includes('movie') || message.includes('bioscoops') || message.includes('nu spelen')) {
-                return `🎬 <strong>Current movies at Pathé:</strong><br><br>
-                • <strong>The Conjuring: Last Rites</strong> - Horror Thriller<br>
-                • <strong>Downton Abbey: The Grand Finale</strong> - Period Drama<br>
-                • <strong>Nobody 2</strong> - Action Thriller<br>
-                • <strong>The Fantastic Four: First Steps</strong> - Superhero Action<br>
-                • <strong>Jurassic World: Rebirth</strong> - Action Adventure<br>
-                • <strong>Lilo & Stitch</strong> - Family Animation<br>
-                • <strong>Elio</strong> - Family Animation<br>
-                • <strong>Superman</strong> - Coming Soon<br>
-                • <strong>How To Train Your Dragon</strong> - Coming Soon<br><br>
-                Click on a movie for more information and to book tickets! 🎫`;
+            // Greeting responses - more natural
+            if (message.includes('hello') || message.includes('hi') || message.includes('hey') || message.includes('hallo')) {
+                const greetings = [
+                    `Hello! 👋 Welcome to Pathé Cinema! I'm your personal movie assistant. How can I make your cinema experience amazing today?`,
+                    `Hi there! 🎬 Great to see you at Pathé! I'm here to help with everything from movie recommendations to booking tickets. What interests you?`,
+                    `Hey! 🌟 Welcome to the best cinema experience in town! I can help you discover movies, book tickets, or answer any questions. What's on your mind?`
+                ];
+                return greetings[Math.floor(Math.random() * greetings.length)];
             }
 
-            // Ticket boeken
-            if (message.includes('ticket') || message.includes('boeken') || message.includes('reserveren')) {
-                return `🎫 <strong>Booking tickets is super easy!</strong><br><br>
-                1. Choose your favorite movie<br>
-                2. Select your preferred date and time<br>
-                3. Choose your seats<br>
-                4. Fill in your details<br>
-                5. Pay securely via Pathé.nl<br><br>
-                Tip: With Club Pathé you get discounts on all tickets! 💰`;
+            // Specific movie inquiries with detailed responses
+            if (message.includes('conjuring') || message.includes('horror')) {
+                return `👻 <strong>The Conjuring: Last Rites</strong> is absolutely terrifying! Perfect for horror fans who love supernatural scares. <br><br>🕐 <strong>Showtimes:</strong> 19:00, 21:30, 23:45<br>⭐ <strong>Rating:</strong> 8.2/10<br>🎫 Ready to book? Click the movie poster!<br><br>💡 <strong>Tip:</strong> Perfect for a thrilling date night if you both enjoy being scared together!`;
             }
 
-            // Bioscoop locaties
-            if (message.includes('bioscoop') || message.includes('locatie') || message.includes('adres') || message.includes('waar')) {
-                return `🏢 <strong>Pathé theaters in the Netherlands:</strong><br><br>
-                📍 <strong>Amsterdam Arena</strong> - 14 screens, IMAX<br>
-                📍 <strong>Rotterdam Schouwburgplein</strong> - 9 screens<br>
-                📍 <strong>The Hague Spuimarkt</strong> - 8 screens<br>
-                📍 <strong>Utrecht Leidsche Rijn</strong> - 10 screens, IMAX<br>
-                📍 <strong>Eindhoven</strong> - 7 screens<br>
-                📍 <strong>Roermond De Munt</strong> - 6 screens<br><br>
-                Scroll to the theaters section for more details! 🚇`;
+            if (message.includes('downton') || message.includes('abbey') || message.includes('drama')) {
+                return `🏰 <strong>Downton Abbey: The Grand Finale</strong> brings beloved characters back for an emotional conclusion! <br><br>🕐 <strong>Showtimes:</strong> 14:00, 17:00, 20:00<br>⭐ <strong>Perfect for:</strong> Drama lovers and Downton fans<br>🎫 Book now for the best seats!<br><br>✨ <strong>Fun fact:</strong> This is the final chapter of the Downton story - don't miss it!`;
             }
 
-            // Contact en openingstijden
-            if (message.includes('contact') || message.includes('telefoon') || message.includes('email') || message.includes('openingstijden')) {
-                return `📞 <strong>Contact information:</strong><br><br>
-                🎫 <strong>Customer service:</strong> 0900-1458<br>
-                🕐 Mon-Sun: 09:00 - 21:00<br><br>
-                🎪 <strong>Groups:</strong> 020-540 0180<br>
-                🎉 <strong>Events:</strong> 020-540 0190<br>
-                💼 <strong>Business rental:</strong> 020-540 0200<br><br>
-                💬 Or start a live chat on Pathé.nl!`;
+            if (message.includes('nobody') || message.includes('action')) {
+                return `💥 <strong>Nobody 2</strong> delivers non-stop action thrills! Bob Odenkirk returns with even more intense fight scenes.<br><br>🕐 <strong>Showtimes:</strong> 16:30, 19:15, 22:00<br>⭐ <strong>Rating:</strong> 8.5/10<br>🎫 Action fans - this is a must-see!<br><br>🔥 <strong>Highlight:</strong> The bus fight scene is absolutely incredible!`;
             }
 
-            // Prijzen en aanbiedingen
-            if (message.includes('prijs') || message.includes('kosten') || message.includes('korting') || message.includes('aanbieding')) {
-                return `💰 <strong>Pathé prices and benefits:</strong><br><br>
-                🎫 <strong>Standard ticket:</strong> €12,50 - €15,50<br>
-                🌟 <strong>Premium seats:</strong> €16,50 - €19,50<br>
-                🎬 <strong>IMAX experience:</strong> €17,50 - €21,50<br><br>
-                💳 <strong>Club Pathé benefits:</strong><br>
-                • Discount on all tickets<br>
-                • Free upgrade to premium seats<br>
-                • Exclusive previews<br><br>
-                Check Pathé.nl for current prices! 💎`;
+            if (message.includes('fantastic four') || message.includes('superhero') || message.includes('marvel')) {
+                return `🦸‍♂️ <strong>The Fantastic Four: First Steps</strong> reboots the beloved Marvel team! Fresh take with amazing special effects.<br><br>🕐 <strong>Showtimes:</strong> 15:00, 18:00, 21:00<br>⭐ <strong>Perfect for:</strong> Marvel fans and families<br>🎫 IMAX available for ultimate experience!<br><br>⚡ <strong>Powers:</strong> Invisible Woman, Human Torch, Mr. Fantastic, and The Thing are back!`;
             }
 
-            // Standaard respons
-            const responses = [
-                `Thank you for your question! 😊 I'm happy to help you with information about Pathé. You can ask me about:<br><br>🎬 Movies and screenings<br>🎫 Booking tickets<br>🏢 Theater locations<br>📞 Contact information<br>💰 Prices and discounts`,
+            if (message.includes('jurassic') || message.includes('dinosaur') || message.includes('adventure')) {
+                return `🦕 <strong>Jurassic World: Rebirth</strong> brings dinosaurs back bigger than ever! Stunning visuals and heart-pounding adventure.<br><br>🕐 <strong>Showtimes:</strong> 13:30, 16:45, 20:15<br>⭐ <strong>Experience:</strong> Available in IMAX for roaring sound<br>🎫 Family-friendly adventure!<br><br>🌴 <strong>New location:</strong> Isla Sorna with never-before-seen dinosaur species!`;
+            }
 
-                `Hello! 👋 I'm here to help you with everything about Pathé! What are you looking for?<br><br>🎭 Want to know which movies are playing now?<br>🎪 Looking for information about group reservations?<br>🗺️ Do you have questions about our theater locations?`,
+            if (message.includes('lilo') || message.includes('stitch') || message.includes('family') || message.includes('kids') || message.includes('children')) {
+                return `🌺 <strong>Lilo & Stitch</strong> live-action brings the beloved characters to life! Perfect family entertainment with heart and humor.<br><br>🕐 <strong>Showtimes:</strong> 11:00, 13:45, 16:30<br>👨‍👩‍👧‍👦 <strong>Perfect for:</strong> Families with children<br>🎫 Kids tickets only €8.50!<br><br>🏝️ <strong>Ohana means family:</strong> A heartwarming story about finding where you belong!`;
+            }
 
-                `Great that you're getting in touch! 🌟 As a Pathé assistant I can help you with:<br><br>📽️ Movie overview and trailers<br>🎯 Ticket reservations<br>🏛️ Theater information<br>🔧 Technical questions<br><br>What can I do for you?`
+            // Booking and tickets - enhanced responses
+            if (message.includes('ticket') || message.includes('book') || message.includes('reserve') || message.includes('buy')) {
+                return `🎫 <strong>Booking tickets is super easy!</strong> Here's how:<br><br>
+                1️⃣ <strong>Choose your movie</strong> - Click any poster above<br>
+                2️⃣ <strong>Select date & time</strong> - Pick your perfect showtime<br>
+                3️⃣ <strong>Choose seats</strong> - Premium seats available!<br>
+                4️⃣ <strong>Add snacks</strong> - Pre-order popcorn & drinks<br>
+                5️⃣ <strong>Secure payment</strong> - Multiple payment options<br><br>
+                💡 <strong>Pro tip:</strong> Create an account to save favorites and get exclusive offers! 🌟`;
+            }
+
+            // Showtimes with smart suggestions
+            if (message.includes('time') || message.includes('when') || message.includes('schedule') || message.includes('showtime')) {
+                return `🕐 <strong>Today's showtimes are available now!</strong><br><br>
+                🌅 <strong>Matinee (11:00-15:00):</strong> Best prices, quieter theaters<br>
+                🌆 <strong>Evening (17:00-20:00):</strong> Most popular times<br>
+                🌃 <strong>Late night (21:00+):</strong> Perfect for date nights<br><br>
+                💫 <strong>Weekend tip:</strong> Book early for weekend evening shows - they fill up fast!<br>
+                📱 Click any movie poster to see exact times and book instantly!`;
+            }
+
+            // Prices with detailed breakdown
+            if (message.includes('price') || message.includes('cost') || message.includes('money') || message.includes('cheap')) {
+                return `💰 <strong>Pathé Ticket Prices:</strong><br><br>
+                🎫 <strong>Standard seats:</strong> €12.50 (adult) | €8.50 (child)<br>
+                ⭐ <strong>Premium seats:</strong> €15.50 (extra legroom & comfort)<br>
+                📽️ <strong>IMAX experience:</strong> €18.50 (ultimate audio-visual)<br><br>
+                🎒 <strong>Student discount:</strong> €2 off with valid ID<br>
+                👨‍👩‍👧‍👦 <strong>Family package:</strong> 2 adults + 2 kids = €35<br>
+                🍿 <strong>Combo deals:</strong> Tickets + snacks from €18.90!`;
+            }
+
+            // Food and concessions
+            if (message.includes('food') || message.includes('snack') || message.includes('popcorn') || message.includes('drink') || message.includes('eat')) {
+                return `🍿 <strong>Delicious cinema snacks await!</strong><br><br>
+                🥤 <strong>Classic combo:</strong> Large popcorn + drink €8.90<br>
+                🌮 <strong>Nachos supreme:</strong> With cheese & jalapeños €6.50<br>
+                🍫 <strong>Premium candy:</strong> International selection €3.50<br>
+                ☕ <strong>Coffee & pastries:</strong> Barista-made €4.90<br><br>
+                💡 <strong>Smart tip:</strong> Pre-order with your tickets to skip the queue!<br>
+                🥨 <strong>New:</strong> Gourmet hot dogs and loaded fries now available!`;
+            }
+
+            // Theater locations with personality
+            if (message.includes('location') || message.includes('where') || message.includes('address') || message.includes('cinema') || message.includes('theater')) {
+                return `🏢 <strong>Find your nearest Pathé theater:</strong><br><br>
+                📍 <strong>Amsterdam Arena</strong> - 14 screens, IMAX, easy metro access<br>
+                📍 <strong>Rotterdam Central</strong> - 9 screens, city center location<br>
+                📍 <strong>The Hague Spuimarkt</strong> - 8 screens, premium dining<br>
+                📍 <strong>Utrecht Leidsche Rijn</strong> - 10 screens, IMAX, free parking<br>
+                📍 <strong>Eindhoven Centrum</strong> - 7 screens, modern facility<br><br>
+                🚗 <strong>All locations</strong> have parking and are public transport accessible!<br>
+                🗺️ <strong>Need directions?</strong> Ask me about any specific location!`;
+            }
+
+            // Recommendations with smart logic
+            if (message.includes('recommend') || message.includes('suggest') || message.includes('what should') || message.includes('best movie')) {
+                const recommendations = [
+                    `🎭 <strong>Based on what's trending:</strong><br><br>
+                    🔥 <strong>Action lovers:</strong> Nobody 2 (non-stop thrills)<br>
+                    👻 <strong>Horror fans:</strong> The Conjuring: Last Rites (genuinely scary)<br>
+                    👨‍👩‍👧‍👦 <strong>Families:</strong> Lilo & Stitch (heartwarming fun)<br>
+                    🦸‍♂️ <strong>Marvel fans:</strong> Fantastic Four: First Steps<br><br>
+                    What genre gets you excited? I can give more specific recommendations! 🌟`,
+                    
+                    `✨ <strong>Perfect picks for tonight:</strong><br><br>
+                    🌃 <strong>Date night:</strong> Downton Abbey (romantic drama)<br>
+                    🎬 <strong>Thriller mood:</strong> The Conjuring (edge-of-seat scares)<br>
+                    🦕 <strong>Adventure seekers:</strong> Jurassic World: Rebirth<br>
+                    💥 <strong>Adrenaline rush:</strong> Nobody 2 (pure action)<br><br>
+                    Tell me your mood and I'll find your perfect match! 🎯`
+                ];
+                return recommendations[Math.floor(Math.random() * recommendations.length)];
+            }
+
+            // Account and membership
+            if (message.includes('account') || message.includes('login') || message.includes('register') || message.includes('member')) {
+                return `👤 <strong>Join the Pathé experience!</strong><br><br>
+                🌟 <strong>Create account benefits:</strong><br>
+                • Save favorite movies & get notifications<br>
+                • Faster booking with saved payment methods<br>
+                • Exclusive member previews & discounts<br>
+                • Birthday movie vouchers<br><br>
+                🔐 <strong>Quick signup:</strong> Click the account icon (top right)<br>
+                📧 <strong>Email verification:</strong> Required for full access<br>
+                💎 <strong>It's completely free!</strong> No membership fees ever!`;
+            }
+
+            // Thank you responses
+            if (message.includes('thank') || message.includes('thanks')) {
+                const thanks = [
+                    `You're absolutely welcome! 😊 I'm always here to make your Pathé experience incredible. Enjoy your movie! 🎬✨`,
+                    `My pleasure! 🌟 That's what I'm here for. Have an amazing time at the cinema! 🍿`,
+                    `Anytime! 💫 Hope you have the most fantastic movie experience. See you at Pathé! 🎭`
+                ];
+                return thanks[Math.floor(Math.random() * thanks.length)];
+            }
+
+            // Enhanced default responses with more personality
+            const smartDefaults = [
+                `🎬 <strong>Hello! I'm your Pathé cinema assistant!</strong><br><br>
+                I can help you with:<br>
+                🎯 <strong>Movie recommendations</strong> based on your mood<br>
+                🎫 <strong>Easy ticket booking</strong> and seat selection<br>
+                🍿 <strong>Snack pre-ordering</strong> to skip queues<br>
+                📍 <strong>Theater locations</strong> and directions<br>
+                💰 <strong>Prices and special offers</strong><br><br>
+                What movie adventure are you looking for today? 🌟`,
+
+                `✨ <strong>Welcome to Pathé - where movies come alive!</strong><br><br>
+                🎭 Looking for the perfect movie? I know all our current films!<br>
+                🕐 Need showtimes? I've got the complete schedule!<br>
+                🎫 Want to book? I'll guide you through every step!<br>
+                🏢 Finding us? I know all our locations!<br><br>
+                Ask me anything about your cinema experience! 🚀`,
+
+                `🌟 <strong>Hey there, movie lover!</strong><br><br>
+                I'm here to make your Pathé visit absolutely perfect! Whether you're planning a date night, family outing, or solo movie adventure, I've got you covered.<br><br>
+                💬 <strong>Try asking me:</strong><br>
+                • "What's the best action movie?"<br>
+                • "Book tickets for tonight"<br>
+                • "What snacks do you have?"<br>
+                • "Where's the nearest theater?"<br><br>
+                Let's find your perfect movie experience! 🎊`
             ];
 
-            return responses[Math.floor(Math.random() * responses.length)];
+            return smartDefaults[Math.floor(Math.random() * smartDefaults.length)];
         }
 
         function handleChatKeyPress(event) {
