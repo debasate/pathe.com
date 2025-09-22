@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pathé Cinema - The Ultimate Movie Experience</title>
-    
+
     <!-- EmailJS for real email sending -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
@@ -2955,7 +2955,7 @@
         function goToPathe() {
             // Check if user is logged in for email confirmation
             const user = currentUser;
-            
+
             const confirmed = confirm(`🎬 You will be redirected to the official Pathé website!
 
 Movie: ${currentMovie}
@@ -2969,13 +2969,13 @@ Click OK to go to Pathé.nl for the actual booking!`);
                 if (user && user.emailVerified) {
                     sendBookingConfirmationEmail(user);
                 }
-                
+
                 // Open official Pathé website
                 window.open('https://www.pathe.nl/tickets', '_blank');
 
                 // Show success message and close modal
                 setTimeout(() => {
-                    const message = user && user.emailVerified ? 
+                    const message = user && user.emailVerified ?
                         '🍿 Thank you! Booking confirmation sent to your email. You have been redirected to Pathé.nl' :
                         '🍿 Thank you for your visit! You have been redirected to Pathé.nl';
                     alert(message);
@@ -3419,9 +3419,9 @@ Click OK to go to Pathé.nl for the actual booking!`);
         }
 
         function sendVerificationEmail(user) {
-            // Initialize EmailJS (you need to replace 'YOUR_PUBLIC_KEY' with actual key)
-            emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS public key
-            
+            // Initialize EmailJS with your public key
+            emailjs.init('902hWQUoBZdWzwVfH'); // Your EmailJS public key
+
             // Email template parameters
             const templateParams = {
                 to_name: user.name.split(' ')[0],
@@ -3432,22 +3432,22 @@ Click OK to go to Pathé.nl for the actual booking!`);
             };
 
             // Send real email using EmailJS
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-                .then(function(response) {
+            emailjs.send('service_doc2eqt', 'YOUR_TEMPLATE_ID', templateParams)
+                .then(function (response) {
                     console.log('Verification email sent successfully!', response.status, response.text);
-                    
+
                     // Show success message
                     alert('✅ Verification email sent! Check your inbox and spam folder.');
-                    
+
                     // Update the simulated email display as fallback
                     document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
                     document.getElementById('displayedCode').textContent = user.verificationCode;
-                }, function(error) {
+                }, function (error) {
                     console.log('Failed to send email:', error);
-                    
+
                     // Fallback: show alert with code if email fails
                     alert(`📧 Email service temporarily unavailable. Your verification code is: ${user.verificationCode}`);
-                    
+
                     // Still update the simulated display
                     document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
                     document.getElementById('displayedCode').textContent = user.verificationCode;
@@ -3460,7 +3460,7 @@ Click OK to go to Pathé.nl for the actual booking!`);
             const cinema = document.getElementById('cinemaSelect');
             const date = document.getElementById('dateSelect');
             const time = document.getElementById('timeSelect');
-            
+
             const cinemaNames = {
                 'amsterdam-arena': 'Pathé Arena - Amsterdam',
                 'rotterdam-schouwburgplein': 'Pathé Schouwburgplein - Rotterdam',
@@ -3471,7 +3471,7 @@ Click OK to go to Pathé.nl for the actual booking!`);
 
             // Generate booking reference
             const bookingRef = 'PTH' + Date.now().toString().slice(-6);
-            
+
             // Email template parameters for booking confirmation
             const templateParams = {
                 to_name: user.name.split(' ')[0],
@@ -3488,10 +3488,10 @@ Click OK to go to Pathé.nl for the actual booking!`);
             };
 
             // Send booking confirmation email
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_BOOKING_TEMPLATE_ID', templateParams)
-                .then(function(response) {
+            emailjs.send('service_doc2eqt', 'YOUR_BOOKING_TEMPLATE_ID', templateParams)
+                .then(function (response) {
                     console.log('Booking confirmation sent!', response.status, response.text);
-                }, function(error) {
+                }, function (error) {
                     console.log('Failed to send booking confirmation:', error);
                 });
         }
@@ -3575,18 +3575,72 @@ Click OK to go to Pathé.nl for the actual booking!`);
         }
 
         function logout() {
+            // Complete logout process
             currentUser = null;
             localStorage.removeItem('patheUser');
-
-            // Reset navigation
+            
+            // Clear all user-related data
+            localStorage.removeItem('patheFavorites');
+            localStorage.removeItem('patheSettings');
+            
+            // Reset navigation to login state
             const loginBtn = document.querySelector('.nav-links .login-btn');
             if (loginBtn) {
                 loginBtn.textContent = '👤 Inloggen';
                 loginBtn.classList.remove('user-nav');
+                loginBtn.onclick = openLoginModal; // Reset to login function
             }
-
+            
+            // Close any open modals
             closeLoginModal();
-            showNotification('👋 Je bent uitgelogd. Tot ziens!', 'info');
+            closeSettingsModal();
+            
+            // Reset favorites display
+            updateFavoritesDisplay();
+            
+            // Clear any active sessions
+            sessionStorage.clear();
+            
+            // Reset page to logged-out state
+            updateNavigationState();
+            
+            // Show logout confirmation
+            showNotification('👋 Je bent volledig uitgelogd. Tot ziens!', 'success');
+            
+            // Optional: Refresh page to ensure clean state
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        }
+
+        // Update navigation state based on login status
+        function updateNavigationState() {
+            const loginBtn = document.querySelector('.nav-links .login-btn');
+            
+            if (currentUser && currentUser.emailVerified) {
+                // User is logged in and verified
+                if (loginBtn) {
+                    loginBtn.textContent = `👤 ${currentUser.name}`;
+                    loginBtn.classList.add('user-nav');
+                    loginBtn.onclick = openLoginModal; // This will show profile when logged in
+                }
+            } else {
+                // User is logged out
+                if (loginBtn) {
+                    loginBtn.textContent = '👤 Inloggen';
+                    loginBtn.classList.remove('user-nav');
+                    loginBtn.onclick = openLoginModal; // This will show login form
+                }
+            }
+        }
+
+        // Close settings modal if it exists
+        function closeSettingsModal() {
+            const settingsModal = document.getElementById('settingsModal');
+            if (settingsModal) {
+                settingsModal.classList.remove('active');
+                settingsModal.style.display = 'none';
+            }
         }
 
         function showNotification(message, type) {
@@ -3686,6 +3740,22 @@ Click OK to go to Pathé.nl for the actual booking!`);
 
             saveFavorites();
             updateFavoriteButtons();
+        }
+
+        // Reset all favorites to unfavorited state
+        function updateFavoritesDisplay() {
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
+            
+            favoriteButtons.forEach(button => {
+                button.classList.remove('favorited');
+                const heart = button.querySelector('.heart');
+                if (heart) {
+                    heart.textContent = '🤍';
+                }
+            });
+            
+            // Clear favorites array
+            userFavorites = [];
         }
 
         function updateFavoriteButtons() {
