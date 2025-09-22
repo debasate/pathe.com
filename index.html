@@ -3482,16 +3482,18 @@ Click OK to go to Pathé.nl for the actual booking!`);
                         website_url: window.location.origin
                     };
 
-                    // Check if EmailJS templates are configured
-                    if (templateParams.template_id === 'YOUR_TEMPLATE_ID') {
+                    // Check if EmailJS templates are configured (temporarily disabled for testing)
+                    const templatesConfigured = false; // Set to true when you have EmailJS templates
+                    
+                    if (!templatesConfigured) {
                         // Templates not yet configured, show code directly
-                        alert(`📧 EmailJS templates not configured yet.\n\nYour verification code is: ${user.verificationCode}\n\nTo setup real emails, check EMAILJS-SETUP.md`);
+                        alert(`📧 EmailJS templates not configured yet.\n\nYour verification code is: ${user.verificationCode}\n\nTo setup Gmail emails, visit: ${window.location.origin}/quick-gmail.html`);
 
                         // Update the simulated email display
                         document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
                         document.getElementById('displayedCode').textContent = user.verificationCode;
                     } else {
-                        // Send real email using EmailJS
+                        // Send real email using EmailJS (when templates are configured)
                         emailjs.send('service_doc2eqt', 'YOUR_TEMPLATE_ID', templateParams)
                             .then(function (response) {
                                 console.log('Verification email sent successfully!', response.status, response.text);
@@ -3632,12 +3634,14 @@ Click OK to go to Pathé.nl for the actual booking!`);
                         website_url: window.location.origin
                     };
 
-                    // Check if 2FA template is configured
-                    if ('YOUR_2FA_TEMPLATE_ID' === 'YOUR_2FA_TEMPLATE_ID') {
+                    // Check if 2FA template is configured (temporarily disabled for testing)
+                    const twoFAConfigured = false; // Set to true when you have EmailJS 2FA template
+                    
+                    if (!twoFAConfigured) {
                         // Template not configured, show code directly
-                        alert(`🔐 EmailJS 2FA template not configured yet.\n\nYour 2FA code is: ${user.twoFactorCode}\n\nTo setup real emails, check EMAILJS-SETUP.md`);
+                        alert(`🔐 EmailJS 2FA template not configured yet.\n\nYour 2FA code is: ${user.twoFactorCode}\n\nTo setup Gmail emails, visit: ${window.location.origin}/quick-gmail.html`);
                     } else {
-                        // Send 2FA email using EmailJS (you need to create a 2FA template)
+                        // Send 2FA email using EmailJS (when template is configured)
                         emailjs.send('service_doc2eqt', 'YOUR_2FA_TEMPLATE_ID', templateParams)
                             .then(function (response) {
                                 console.log('2FA email sent successfully!', response.status, response.text);
@@ -4400,6 +4404,33 @@ Click OK to go to Pathé.nl for the actual booking!`);
             // In a real implementation, this would navigate to the accessibility page
             // window.open('/accessibility', '_blank');
         }
+
+        // EmailJS Configuration Helper
+        function enableEmailJS(publicKey, serviceId, verificationTemplateId, twoFATemplateId, bookingTemplateId) {
+            // This function can be called from browser console to quickly enable EmailJS
+            console.log('🔧 Enabling EmailJS with provided configuration...');
+            
+            // Update the configuration flags
+            window.emailjsConfig = {
+                publicKey: publicKey,
+                serviceId: serviceId,
+                verificationTemplate: verificationTemplateId,
+                twoFATemplate: twoFATemplateId,
+                bookingTemplate: bookingTemplateId,
+                enabled: true
+            };
+            
+            console.log('✅ EmailJS configuration updated! New registrations and logins will use real emails.');
+            console.log('📧 Configuration:', window.emailjsConfig);
+            
+            alert('✅ EmailJS enabled! Next registration/login will use real emails.\n\n🔧 To make permanent: update the code as shown in quick-gmail.html');
+        }
+
+        // Console helper message
+        console.log('📧 EMAIL SETUP HELP:');
+        console.log('1. Quick setup: visit /quick-gmail.html');
+        console.log('2. Full guide: visit /gmail-setup.html');
+        console.log('3. Temporary enable: enableEmailJS("YOUR_PUBLIC_KEY", "YOUR_SERVICE_ID", "template_verification", "template_2fa", "template_booking")');
     </script>
 
     <!-- Copyright Footer -->

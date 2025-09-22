@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,30 +15,35 @@
             color: white;
             line-height: 1.6;
         }
+
         .container {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             padding: 30px;
             border-radius: 15px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
         h1 {
             color: #d32f2f;
             text-align: center;
             margin-bottom: 30px;
         }
+
         h2 {
             color: #ff6b6b;
             border-bottom: 2px solid #d32f2f;
             padding-bottom: 10px;
         }
+
         .step {
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.3);
             padding: 25px;
             margin: 20px 0;
             border-radius: 10px;
             border-left: 4px solid #d32f2f;
         }
+
         .step h3 {
             color: #ff9800;
             margin-bottom: 15px;
@@ -45,6 +51,7 @@
             align-items: center;
             gap: 10px;
         }
+
         .step-number {
             background: #d32f2f;
             color: white;
@@ -56,6 +63,7 @@
             justify-content: center;
             font-weight: bold;
         }
+
         button {
             background: #d32f2f;
             color: white;
@@ -67,11 +75,13 @@
             margin: 10px 5px;
             transition: all 0.3s ease;
         }
+
         button:hover {
             background: #b71c1c;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
         }
+
         .code-box {
             background: #1a1a1a;
             color: #0f0;
@@ -82,13 +92,15 @@
             font-family: 'Courier New', monospace;
             overflow-x: auto;
         }
+
         .template-box {
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             padding: 20px;
             border-radius: 8px;
             margin: 15px 0;
             border: 1px solid #333;
         }
+
         .template-box textarea {
             width: 100%;
             height: 180px;
@@ -100,6 +112,7 @@
             font-family: monospace;
             resize: vertical;
         }
+
         .success {
             background: rgba(76, 175, 80, 0.2);
             border: 1px solid #4caf50;
@@ -108,6 +121,7 @@
             border-radius: 8px;
             margin: 15px 0;
         }
+
         .warning {
             background: rgba(255, 152, 0, 0.2);
             border: 1px solid #ff9800;
@@ -116,6 +130,7 @@
             border-radius: 8px;
             margin: 15px 0;
         }
+
         .info {
             background: rgba(33, 150, 243, 0.2);
             border: 1px solid #2196f3;
@@ -124,12 +139,14 @@
             border-radius: 8px;
             margin: 15px 0;
         }
+
         .links {
             display: flex;
             gap: 15px;
             margin: 20px 0;
             flex-wrap: wrap;
         }
+
         .links a {
             color: #64b5f6;
             text-decoration: none;
@@ -138,19 +155,23 @@
             border-radius: 5px;
             transition: all 0.3s ease;
         }
+
         .links a:hover {
             background: #64b5f6;
             color: #000;
         }
+
         .input-group {
             margin: 15px 0;
         }
+
         .input-group label {
             display: block;
             margin-bottom: 5px;
             color: #ffb74d;
             font-weight: bold;
         }
+
         .input-group input {
             background: #1a1a1a;
             color: white;
@@ -160,21 +181,24 @@
             width: 300px;
             font-family: monospace;
         }
+
         .screenshot {
             border: 2px solid #555;
             border-radius: 8px;
             margin: 15px 0;
             padding: 10px;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>📧 Gmail Setup voor Pathé Cinema EmailJS</h1>
-        
+
         <div class="info">
-            <strong>🎯 Doel:</strong> Gmail configureren zodat je website echte emails verstuurt via jouw Gmail account.<br>
+            <strong>🎯 Doel:</strong> Gmail configureren zodat je website echte emails verstuurt via jouw Gmail
+            account.<br>
             <strong>⏱️ Tijd:</strong> 10-15 minuten<br>
             <strong>📧 Resultaat:</strong> Verificatie, 2FA en booking emails via Gmail!
         </div>
@@ -202,13 +226,14 @@
         <div class="step">
             <h3><span class="step-number">2</span>Gmail App Password Maken</h3>
             <p><strong>Voor veiligheid gebruikt EmailJS app passwords, niet je gewone Gmail wachtwoord.</strong></p>
-            
+
             <div class="warning">
                 <strong>⚠️ Vereiste:</strong> Je Gmail account moet 2-staps verificatie aan hebben staan!
             </div>
-            
+
             <ol>
-                <li>Ga naar: <a href="https://myaccount.google.com/security" target="_blank">Google Account Security</a></li>
+                <li>Ga naar: <a href="https://myaccount.google.com/security" target="_blank">Google Account Security</a>
+                </li>
                 <li>Zoek naar <strong>"2-Step Verification"</strong> en zet het AAN als het uit staat</li>
                 <li>Zoek naar <strong>"App passwords"</strong></li>
                 <li>Klik <strong>"Generate"</strong></li>
@@ -218,7 +243,7 @@
                 <li>Klik <strong>"Generate"</strong></li>
                 <li>Kopieer het 16-karakter app password (bijv: <code>abcd efgh ijkl mnop</code>)</li>
             </ol>
-            
+
             <div class="input-group">
                 <label>Je Gmail App Password:</label>
                 <input type="password" id="appPassword" placeholder="abcd efgh ijkl mnop">
@@ -242,7 +267,7 @@
                 <li>Klik <strong>"Create Service"</strong></li>
                 <li>Test de service (EmailJS stuurt test email)</li>
             </ol>
-            
+
             <div class="input-group">
                 <label>Je Gmail adres:</label>
                 <input type="email" id="gmailAddress" placeholder="jouw-email@gmail.com">
@@ -252,7 +277,7 @@
         <div class="step">
             <h3><span class="step-number">4</span>Email Templates Maken</h3>
             <p><strong>Maak 3 templates in EmailJS dashboard → "Email Templates":</strong></p>
-            
+
             <h4>📧 Template 1: Verificatie Email</h4>
             <div class="template-box">
                 <strong>Template ID:</strong> <code>template_verification</code><br>
@@ -327,17 +352,17 @@ Visit us: {{website_url}}</textarea>
         <div class="step">
             <h3><span class="step-number">5</span>Code Generator</h3>
             <p><strong>Vul je EmailJS gegevens in:</strong></p>
-            
+
             <div class="input-group">
                 <label>Service ID:</label>
                 <input type="text" id="serviceId" value="service_gmail_pathe">
             </div>
-            
+
             <div class="input-group">
                 <label>Public Key (uit EmailJS Account → General):</label>
                 <input type="text" id="publicKey" placeholder="Je EmailJS public key">
             </div>
-            
+
             <button onclick="generateGmailCode()">🔧 Genereer Gmail Code</button>
             <div id="generatedCode"></div>
         </div>
@@ -425,4 +450,5 @@ if ('template_2fa' === 'template_2fa') {
         }
     </script>
 </body>
+
 </html>
