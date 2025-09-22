@@ -3359,13 +3359,19 @@ Click OK to go to Pathé.nl for the actual booking!`);
         });
 
         function openLoginModal() {
-            if (currentUser) {
-                // If user is logged in, show profile
-                showUserProfile();
-            }
             const modal = document.getElementById('loginModal');
-            modal.style.display = 'block';
-            setTimeout(() => modal.classList.add('active'), 10);
+            
+            if (currentUser) {
+                // If user is logged in, show profile instead of login form
+                showUserProfile();
+                modal.style.display = 'block';
+                setTimeout(() => modal.classList.add('active'), 10);
+            } else {
+                // Show login form for non-logged in users
+                switchToLogin(); // Ensure we're showing the login form
+                modal.style.display = 'block';
+                setTimeout(() => modal.classList.add('active'), 10);
+            }
         }
 
         function closeLoginModal() {
@@ -3639,7 +3645,10 @@ Visit us: ${window.location.origin}`);
                                 document.getElementById('displayedCode').textContent = user.verificationCode;
                             }
                         });
-                }        // Send booking confirmation email
+                });
+        }
+
+        // Send booking confirmation email
         function sendBookingConfirmationEmail(user) {
                         // Get booking details
                         const cinema = document.getElementById('cinemaSelect');
