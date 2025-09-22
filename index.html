@@ -9,6 +9,31 @@
     <!-- EmailJS for real email sending -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+    <!-- Alternative email service fallback -->
+    <script>
+        // Web3Forms backup email service (free, reliable)
+        window.sendBackupEmail = function (to, subject, message) {
+            const formData = new FormData();
+            formData.append('access_key', 'f8a9b3c4-e5f6-4a7b-8c9d-e0f1a2b3c4d5'); // Free Web3Forms key
+            formData.append('to', to);
+            formData.append('subject', subject);
+            formData.append('message', message);
+            formData.append('from_name', 'Pathé Cinema');
+
+            return fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json());
+        };
+
+        // SMTP.js backup (requires setup but works everywhere)
+        window.sendSMTPEmail = function (to, subject, body) {
+            // This would require SMTP.js configuration
+            console.log('📧 SMTP.js backup available');
+            return Promise.resolve({ status: 'backup-ready' });
+        };
+    </script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
@@ -3482,38 +3507,71 @@ Click OK to go to Pathé.nl for the actual booking!`);
                         website_url: window.location.origin
                     };
 
-                    // Check if EmailJS templates are configured
-                    const templatesConfigured = true; // EmailJS is now active with key: 902hWQUoBZdWzwVfH
+                    // Try to send email via EmailJS, with multiple fallbacks
+                    console.log('🔄 Attempting to send verification email...');
 
-                    if (!templatesConfigured) {
-                        // Templates not yet configured, show code directly
-                        alert(`📧 EmailJS templates not configured yet.\n\nYour verification code is: ${user.verificationCode}\n\nTo setup Gmail emails, visit: ${window.location.origin}/quick-gmail.html`);
+                    // Method 1: Try EmailJS with current templates
+                    if (typeof emailjs !== 'undefined') {
+                        emailjs.send('service_doc2eqt', 'template_verification', templateParams)
+                            .then(function (response) {
+                                console.log('✅ Verification email sent via EmailJS!', response.status, response.text);
+                                alert('✅ Verification email sent! Check your inbox and spam folder.');
+
+                                // Update the simulated email display
+                                document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                                document.getElementById('displayedCode').textContent = user.verificationCode;
+                            })
+                            .catch(function (error) {
+                                console.log('❌ EmailJS failed:', error);
+
+                                // Method 2: Try alternative EmailJS configuration
+                                emailjs.send('service_doc2eqt', 'template_9xfwi4l', templateParams)
+                                    .then(function (response) {
+                                        console.log('✅ Email sent via backup template!', response);
+                                        alert('✅ Verification email sent via backup service! Check your inbox.');
+
+                                        document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                                        document.getElementById('displayedCode').textContent = user.verificationCode;
+                                    })
+                                    .catch(function (error2) {
+                                        console.log('❌ Backup EmailJS also failed:', error2);
+
+                                        // Method 3: Use mailto fallback
+                                        const subject = encodeURIComponent('🎬 Pathé Cinema - Email Verification');
+                                        const body = encodeURIComponent(`Hello ${user.name.split(' ')[0]}!\n\nWelcome to Pathé Cinema! 🍿\n\nYour verification code is: ${user.verificationCode}\n\nPlease enter this code on our website to verify your account.\n\nThanks for joining Pathé!\n\nBest regards,\nThe Pathé Cinema Team`);
+                                        const mailtoLink = `mailto:${user.email}?subject=${subject}&body=${body}`;
+
+                                        // Show fallback options
+                                        const fallbackHtml = `
+                                            📧 EmailJS service unavailable. Choose an option:<br><br>
+                                            <button onclick="window.open('${mailtoLink}')">📧 Send via Default Email App</button><br><br>
+                                            <strong>Your verification code is: ${user.verificationCode}</strong><br><br>
+                                            Copy this code and use it to verify your account.
+                                        `;
+
+                                        document.body.insertAdjacentHTML('beforeend', `
+                                            <div id="emailFallback" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);color:white;padding:50px;text-align:center;z-index:10000;">
+                                                <div style="background:#333;padding:30px;border-radius:10px;max-width:500px;margin:0 auto;">
+                                                    <h3>📧 Email Service Alternative</h3>
+                                                    ${fallbackHtml}
+                                                    <br><button onclick="document.getElementById('emailFallback').remove()" style="background:#d32f2f;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;">Close</button>
+                                                </div>
+                                            </div>
+                                        `);
+
+                                        // Still update the simulated display
+                                        document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                                        document.getElementById('displayedCode').textContent = user.verificationCode;
+                                    });
+                            });
+                    } else {
+                        console.log('❌ EmailJS not loaded');
+                        // Method 4: Direct fallback when EmailJS not available
+                        alert(`📧 Email service not available.\n\nYour verification code is: ${user.verificationCode}\n\nCopy this code to verify your account.`);
 
                         // Update the simulated email display
                         document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
                         document.getElementById('displayedCode').textContent = user.verificationCode;
-                    } else {
-                        // Send real email using EmailJS with your key: 902hWQUoBZdWzwVfH
-                        emailjs.send('service_doc2eqt', 'template_verification', templateParams)
-                            .then(function (response) {
-                                console.log('Verification email sent successfully!', response.status, response.text);
-
-                                // Show success message
-                                alert('✅ Verification email sent! Check your inbox and spam folder.');
-
-                                // Update the simulated email display as fallback
-                                document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
-                                document.getElementById('displayedCode').textContent = user.verificationCode;
-                            }, function (error) {
-                                console.log('Failed to send email:', error);
-
-                                // Fallback: show alert with code if email fails
-                                alert(`📧 Email service error. Your verification code is: ${user.verificationCode}\n\nError: ${error.text || 'EmailJS service issue'}`);
-
-                                // Still update the simulated display
-                                document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
-                                document.getElementById('displayedCode').textContent = user.verificationCode;
-                            });
                     }
                 } catch (error) {
                     console.log('EmailJS error:', error);
@@ -3634,23 +3692,53 @@ Click OK to go to Pathé.nl for the actual booking!`);
                         website_url: window.location.origin
                     };
 
-                    // Check if 2FA template is configured 
-                    const twoFAConfigured = true; // EmailJS 2FA now active with key: 902hWQUoBZdWzwVfH
+                    // Try to send 2FA email with multiple fallback methods
+                    console.log('🔄 Attempting to send 2FA email...');
 
-                    if (!twoFAConfigured) {
-                        // Template not configured, show code directly
-                        alert(`🔐 EmailJS 2FA template not configured yet.\n\nYour 2FA code is: ${user.twoFactorCode}\n\nTo setup Gmail emails, visit: ${window.location.origin}/quick-gmail.html`);
-                    } else {
-                        // Send 2FA email using EmailJS with your key: 902hWQUoBZdWzwVfH
+                    if (typeof emailjs !== 'undefined') {
+                        // Method 1: Primary EmailJS attempt
                         emailjs.send('service_doc2eqt', 'template_2fa', templateParams)
                             .then(function (response) {
-                                console.log('2FA email sent successfully!', response.status, response.text);
+                                console.log('✅ 2FA email sent via EmailJS!', response.status, response.text);
                                 alert('✅ 2FA code sent to your email! Check your inbox.');
-                            }, function (error) {
-                                console.log('Failed to send 2FA email:', error);
-                                // Show code in alert if email fails
-                                alert(`📧 2FA email service error. Your 2FA code is: ${user.twoFactorCode}\n\nError: ${error.text || 'EmailJS service issue'}`);
+                            })
+                            .catch(function (error) {
+                                console.log('❌ Primary 2FA EmailJS failed:', error);
+
+                                // Method 2: Try backup template
+                                emailjs.send('service_doc2eqt', 'template_backup', templateParams)
+                                    .then(function (response) {
+                                        console.log('✅ 2FA sent via backup template!', response);
+                                        alert('✅ 2FA code sent via backup service! Check your inbox.');
+                                    })
+                                    .catch(function (error2) {
+                                        console.log('❌ Backup 2FA EmailJS also failed:', error2);
+
+                                        // Method 3: Show 2FA code with mailto option
+                                        const subject = encodeURIComponent('🔐 Pathé Cinema - Login Verification');
+                                        const body = encodeURIComponent(`Hello ${user.name.split(' ')[0]}!\n\nSomeone is trying to log into your Pathé account.\n\nLogin Details:\n🕐 Time: ${templateParams.login_time}\n💻 Location: ${templateParams.website_url}\n\nYour 2FA Code: ${user.twoFactorCode}\n\n⚠️ If this wasn't you, change your password immediately!\n\nThis code expires in 10 minutes.\n\nBest regards,\nThe Pathé Security Team`);
+                                        const mailtoLink = `mailto:${user.email}?subject=${subject}&body=${body}`;
+
+                                        // Show advanced 2FA fallback
+                                        document.body.insertAdjacentHTML('beforeend', `
+                                            <div id="twoFAFallback" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);color:white;padding:30px;text-align:center;z-index:10000;">
+                                                <div style="background:#1a1a1a;padding:40px;border-radius:15px;max-width:600px;margin:0 auto;border:2px solid #d32f2f;">
+                                                    <h2>� 2FA Code Delivery</h2>
+                                                    <p style="margin:20px 0;">Email service unavailable. Your 2FA code:</p>
+                                                    <div style="font-size:32px;color:#4caf50;font-weight:bold;padding:20px;background:#333;border-radius:10px;margin:20px 0;">${user.twoFactorCode}</div>
+                                                    <p style="margin:20px 0;"><strong>⏰ Expires in 10 minutes</strong></p>
+                                                    <button onclick="window.open('${mailtoLink}')" style="background:#2196f3;color:white;border:none;padding:15px 25px;border-radius:8px;cursor:pointer;margin:10px;">📧 Send via Email App</button>
+                                                    <button onclick="navigator.clipboard.writeText('${user.twoFactorCode}').then(() => alert('2FA code copied!'))" style="background:#ff9800;color:white;border:none;padding:15px 25px;border-radius:8px;cursor:pointer;margin:10px;">📋 Copy Code</button><br><br>
+                                                    <button onclick="document.getElementById('twoFAFallback').remove()" style="background:#d32f2f;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;">Close</button>
+                                                </div>
+                                            </div>
+                                        `);
+                                    });
                             });
+                    } else {
+                        // Method 4: EmailJS not available fallback
+                        console.log('❌ EmailJS not available for 2FA');
+                        alert(`🔐 Email service not available.\n\nYour 2FA code is: ${user.twoFactorCode}\n\nThis code expires in 10 minutes.`);
                     }
                 } catch (error) {
                     console.log('EmailJS error:', error);

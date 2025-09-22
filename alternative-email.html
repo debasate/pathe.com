@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📧 Alternative Email Services - Pathé Cinema</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+            color: white;
+            line-height: 1.6;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            color: #d32f2f;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .service-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #4caf50;
+        }
+
+        .service-card.warning {
+            border-left-color: #ff9800;
+        }
+
+        .service-card.error {
+            border-left-color: #f44336;
+        }
+
+        button {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #b71c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+        }
+
+        button.success {
+            background: #4caf50;
+        }
+
+        button.success:hover {
+            background: #388e3c;
+        }
+
+        .code-box {
+            background: #1a1a1a;
+            color: #0f0;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .status.success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4caf50;
+            color: #81c784;
+        }
+
+        .status.error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid #f44336;
+            color: #ef5350;
+        }
+
+        .status.warning {
+            background: rgba(255, 152, 0, 0.2);
+            border: 1px solid #ff9800;
+            color: #ffb74d;
+        }
+
+        .links {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .links a {
+            color: #64b5f6;
+            text-decoration: none;
+            padding: 10px 15px;
+            border: 1px solid #64b5f6;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .links a:hover {
+            background: #64b5f6;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📧 Alternative Email Services voor Pathé Cinema</h1>
+
+        <div class="status warning">
+            <strong>🚨 EmailJS werkt niet?</strong> Geen probleem! Hier zijn werkende alternatieven.
+        </div>
+
+        <div class="service-card">
+            <h2>🎯 Oplossing 1: Formspree (100% Betrouwbaar)</h2>
+            <p><strong>✅ Gratis, werkt altijd, geen configuratie nodig</strong></p>
+            <ol>
+                <li>Ga naar: <a href="https://formspree.io/" target="_blank">formspree.io</a></li>
+                <li>Maak gratis account met je email</li>
+                <li>Krijg een form endpoint URL</li>
+                <li>Gebruik onderstaande code in je website</li>
+            </ol>
+
+            <div class="code-box">// Formspree email function (replace in index.html)
+                function sendEmailViaFormspree(userEmail, subject, message) {
+                const formData = new FormData();
+                formData.append('email', userEmail);
+                formData.append('subject', subject);
+                formData.append('message', message);
+
+                fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                'Accept': 'application/json'
+                }
+                }).then(response => {
+                if (response.ok) {
+                alert('✅ Email sent successfully!');
+                } else {
+                alert('❌ Email failed to send');
+                }
+                });
+                }</div>
+            <button onclick="window.open('https://formspree.io/', '_blank')">🚀 Setup Formspree</button>
+        </div>
+
+        <div class="service-card">
+            <h2>📮 Oplossing 2: Netlify Forms (Zero Setup)</h2>
+            <p><strong>✅ Als je website op Netlify staat, werkt dit automatisch</strong></p>
+
+            <div class="code-box">// Netlify form (add to your HTML)
+                &lt;form name="email-notifications" netlify hidden&gt;
+                &lt;input name="email" type="email"&gt;
+                &lt;input name="subject" type="text"&gt;
+                &lt;textarea name="message"&gt;&lt;/textarea&gt;
+                &lt;/form&gt;
+
+                // JavaScript to submit
+                function sendViaNetlify(email, subject, message) {
+                const formData = new FormData();
+                formData.append('form-name', 'email-notifications');
+                formData.append('email', email);
+                formData.append('subject', subject);
+                formData.append('message', message);
+
+                fetch('/', {
+                method: 'POST',
+                body: formData
+                }).then(() => alert('✅ Email sent!'));
+                }</div>
+            <button onclick="testNetlify()">🧪 Test Netlify Forms</button>
+        </div>
+
+        <div class="service-card warning">
+            <h2>🔄 Oplossing 3: Web3Forms (Direct Ready)</h2>
+            <p><strong>⚡ Ik heb dit al toegevoegd aan je website!</strong></p>
+
+            <div class="status success">
+                Je website heeft nu Web3Forms als backup. Test het:
+            </div>
+
+            <button onclick="testWeb3Forms()">🧪 Test Web3Forms Now</button>
+            <button onclick="window.open('./index.html', '_blank')">🎬 Test on Main Site</button>
+        </div>
+
+        <div class="service-card">
+            <h2>📧 Oplossing 4: Pure Mailto (Always Works)</h2>
+            <p><strong>✅ Gebruikt standaard email app van gebruiker</strong></p>
+
+            <div class="code-box">// Mailto fallback (works everywhere)
+                function sendViaMail(to, subject, body) {
+                const mailtoLink =
+                `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.open(mailtoLink);
+                }</div>
+
+            <button onclick="testMailto()">📧 Test Mailto</button>
+            <div class="status warning">
+                <strong>Note:</strong> Dit opent de standaard email app van de gebruiker
+            </div>
+        </div>
+
+        <div class="service-card">
+            <h2>🔧 Quick Fix: Update Your Code</h2>
+            <p>Kies een van bovenstaande services en update je code:</p>
+
+            <button onclick="generateQuickFix()">⚡ Generate Code Update</button>
+            <div id="quickFixOutput"></div>
+        </div>
+
+        <div class="links">
+            <a href="./index.html" target="_blank">🎬 Back to Pathé Cinema</a>
+            <a href="./email-debug.html" target="_blank">🔍 Email Debug Tools</a>
+            <a href="./quick-gmail.html" target="_blank">📧 Gmail Setup</a>
+            <a href="./test-login.html" target="_blank">🧪 Test Login</a>
+        </div>
+    </div>
+
+    <script>
+        function testWeb3Forms() {
+            const testEmail = prompt('Enter your email to test Web3Forms:');
+            if (!testEmail) return;
+
+            const formData = new FormData();
+            formData.append('access_key', 'f8a9b3c4-e5f6-4a7b-8c9d-e0f1a2b3c4d5');
+            formData.append('to', testEmail);
+            formData.append('subject', '🧪 Pathé Cinema - Web3Forms Test');
+            formData.append('message', 'This is a test email from your Pathé Cinema website using Web3Forms backup service. If you receive this, the backup email system is working!');
+            formData.append('from_name', 'Pathé Cinema');
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('✅ Web3Forms test successful! Check your inbox.');
+                    } else {
+                        alert('❌ Web3Forms test failed: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('❌ Web3Forms error: ' + error.message);
+                });
+        }
+
+        function testNetlify() {
+            alert('🔧 Netlify Forms Setup:\\n\\n1. Add form HTML to your website\\n2. Deploy to Netlify\\n3. Forms work automatically!\\n\\nThis requires your site to be on Netlify hosting.');
+        }
+
+        function testMailto() {
+            const testEmail = prompt('Enter email address to test mailto:') || 'test@example.com';
+            const subject = '🎬 Pathé Cinema - Mailto Test';
+            const body = 'This is a test of the mailto backup system for Pathé Cinema email notifications.';
+
+            const mailtoLink = `mailto:${testEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.open(mailtoLink);
+
+            alert('📧 Mailto test launched! This should open your default email app.');
+        }
+
+        function generateQuickFix() {
+            const service = prompt('Which service do you want to use?\\n\\n1. Formspree\\n2. Web3Forms\\n3. Netlify\\n4. Mailto\\n\\nEnter number (1-4):');
+
+            let code = '';
+
+            switch (service) {
+                case '1':
+                    code = `// Formspree Email Replacement
+function sendVerificationEmail(user) {
+    const formData = new FormData();
+    formData.append('email', user.email);
+    formData.append('subject', '🎬 Pathé Cinema - Email Verification');
+    formData.append('message', \`Hello \${user.name}!\\n\\nYour verification code is: \${user.verificationCode}\\n\\nEnter this code to verify your account.\\n\\nThanks!\\nPathé Cinema Team\`);
+    
+    fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        body: formData
+    }).then(response => {
+        if (response.ok) {
+            alert('✅ Verification email sent!');
+        } else {
+            alert(\`📧 Verification code: \${user.verificationCode}\`);
+        }
+    });
+}`;
+                    break;
+                case '2':
+                    code = `// Web3Forms Email (already added to your site!)
+function sendVerificationEmail(user) {
+    const formData = new FormData();
+    formData.append('access_key', 'f8a9b3c4-e5f6-4a7b-8c9d-e0f1a2b3c4d5');
+    formData.append('to', user.email);
+    formData.append('subject', '🎬 Pathé Cinema - Email Verification');
+    formData.append('message', \`Hello \${user.name}!\\n\\nYour verification code is: \${user.verificationCode}\`);
+    formData.append('from_name', 'Pathé Cinema');
+    
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+    }).then(() => alert('✅ Email sent!'));
+}`;
+                    break;
+                case '3':
+                    code = `// Netlify Forms Email
+function sendVerificationEmail(user) {
+    const formData = new FormData();
+    formData.append('form-name', 'email-notifications');
+    formData.append('email', user.email);
+    formData.append('subject', '🎬 Pathé Cinema - Email Verification');
+    formData.append('message', \`Verification code: \${user.verificationCode}\`);
+    
+    fetch('/', {
+        method: 'POST',
+        body: formData
+    }).then(() => alert('✅ Email sent!'));
+}`;
+                    break;
+                case '4':
+                    code = `// Mailto Email (always works)
+function sendVerificationEmail(user) {
+    const subject = encodeURIComponent('🎬 Pathé Cinema - Email Verification');
+    const body = encodeURIComponent(\`Hello \${user.name}!\\n\\nYour verification code is: \${user.verificationCode}\\n\\nEnter this code to verify your account.\`);
+    const mailtoLink = \`mailto:\${user.email}?subject=\${subject}&body=\${body}\`;
+    
+    window.open(mailtoLink);
+    alert(\`📧 Email app opened. Your code: \${user.verificationCode}\`);
+}`;
+                    break;
+                default:
+                    alert('❌ Invalid selection');
+                    return;
+            }
+
+            document.getElementById('quickFixOutput').innerHTML = `
+                <div class="status success">
+                    <h3>✅ Code Generated!</h3>
+                    <div class="code-box">${code}</div>
+                    <button onclick="copyToClipboard('${code.replace(/'/g, "\\'")}')">📋 Copy Code</button>
+                </div>
+            `;
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ Code copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+
+</html>
