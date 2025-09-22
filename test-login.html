@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Test - Pathé Cinema</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .test-section h3 {
+            color: #d32f2f;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #b71c1c;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            min-height: 20px;
+        }
+
+        .success {
+            background: #e8f5e8;
+            color: #2e7d2e;
+        }
+
+        .error {
+            background: #ffe8e8;
+            color: #d32f2f;
+        }
+
+        .info {
+            background: #e8f4fd;
+            color: #1976d2;
+        }
+
+        .code {
+            background: #f5f5f5;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            border-left: 4px solid #d32f2f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <h1>🎬 Pathé Cinema - Login Test</h1>
+        <p>Deze pagina test de login functionaliteit van je Pathé Cinema website.</p>
+
+        <div class="test-section">
+            <h3>1. Website Status</h3>
+            <button onclick="testWebsiteLoad()">Test Website Load</button>
+            <div id="websiteResult" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>2. Quick Registration Test</h3>
+            <input type="text" id="testName" placeholder="Test Name" value="Test User">
+            <input type="email" id="testEmail" placeholder="test@example.com" value="test@example.com">
+            <input type="password" id="testPassword" placeholder="Password" value="password123">
+            <br>
+            <button onclick="createTestUser()">Create Test User</button>
+            <button onclick="verifyTestUser()">Verify Test User</button>
+            <div id="registrationResult" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. Login Test</h3>
+            <input type="email" id="loginEmail" placeholder="Email" value="test@example.com">
+            <input type="password" id="loginPassword" placeholder="Password" value="password123">
+            <br>
+            <button onclick="testLogin()">Test Login</button>
+            <div id="loginResult" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. Debug Information</h3>
+            <button onclick="showStoredUsers()">Show Stored Users</button>
+            <button onclick="clearStorage()">Clear Storage</button>
+            <div id="debugResult" class="result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>5. Launch Main Website</h3>
+            <button onclick="openMainWebsite()">Open Pathé Cinema</button>
+            <div class="code">
+                <strong>If login doesn't work:</strong><br>
+                1. Check browser console (F12) for errors<br>
+                2. Make sure you have a verified account<br>
+                3. Look for the 2FA code in alerts or console<br>
+                4. EmailJS might not be configured - codes will show in alerts
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testWebsiteLoad() {
+            const result = document.getElementById('websiteResult');
+            result.innerHTML = '<div class="info">Testing website accessibility...</div>';
+
+            // Check if main website exists
+            fetch('./index.html')
+                .then(response => {
+                    if (response.ok) {
+                        result.innerHTML = '<div class="success">✅ Website found and accessible!</div>';
+                    } else {
+                        result.innerHTML = '<div class="error">❌ Website not found or not accessible</div>';
+                    }
+                })
+                .catch(error => {
+                    result.innerHTML = '<div class="error">❌ Error accessing website: ' + error.message + '</div>';
+                });
+        }
+
+        function createTestUser() {
+            const result = document.getElementById('registrationResult');
+            const name = document.getElementById('testName').value;
+            const email = document.getElementById('testEmail').value;
+            const password = document.getElementById('testPassword').value;
+
+            if (!name || !email || !password) {
+                result.innerHTML = '<div class="error">❌ Please fill in all fields</div>';
+                return;
+            }
+
+            // Get existing users
+            const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+
+            // Check if user already exists
+            if (users.find(u => u.email === email)) {
+                result.innerHTML = '<div class="info">ℹ️ User already exists</div>';
+                return;
+            }
+
+            // Create new user
+            const newUser = {
+                name: name,
+                email: email,
+                password: password,
+                birthDate: '1990-01-01',
+                registrationDate: new Date().toISOString(),
+                emailVerified: false,
+                verificationCode: Math.floor(100000 + Math.random() * 900000).toString(),
+                newsletter: false
+            };
+
+            users.push(newUser);
+            localStorage.setItem('patheUsers', JSON.stringify(users));
+
+            result.innerHTML = '<div class="success">✅ Test user created! Verification code: <strong>' + newUser.verificationCode + '</strong></div>';
+        }
+
+        function verifyTestUser() {
+            const result = document.getElementById('registrationResult');
+            const email = document.getElementById('testEmail').value;
+
+            const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+            const userIndex = users.findIndex(u => u.email === email);
+
+            if (userIndex === -1) {
+                result.innerHTML = '<div class="error">❌ User not found. Create user first.</div>';
+                return;
+            }
+
+            // Verify the user
+            users[userIndex].emailVerified = true;
+            localStorage.setItem('patheUsers', JSON.stringify(users));
+
+            result.innerHTML = '<div class="success">✅ User verified and ready for login!</div>';
+        }
+
+        function testLogin() {
+            const result = document.getElementById('loginResult');
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            result.innerHTML = '<div class="info">Testing login...</div>';
+
+            // Check if user exists
+            const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (!user) {
+                result.innerHTML = '<div class="error">❌ User not found or wrong password. Create and verify user first.</div>';
+                return;
+            }
+
+            if (!user.emailVerified) {
+                result.innerHTML = '<div class="error">❌ User not verified. Click "Verify Test User" first.</div>';
+                return;
+            }
+
+            // Simulate 2FA code generation (like the main website does)
+            const twoFactorCode = Math.floor(100000 + Math.random() * 900000).toString();
+            user.twoFactorCode = twoFactorCode;
+            user.twoFactorExpiry = Date.now() + (10 * 60 * 1000); // 10 minutes
+
+            // Update user in storage
+            const userIndex = users.findIndex(u => u.email === email);
+            users[userIndex] = user;
+            localStorage.setItem('patheUsers', JSON.stringify(users));
+
+            result.innerHTML = '<div class="success">✅ Login successful! 2FA Code: <strong>' + twoFactorCode + '</strong><br>' +
+                '<em>Use this code when the 2FA modal appears on the main website.</em></div>';
+        }
+
+        function showStoredUsers() {
+            const result = document.getElementById('debugResult');
+            const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+
+            if (users.length === 0) {
+                result.innerHTML = '<div class="info">No users found in storage</div>';
+                return;
+            }
+
+            let html = '<div class="success">Stored Users:<br>';
+            users.forEach((user, index) => {
+                html += `<strong>${index + 1}.</strong> ${user.name} (${user.email}) - Verified: ${user.emailVerified ? '✅' : '❌'}<br>`;
+            });
+            html += '</div>';
+            result.innerHTML = html;
+        }
+
+        function clearStorage() {
+            localStorage.removeItem('patheUsers');
+            document.getElementById('debugResult').innerHTML = '<div class="success">✅ Storage cleared</div>';
+        }
+
+        function openMainWebsite() {
+            window.open('./index.html', '_blank');
+        }
+
+        // Auto-test on load
+        window.onload = function () {
+            testWebsiteLoad();
+            showStoredUsers();
+        };
+    </script>
+</body>
+
+</html>
