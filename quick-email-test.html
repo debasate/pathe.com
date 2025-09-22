@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Email Test - Pathé Cinema</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #d32f2f;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #d32f2f;
+            box-shadow: 0 0 10px rgba(211, 47, 47, 0.3);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #d32f2f, #f44336);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(211, 47, 47, 0.3);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4caf50;
+            color: #4caf50;
+        }
+
+        .error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid #f44336;
+            color: #f44336;
+        }
+
+        .info {
+            background: rgba(33, 150, 243, 0.2);
+            border: 2px solid #2196f3;
+            color: #2196f3;
+        }
+
+        .service-status {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .status-item {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .status-working {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4caf50;
+            color: #4caf50;
+        }
+
+        .status-failed {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid #f44336;
+            color: #f44336;
+        }
+
+        .status-unknown {
+            background: rgba(158, 158, 158, 0.2);
+            border: 1px solid #9e9e9e;
+            color: #9e9e9e;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">🎬 PATHÉ</div>
+        <h2>Email Verification Test</h2>
+        <p style="margin-bottom: 30px;">Test de email functionaliteit van Pathé Cinema</p>
+
+        <div class="service-status">
+            <div class="status-item status-unknown" id="web3forms-status">
+                Web3Forms<br><span id="web3forms-text">Testing...</span>
+            </div>
+            <div class="status-item status-unknown" id="emailjs-status">
+                EmailJS<br><span id="emailjs-text">Testing...</span>
+            </div>
+            <div class="status-item status-unknown" id="mailto-status">
+                Mailto<br><span id="mailto-text">Available</span>
+            </div>
+        </div>
+
+        <form id="emailForm">
+            <div class="form-group">
+                <label for="email">Je Email Address:</label>
+                <input type="email" id="email" name="email" required placeholder="jouw@email.com">
+            </div>
+
+            <button type="submit" class="btn">🎬 Test Email Verification</button>
+        </form>
+
+        <div id="result" class="result">
+            <div id="resultMessage"></div>
+        </div>
+    </div>
+
+    <script>
+        let serviceStatus = {
+            web3forms: 'testing',
+            emailjs: 'testing',
+            mailto: 'available'
+        };
+
+        // Test services on page load
+        window.addEventListener('load', function () {
+            testServices();
+        });
+
+        async function testServices() {
+            // Test Web3Forms
+            try {
+                const testData = new FormData();
+                testData.append('access_key', 'eea0b619-01b8-4875-964b-ca709c97bee5');
+                testData.append('email', 'test@example.com');
+                testData.append('subject', 'Service Test');
+                testData.append('message', 'Testing service availability');
+                testData.append('from_name', 'Pathé Cinema');
+
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: testData
+                });
+
+                const data = await response.json();
+
+                if (data.success || response.ok) {
+                    updateServiceStatus('web3forms', 'working', 'Working ✅');
+                } else {
+                    updateServiceStatus('web3forms', 'failed', 'Failed ❌');
+                }
+            } catch (error) {
+                updateServiceStatus('web3forms', 'failed', 'Error ❌');
+            }
+
+            // EmailJS test
+            try {
+                if (typeof emailjs !== 'undefined') {
+                    updateServiceStatus('emailjs', 'working', 'Loaded ✅');
+                } else {
+                    updateServiceStatus('emailjs', 'failed', 'Not Loaded ❌');
+                }
+            } catch (error) {
+                updateServiceStatus('emailjs', 'failed', 'Error ❌');
+            }
+
+            // Mailto is always available
+            updateServiceStatus('mailto', 'working', 'Available ✅');
+        }
+
+        function updateServiceStatus(service, status, text) {
+            serviceStatus[service] = status;
+            const element = document.getElementById(`${service}-status`);
+            const textElement = document.getElementById(`${service}-text`);
+
+            element.className = `status-item status-${status}`;
+            textElement.textContent = text;
+        }
+
+        document.getElementById('emailForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+            showResult('🔄 Sending verification email...', 'info');
+
+            try {
+                let emailSent = false;
+
+                // Try Web3Forms first
+                if (serviceStatus.web3forms === 'working') {
+                    try {
+                        emailSent = await sendWeb3FormsEmail(email, verificationCode);
+                        if (emailSent) {
+                            showResult('✅ Email sent via Web3Forms! Check your inbox and spam folder.', 'success');
+                            showVerificationCode(verificationCode);
+                            return;
+                        }
+                    } catch (error) {
+                        console.log('Web3Forms failed:', error);
+                    }
+                }
+
+                // Try EmailJS as fallback
+                if (serviceStatus.emailjs === 'working' && !emailSent) {
+                    try {
+                        emailSent = await sendEmailJSEmail(email, verificationCode);
+                        if (emailSent) {
+                            showResult('✅ Email sent via EmailJS! Check your inbox and spam folder.', 'success');
+                            showVerificationCode(verificationCode);
+                            return;
+                        }
+                    } catch (error) {
+                        console.log('EmailJS failed:', error);
+                    }
+                }
+
+                // Final fallback: show code and mailto
+                if (!emailSent) {
+                    showMailtoFallback(email, verificationCode);
+                }
+
+            } catch (error) {
+                console.error('Email sending error:', error);
+                showResult(`❌ Error: ${error.message}`, 'error');
+            }
+        });
+
+        async function sendWeb3FormsEmail(email, verificationCode) {
+            const formData = new FormData();
+            formData.append('access_key', 'eea0b619-01b8-4875-964b-ca709c97bee5');
+            formData.append('email', email);
+            formData.append('subject', '🎬 Pathé Cinema - Email Verification');
+            formData.append('message', `Hello!
+
+Welcome to Pathé Cinema! 🍿
+
+Your verification code is: ${verificationCode}
+
+Please enter this code on our website to verify your account.
+
+Thanks for joining Pathé!
+
+Best regards,
+The Pathé Cinema Team`);
+            formData.append('from_name', 'Pathé Cinema');
+            formData.append('replyto', email);
+
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+            console.log('Web3Forms response:', data);
+
+            return data.success;
+        }
+
+        async function sendEmailJSEmail(email, verificationCode) {
+            if (typeof emailjs === 'undefined') {
+                throw new Error('EmailJS not loaded');
+            }
+
+            // Initialize EmailJS with your public key
+            emailjs.init('902hWQUoBZdWzwVfH');
+
+            const templateParams = {
+                to_email: email,
+                to_name: email.split('@')[0],
+                verification_code: verificationCode,
+                cinema_name: 'Pathé Cinema'
+            };
+
+            const response = await emailjs.send('service_doc2eqt', 'template_verification', templateParams);
+            console.log('EmailJS response:', response);
+
+            return response.status === 200;
+        }
+
+        function showVerificationCode(code) {
+            document.body.insertAdjacentHTML('beforeend', `
+            <div id="verificationDisplay" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.95);color:white;padding:30px;border-radius:15px;text-align:center;z-index:10000;border:2px solid #4caf50;">
+                <h3>✅ Email Sent Successfully!</h3>
+                <p>Your verification code is:</p>
+                <div style="font-size:32px;color:#4caf50;font-weight:bold;padding:20px;background:#1a1a1a;border-radius:10px;margin:20px 0;letter-spacing:3px;">${code}</div>
+                <p style="color:#ccc;margin-bottom:20px;">Check your email for the full verification message.</p>
+                <button onclick="navigator.clipboard.writeText('${code}').then(() => alert('Code copied to clipboard!'))" style="background:#2196f3;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;margin:5px;">📋 Copy Code</button>
+                <button onclick="document.getElementById('verificationDisplay').remove()" style="background:#d32f2f;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;margin:5px;">Close</button>
+            </div>`);
+        }
+
+        function showMailtoFallback(email, verificationCode) {
+            const subject = encodeURIComponent('🎬 Pathé Cinema - Email Verification');
+            const body = encodeURIComponent(`Hello!
+
+Welcome to Pathé Cinema! 🍿
+
+Your verification code is: ${verificationCode}
+
+Please enter this code on our website to verify your account.
+
+Thanks for joining Pathé!
+
+Best regards,
+The Pathé Cinema Team`);
+            const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+
+            document.body.insertAdjacentHTML('beforeend', `
+            <div id="emailFallback" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);color:white;padding:30px;text-align:center;z-index:10000;overflow-y:auto;">
+                <div style="background:#1a1a1a;padding:40px;border-radius:15px;max-width:500px;margin:50px auto;border:2px solid #d32f2f;">
+                    <h2>📧 Email Service Backup</h2>
+                    <p style="margin-bottom:20px;">Automatic email services are temporarily unavailable, but don't worry!</p>
+                    
+                    <div style="font-size:24px;color:#4caf50;font-weight:bold;padding:20px;background:#333;border-radius:10px;margin:20px 0;letter-spacing:2px;">
+                        Your verification code: ${verificationCode}
+                    </div>
+                    
+                    <p style="color:#ccc;margin-bottom:20px;">You can use this code right away, or send yourself an email:</p>
+                    
+                    <button onclick="window.open('${mailtoLink}')" style="background:#2196f3;color:white;border:none;padding:15px 25px;border-radius:8px;cursor:pointer;margin:10px;font-size:16px;">📧 Send via Email App</button>
+                    <button onclick="navigator.clipboard.writeText('${verificationCode}').then(() => alert('Code copied to clipboard!'))" style="background:#ff9800;color:white;border:none;padding:15px 25px;border-radius:8px;cursor:pointer;margin:10px;font-size:16px;">📋 Copy Code</button>
+                    
+                    <br><br>
+                    <button onclick="document.getElementById('emailFallback').remove()" style="background:#d32f2f;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;">Close</button>
+                </div>
+            </div>`);
+
+            showResult('⚠️ Using backup method - code displayed above', 'info');
+        }
+
+        function showResult(message, type) {
+            const result = document.getElementById('result');
+            const resultMessage = document.getElementById('resultMessage');
+
+            result.className = `result ${type}`;
+            resultMessage.textContent = message;
+            result.style.display = 'block';
+
+            if (type === 'success') {
+                setTimeout(() => {
+                    result.style.display = 'none';
+                }, 10000);
+            }
+        }
+
+        // Placeholder input enhancement
+        document.getElementById('email').addEventListener('input', function () {
+            if (this.value.includes('@')) {
+                this.style.borderColor = '#4caf50';
+            } else {
+                this.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            }
+        });
+    </script>
+
+    <!-- EmailJS SDK (backup service) -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</body>
+
+</html>

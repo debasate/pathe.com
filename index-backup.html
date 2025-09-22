@@ -3497,7 +3497,7 @@ Click OK to go to Pathé.nl for the actual booking!`);
 
             // Method 1: Web3Forms (Primary - Free & Reliable!)
             const formData = new FormData();
-            formData.append('access_key', 'eea0b619-01b8-4875-964b-ca709c97bee5'); // Free Web3Forms key
+            formData.append('access_key', 'e8c4f8a1-4e2d-4f8a-9b2c-6d3e7f1a5b9c'); // Free Web3Forms key
             formData.append('email', user.email);
             formData.append('subject', '🎬 Pathé Cinema - Email Verification');
             formData.append('message', `Hello ${user.name.split(' ')[0]}!
@@ -3580,35 +3580,35 @@ Visit us: ${window.location.origin}`);
                         })
                         .catch(formspreeError => {
                             console.log('❌ Formspree fallback also failed, trying EmailJS:', formspreeError);
-                            if (typeof emailjs !== 'undefined') {
-                                try {
-                                    emailjs.init('902hWQUoBZdWzwVfH');
+                    if (typeof emailjs !== 'undefined') {
+                        try {
+                            emailjs.init('902hWQUoBZdWzwVfH');
 
-                                    const templateParams = {
-                                        to_name: user.name.split(' ')[0],
-                                        to_email: user.email,
-                                        verification_code: user.verificationCode,
-                                        cinema_name: 'Pathé Cinema',
-                                        website_url: window.location.origin
-                                    };
+                            const templateParams = {
+                                to_name: user.name.split(' ')[0],
+                                to_email: user.email,
+                                verification_code: user.verificationCode,
+                                cinema_name: 'Pathé Cinema',
+                                website_url: window.location.origin
+                            };
 
-                                    emailjs.send('service_doc2eqt', 'template_verification', templateParams)
-                                        .then(function (response) {
-                                            console.log('✅ Verification email sent via EmailJS fallback!');
-                                            alert('✅ Verification email sent! Check your inbox and spam folder.');
+                            emailjs.send('service_doc2eqt', 'template_verification', templateParams)
+                                .then(function (response) {
+                                    console.log('✅ Verification email sent via EmailJS fallback!');
+                                    alert('✅ Verification email sent! Check your inbox and spam folder.');
 
-                                            document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
-                                            document.getElementById('displayedCode').textContent = user.verificationCode;
-                                        })
-                                        .catch(function (emailJsError) {
-                                            console.log('❌ EmailJS also failed, showing code directly:', emailJsError);
+                                    document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                                    document.getElementById('displayedCode').textContent = user.verificationCode;
+                                })
+                                .catch(function (emailJsError) {
+                                    console.log('❌ EmailJS also failed, showing code directly:', emailJsError);
 
-                                            // Method 3: Direct code display with mailto option
-                                            const subject = encodeURIComponent('🎬 Pathé Cinema - Email Verification');
-                                            const body = encodeURIComponent(`Hello ${user.name.split(' ')[0]}!\n\nWelcome to Pathé Cinema! 🍿\n\nYour verification code is: ${user.verificationCode}\n\nPlease enter this code on our website to verify your account.\n\nThanks for joining Pathé!\n\nBest regards,\nThe Pathé Cinema Team`);
-                                            const mailtoLink = `mailto:${user.email}?subject=${subject}&body=${body}`;
+                                    // Method 3: Direct code display with mailto option
+                                    const subject = encodeURIComponent('🎬 Pathé Cinema - Email Verification');
+                                    const body = encodeURIComponent(`Hello ${user.name.split(' ')[0]}!\n\nWelcome to Pathé Cinema! 🍿\n\nYour verification code is: ${user.verificationCode}\n\nPlease enter this code on our website to verify your account.\n\nThanks for joining Pathé!\n\nBest regards,\nThe Pathé Cinema Team`);
+                                    const mailtoLink = `mailto:${user.email}?subject=${subject}&body=${body}`;
 
-                                            document.body.insertAdjacentHTML('beforeend', `
+                                    document.body.insertAdjacentHTML('beforeend', `
                                     <div id="emailFallback" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);color:white;padding:30px;text-align:center;z-index:10000;">
                                         <div style="background:#1a1a1a;padding:40px;border-radius:15px;max-width:500px;margin:0 auto;border:2px solid #d32f2f;">
                                             <h2>📧 Email Service Backup</h2>
@@ -3621,154 +3621,154 @@ Visit us: ${window.location.origin}`);
                                     </div>
                                 `);
 
-                                            document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
-                                            document.getElementById('displayedCode').textContent = user.verificationCode;
-                                        });
-                                } catch (emailJsInitError) {
-                                    console.log('❌ EmailJS init failed:', emailJsInitError);
-                                    alert(`📧 Email services unavailable. Your verification code is: ${user.verificationCode}`);
-
                                     document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
                                     document.getElementById('displayedCode').textContent = user.verificationCode;
-                                }
-                            } else {
-                                console.log('❌ EmailJS not loaded');
-                                alert(`📧 Email services unavailable. Your verification code is: ${user.verificationCode}`);
+                                });
+                        } catch (emailJsInitError) {
+                            console.log('❌ EmailJS init failed:', emailJsInitError);
+                            alert(`📧 Email services unavailable. Your verification code is: ${user.verificationCode}`);
 
-                                document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
-                                document.getElementById('displayedCode').textContent = user.verificationCode;
-                            }
-                        });
-                }        // Send booking confirmation email
-        function sendBookingConfirmationEmail(user) {
-                        // Get booking details
-                        const cinema = document.getElementById('cinemaSelect');
-                        const date = document.getElementById('dateSelect');
-                        const time = document.getElementById('timeSelect');
-
-                        const cinemaNames = {
-                            'amsterdam-arena': 'Pathé Arena - Amsterdam',
-                            'rotterdam-schouwburgplein': 'Pathé Schouwburgplein - Rotterdam',
-                            'den-haag': 'Pathé Spuimarkt - The Hague',
-                            'utrecht-leidsche-rijn': 'Pathé Leidsche Rijn - Utrecht',
-                            'eindhoven': 'Pathé Eindhoven'
-                        };
-
-                        // Generate booking reference
-                        const bookingRef = 'PTH' + Date.now().toString().slice(-6);
-
-                        // Email template parameters for booking confirmation
-                        const templateParams = {
-                            to_name: user.name.split(' ')[0],
-                            to_email: user.email,
-                            movie_title: currentMovie,
-                            cinema_name: cinemaNames[cinema.value] || cinema.value,
-                            booking_date: date.options[date.selectedIndex].text,
-                            showtime: time.options[time.selectedIndex].text,
-                            seat_count: selectedSeats.length,
-                            total_price: (selectedSeats.length * ticketPrice).toFixed(2),
-                            booking_reference: bookingRef,
-                            seats_list: selectedSeats.join(', '),
-                            website_url: window.location.origin
-                        };
-
-                        // Check if EmailJS is available
-                        if (typeof emailjs !== 'undefined') {
-                            try {
-                                // Send booking confirmation email
-                                emailjs.send('service_doc2eqt', 'template_booking', templateParams)
-                                    .then(function (response) {
-                                        console.log('Booking confirmation sent!', response.status, response.text);
-                                    }, function (error) {
-                                        console.log('Failed to send booking confirmation:', error);
-                                    });
-                            } catch (error) {
-                                console.log('EmailJS error in booking confirmation:', error);
-                            }
-                        } else {
-                            console.log('EmailJS not available for booking confirmation');
+                            document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                            document.getElementById('displayedCode').textContent = user.verificationCode;
                         }
+                    } else {
+                        console.log('❌ EmailJS not loaded');
+                        alert(`📧 Email services unavailable. Your verification code is: ${user.verificationCode}`);
+
+                        document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                        document.getElementById('displayedCode').textContent = user.verificationCode;
                     }
+                });
+        }        // Send booking confirmation email
+        function sendBookingConfirmationEmail(user) {
+            // Get booking details
+            const cinema = document.getElementById('cinemaSelect');
+            const date = document.getElementById('dateSelect');
+            const time = document.getElementById('timeSelect');
+
+            const cinemaNames = {
+                'amsterdam-arena': 'Pathé Arena - Amsterdam',
+                'rotterdam-schouwburgplein': 'Pathé Schouwburgplein - Rotterdam',
+                'den-haag': 'Pathé Spuimarkt - The Hague',
+                'utrecht-leidsche-rijn': 'Pathé Leidsche Rijn - Utrecht',
+                'eindhoven': 'Pathé Eindhoven'
+            };
+
+            // Generate booking reference
+            const bookingRef = 'PTH' + Date.now().toString().slice(-6);
+
+            // Email template parameters for booking confirmation
+            const templateParams = {
+                to_name: user.name.split(' ')[0],
+                to_email: user.email,
+                movie_title: currentMovie,
+                cinema_name: cinemaNames[cinema.value] || cinema.value,
+                booking_date: date.options[date.selectedIndex].text,
+                showtime: time.options[time.selectedIndex].text,
+                seat_count: selectedSeats.length,
+                total_price: (selectedSeats.length * ticketPrice).toFixed(2),
+                booking_reference: bookingRef,
+                seats_list: selectedSeats.join(', '),
+                website_url: window.location.origin
+            };
+
+            // Check if EmailJS is available
+            if (typeof emailjs !== 'undefined') {
+                try {
+                    // Send booking confirmation email
+                    emailjs.send('service_doc2eqt', 'template_booking', templateParams)
+                        .then(function (response) {
+                            console.log('Booking confirmation sent!', response.status, response.text);
+                        }, function (error) {
+                            console.log('Failed to send booking confirmation:', error);
+                        });
+                } catch (error) {
+                    console.log('EmailJS error in booking confirmation:', error);
+                }
+            } else {
+                console.log('EmailJS not available for booking confirmation');
+            }
+        }
 
         function showVerificationModal(email) {
-                        closeLoginModal(); // Close login modal first
+            closeLoginModal(); // Close login modal first
 
-                        const modal = document.getElementById('verificationModal');
-                        const emailSpan = document.getElementById('verificationEmail');
+            const modal = document.getElementById('verificationModal');
+            const emailSpan = document.getElementById('verificationEmail');
 
-                        emailSpan.textContent = email;
-                        modal.style.display = 'block';
-                        setTimeout(() => modal.classList.add('active'), 10);
-                    }
+            emailSpan.textContent = email;
+            modal.style.display = 'block';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
 
         // 2FA System Functions
         let currentLoginUser = null;
-            let rememberMeStatus = false;
+        let rememberMeStatus = false;
 
-            function generateAndSend2FACode(user) {
-                // Generate 6-digit 2FA code
-                const twoFactorCode = Math.floor(100000 + Math.random() * 900000).toString();
+        function generateAndSend2FACode(user) {
+            // Generate 6-digit 2FA code
+            const twoFactorCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-                // Store temporarily (in real app this would be server-side)
-                user.twoFactorCode = twoFactorCode;
-                user.twoFactorExpiry = Date.now() + (10 * 60 * 1000); // 10 minutes
+            // Store temporarily (in real app this would be server-side)
+            user.twoFactorCode = twoFactorCode;
+            user.twoFactorExpiry = Date.now() + (10 * 60 * 1000); // 10 minutes
 
-                // Update user in localStorage
-                const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
-                const userIndex = users.findIndex(u => u.email === user.email);
-                if (userIndex !== -1) {
-                    users[userIndex] = user;
-                    localStorage.setItem('patheUsers', JSON.stringify(users));
-                }
-
-                // Send 2FA email (using EmailJS if configured)
-                send2FAEmail(user);
+            // Update user in localStorage
+            const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+            const userIndex = users.findIndex(u => u.email === user.email);
+            if (userIndex !== -1) {
+                users[userIndex] = user;
+                localStorage.setItem('patheUsers', JSON.stringify(users));
             }
 
-            function send2FAEmail(user) {
-                // Initialize EmailJS only if available
-                if (typeof emailjs !== 'undefined') {
-                    try {
-                        emailjs.init('902hWQUoBZdWzwVfH');
+            // Send 2FA email (using EmailJS if configured)
+            send2FAEmail(user);
+        }
 
-                        // Email template parameters for 2FA
-                        const templateParams = {
-                            to_name: user.name.split(' ')[0],
-                            to_email: user.email,
-                            two_factor_code: user.twoFactorCode,
-                            login_time: new Date().toLocaleString('nl-NL'),
-                            website_url: window.location.origin
-                        };
+        function send2FAEmail(user) {
+            // Initialize EmailJS only if available
+            if (typeof emailjs !== 'undefined') {
+                try {
+                    emailjs.init('902hWQUoBZdWzwVfH');
 
-                        // Try to send 2FA email with multiple fallback methods
-                        console.log('🔄 Attempting to send 2FA email...');
+                    // Email template parameters for 2FA
+                    const templateParams = {
+                        to_name: user.name.split(' ')[0],
+                        to_email: user.email,
+                        two_factor_code: user.twoFactorCode,
+                        login_time: new Date().toLocaleString('nl-NL'),
+                        website_url: window.location.origin
+                    };
 
-                        if (typeof emailjs !== 'undefined') {
-                            // Method 1: Primary EmailJS attempt
-                            emailjs.send('service_doc2eqt', 'template_2fa', templateParams)
-                                .then(function (response) {
-                                    console.log('✅ 2FA email sent via EmailJS!', response.status, response.text);
-                                    alert('✅ 2FA code sent to your email! Check your inbox.');
-                                })
-                                .catch(function (error) {
-                                    console.log('❌ Primary 2FA EmailJS failed:', error);
+                    // Try to send 2FA email with multiple fallback methods
+                    console.log('🔄 Attempting to send 2FA email...');
 
-                                    // Method 2: Try backup template
-                                    emailjs.send('service_doc2eqt', 'template_backup', templateParams)
-                                        .then(function (response) {
-                                            console.log('✅ 2FA sent via backup template!', response);
-                                            alert('✅ 2FA code sent via backup service! Check your inbox.');
-                                        })
-                                        .catch(function (error2) {
-                                            console.log('❌ Backup 2FA EmailJS also failed:', error2);
+                    if (typeof emailjs !== 'undefined') {
+                        // Method 1: Primary EmailJS attempt
+                        emailjs.send('service_doc2eqt', 'template_2fa', templateParams)
+                            .then(function (response) {
+                                console.log('✅ 2FA email sent via EmailJS!', response.status, response.text);
+                                alert('✅ 2FA code sent to your email! Check your inbox.');
+                            })
+                            .catch(function (error) {
+                                console.log('❌ Primary 2FA EmailJS failed:', error);
 
-                                            // Method 3: Show 2FA code with mailto option
-                                            const subject = encodeURIComponent('🔐 Pathé Cinema - Login Verification');
-                                            const body = encodeURIComponent(`Hello ${user.name.split(' ')[0]}!\n\nSomeone is trying to log into your Pathé account.\n\nLogin Details:\n🕐 Time: ${templateParams.login_time}\n💻 Location: ${templateParams.website_url}\n\nYour 2FA Code: ${user.twoFactorCode}\n\n⚠️ If this wasn't you, change your password immediately!\n\nThis code expires in 10 minutes.\n\nBest regards,\nThe Pathé Security Team`);
-                                            const mailtoLink = `mailto:${user.email}?subject=${subject}&body=${body}`;
+                                // Method 2: Try backup template
+                                emailjs.send('service_doc2eqt', 'template_backup', templateParams)
+                                    .then(function (response) {
+                                        console.log('✅ 2FA sent via backup template!', response);
+                                        alert('✅ 2FA code sent via backup service! Check your inbox.');
+                                    })
+                                    .catch(function (error2) {
+                                        console.log('❌ Backup 2FA EmailJS also failed:', error2);
 
-                                            // Show advanced 2FA fallback
-                                            document.body.insertAdjacentHTML('beforeend', `
+                                        // Method 3: Show 2FA code with mailto option
+                                        const subject = encodeURIComponent('🔐 Pathé Cinema - Login Verification');
+                                        const body = encodeURIComponent(`Hello ${user.name.split(' ')[0]}!\n\nSomeone is trying to log into your Pathé account.\n\nLogin Details:\n🕐 Time: ${templateParams.login_time}\n💻 Location: ${templateParams.website_url}\n\nYour 2FA Code: ${user.twoFactorCode}\n\n⚠️ If this wasn't you, change your password immediately!\n\nThis code expires in 10 minutes.\n\nBest regards,\nThe Pathé Security Team`);
+                                        const mailtoLink = `mailto:${user.email}?subject=${subject}&body=${body}`;
+
+                                        // Show advanced 2FA fallback
+                                        document.body.insertAdjacentHTML('beforeend', `
                                             <div id="twoFAFallback" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);color:white;padding:30px;text-align:center;z-index:10000;">
                                                 <div style="background:#1a1a1a;padding:40px;border-radius:15px;max-width:600px;margin:0 auto;border:2px solid #d32f2f;">
                                                     <h2>� 2FA Code Delivery</h2>
@@ -3781,258 +3781,258 @@ Visit us: ${window.location.origin}`);
                                                 </div>
                                             </div>
                                         `);
-                                        });
-                                });
-                        } else {
-                            // Method 4: EmailJS not available fallback
-                            console.log('❌ EmailJS not available for 2FA');
-                            alert(`🔐 Email service not available.\n\nYour 2FA code is: ${user.twoFactorCode}\n\nThis code expires in 10 minutes.`);
-                        }
-                    } catch (error) {
-                        console.log('EmailJS error:', error);
-                        // Show code in alert for debugging
-                        alert(`📧 EmailJS error. Your 2FA code is: ${user.twoFactorCode}`);
+                                    });
+                            });
+                    } else {
+                        // Method 4: EmailJS not available fallback
+                        console.log('❌ EmailJS not available for 2FA');
+                        alert(`🔐 Email service not available.\n\nYour 2FA code is: ${user.twoFactorCode}\n\nThis code expires in 10 minutes.`);
                     }
-                } else {
-                    // EmailJS not loaded, show code in alert for debugging
-                    alert(`📧 EmailJS not available. Your 2FA code is: ${user.twoFactorCode}`);
+                } catch (error) {
+                    console.log('EmailJS error:', error);
+                    // Show code in alert for debugging
+                    alert(`📧 EmailJS error. Your 2FA code is: ${user.twoFactorCode}`);
                 }
-
-                // Update the simulated email display
-                document.getElementById('twoFactorUserName').textContent = user.name.split(' ')[0];
-                document.getElementById('twoFactorDisplayedCode').textContent = user.twoFactorCode;
+            } else {
+                // EmailJS not loaded, show code in alert for debugging
+                alert(`📧 EmailJS not available. Your 2FA code is: ${user.twoFactorCode}`);
             }
 
-            function show2FAModal(user, rememberMe) {
-                currentLoginUser = user;
-                rememberMeStatus = rememberMe;
+            // Update the simulated email display
+            document.getElementById('twoFactorUserName').textContent = user.name.split(' ')[0];
+            document.getElementById('twoFactorDisplayedCode').textContent = user.twoFactorCode;
+        }
 
-                closeLoginModal(); // Close login modal first
+        function show2FAModal(user, rememberMe) {
+            currentLoginUser = user;
+            rememberMeStatus = rememberMe;
 
-                const modal = document.getElementById('twoFactorModal');
-                modal.style.display = 'block';
-                setTimeout(() => modal.classList.add('active'), 10);
+            closeLoginModal(); // Close login modal first
 
-                // Focus on code input
-                setTimeout(() => {
-                    document.getElementById('twoFactorCode').focus();
-                }, 100);
+            const modal = document.getElementById('twoFactorModal');
+            modal.style.display = 'block';
+            setTimeout(() => modal.classList.add('active'), 10);
+
+            // Focus on code input
+            setTimeout(() => {
+                document.getElementById('twoFactorCode').focus();
+            }, 100);
+        }
+
+        function closeTwoFactorModal() {
+            const modal = document.getElementById('twoFactorModal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.getElementById('twoFactorForm').reset();
+            }, 300);
+
+            currentLoginUser = null;
+            rememberMeStatus = false;
+        }
+
+        function resend2FACode() {
+            if (currentLoginUser) {
+                generateAndSend2FACode(currentLoginUser);
+                showNotification('📧 Nieuwe 2FA code verzonden!', 'info');
             }
+        }
 
-            function closeTwoFactorModal() {
-                const modal = document.getElementById('twoFactorModal');
-                modal.classList.remove('active');
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                    document.getElementById('twoFactorForm').reset();
-                }, 300);
+        function closeVerificationModal() {
+            const modal = document.getElementById('verificationModal');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
 
-                currentLoginUser = null;
-                rememberMeStatus = false;
+        function resendVerificationCode() {
+            const email = document.getElementById('verificationEmail').textContent;
+            const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+            const user = users.find(u => u.email === email);
+
+            if (user) {
+                // Generate new code
+                user.verificationCode = generateVerificationCode();
+
+                // Update user in localStorage
+                const userIndex = users.findIndex(u => u.email === email);
+                users[userIndex] = user;
+                localStorage.setItem('patheUsers', JSON.stringify(users));
+
+                // Send new email
+                sendVerificationEmail(user);
+                showNotification('📧 Nieuwe verificatiecode verzonden!', 'success');
             }
+        }
 
-            function resend2FACode() {
-                if (currentLoginUser) {
-                    generateAndSend2FACode(currentLoginUser);
-                    showNotification('📧 Nieuwe 2FA code verzonden!', 'info');
-                }
-            }
+        // Verification form submission
+        document.getElementById('verificationForm').addEventListener('submit', function (e) {
+            e.preventDefault();
 
-            function closeVerificationModal() {
-                const modal = document.getElementById('verificationModal');
-                modal.classList.remove('active');
-                setTimeout(() => modal.style.display = 'none', 300);
-            }
+            const enteredCode = document.getElementById('verificationCode').value;
+            const email = document.getElementById('verificationEmail').textContent;
 
-            function resendVerificationCode() {
-                const email = document.getElementById('verificationEmail').textContent;
-                const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
-                const user = users.find(u => u.email === email);
+            const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+            const userIndex = users.findIndex(u => u.email === email);
 
-                if (user) {
-                    // Generate new code
-                    user.verificationCode = generateVerificationCode();
+            if (userIndex !== -1) {
+                const user = users[userIndex];
 
-                    // Update user in localStorage
-                    const userIndex = users.findIndex(u => u.email === email);
+                if (user.verificationCode === enteredCode) {
+                    // Verification successful
+                    user.emailVerified = true;
                     users[userIndex] = user;
                     localStorage.setItem('patheUsers', JSON.stringify(users));
+                    localStorage.setItem('patheUser', JSON.stringify(user));
 
-                    // Send new email
-                    sendVerificationEmail(user);
-                    showNotification('📧 Nieuwe verificatiecode verzonden!', 'success');
-                }
-            }
-
-            // Verification form submission
-            document.getElementById('verificationForm').addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                const enteredCode = document.getElementById('verificationCode').value;
-                const email = document.getElementById('verificationEmail').textContent;
-
-                const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
-                const userIndex = users.findIndex(u => u.email === email);
-
-                if (userIndex !== -1) {
-                    const user = users[userIndex];
-
-                    if (user.verificationCode === enteredCode) {
-                        // Verification successful
-                        user.emailVerified = true;
-                        users[userIndex] = user;
-                        localStorage.setItem('patheUsers', JSON.stringify(users));
-                        localStorage.setItem('patheUser', JSON.stringify(user));
-
-                        currentUser = user;
-                        updateNavigationForLoggedInUser();
-                        closeVerificationModal();
-                        openLoginModal();
-                        showUserProfile();
-
-                        showNotification('🎉 E-mail succesvol geverifieerd! Welkom bij Pathé!', 'success');
-                    } else {
-                        showNotification('❌ Ongeldige verificatiecode. Probeer opnieuw.', 'error');
-                    }
-                }
-            });
-
-            // 2FA Form Handler
-            document.getElementById('twoFactorForm').addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                const enteredCode = document.getElementById('twoFactorCode').value;
-
-                if (!currentLoginUser) {
-                    showNotification('❌ Sessie verlopen. Log opnieuw in.', 'error');
-                    closeTwoFactorModal();
-                    return;
-                }
-
-                // Check if code is correct and not expired
-                const now = Date.now();
-                if (currentLoginUser.twoFactorCode === enteredCode &&
-                    currentLoginUser.twoFactorExpiry > now) {
-
-                    // Successful 2FA login
-                    currentUser = currentLoginUser;
-
-                    if (rememberMeStatus) {
-                        localStorage.setItem('patheUser', JSON.stringify(currentUser));
-                    }
-
-                    // Clear 2FA code for security
-                    currentLoginUser.twoFactorCode = null;
-                    currentLoginUser.twoFactorExpiry = null;
-
-                    // Update user in storage
-                    const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
-                    const userIndex = users.findIndex(u => u.email === currentUser.email);
-                    if (userIndex !== -1) {
-                        users[userIndex] = currentUser;
-                        localStorage.setItem('patheUsers', JSON.stringify(users));
-                    }
-
-                    closeTwoFactorModal();
+                    currentUser = user;
                     updateNavigationForLoggedInUser();
+                    closeVerificationModal();
+                    openLoginModal();
                     showUserProfile();
-                    showNotification('✅ 2FA Succesvol! Welkom terug bij Pathé.', 'success');
 
-                } else if (currentLoginUser.twoFactorExpiry <= now) {
-                    showNotification('⏰ Code verlopen. Vraag een nieuwe code aan.', 'error');
-
+                    showNotification('🎉 E-mail succesvol geverifieerd! Welkom bij Pathé!', 'success');
                 } else {
-                    showNotification('❌ Onjuiste verificatiecode. Probeer opnieuw.', 'error');
-                    document.getElementById('twoFactorCode').value = '';
-                    document.getElementById('twoFactorCode').focus();
-                }
-            });
-
-            function updateNavigationForLoggedInUser() {
-                const loginBtn = document.querySelector('.nav-links .login-btn');
-                if (currentUser && loginBtn) {
-                    loginBtn.textContent = `👤 ${currentUser.name.split(' ')[0]}`;
-                    loginBtn.classList.add('user-nav');
+                    showNotification('❌ Ongeldige verificatiecode. Probeer opnieuw.', 'error');
                 }
             }
+        });
 
-            function logout() {
-                // Complete logout process
-                currentUser = null;
-                localStorage.removeItem('patheUser');
+        // 2FA Form Handler
+        document.getElementById('twoFactorForm').addEventListener('submit', function (e) {
+            e.preventDefault();
 
-                // Clear all user-related data
-                localStorage.removeItem('patheFavorites');
-                localStorage.removeItem('patheSettings');
+            const enteredCode = document.getElementById('twoFactorCode').value;
 
-                // Reset navigation to login state
-                const loginBtn = document.querySelector('.nav-links .login-btn');
+            if (!currentLoginUser) {
+                showNotification('❌ Sessie verlopen. Log opnieuw in.', 'error');
+                closeTwoFactorModal();
+                return;
+            }
+
+            // Check if code is correct and not expired
+            const now = Date.now();
+            if (currentLoginUser.twoFactorCode === enteredCode &&
+                currentLoginUser.twoFactorExpiry > now) {
+
+                // Successful 2FA login
+                currentUser = currentLoginUser;
+
+                if (rememberMeStatus) {
+                    localStorage.setItem('patheUser', JSON.stringify(currentUser));
+                }
+
+                // Clear 2FA code for security
+                currentLoginUser.twoFactorCode = null;
+                currentLoginUser.twoFactorExpiry = null;
+
+                // Update user in storage
+                const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+                const userIndex = users.findIndex(u => u.email === currentUser.email);
+                if (userIndex !== -1) {
+                    users[userIndex] = currentUser;
+                    localStorage.setItem('patheUsers', JSON.stringify(users));
+                }
+
+                closeTwoFactorModal();
+                updateNavigationForLoggedInUser();
+                showUserProfile();
+                showNotification('✅ 2FA Succesvol! Welkom terug bij Pathé.', 'success');
+
+            } else if (currentLoginUser.twoFactorExpiry <= now) {
+                showNotification('⏰ Code verlopen. Vraag een nieuwe code aan.', 'error');
+
+            } else {
+                showNotification('❌ Onjuiste verificatiecode. Probeer opnieuw.', 'error');
+                document.getElementById('twoFactorCode').value = '';
+                document.getElementById('twoFactorCode').focus();
+            }
+        });
+
+        function updateNavigationForLoggedInUser() {
+            const loginBtn = document.querySelector('.nav-links .login-btn');
+            if (currentUser && loginBtn) {
+                loginBtn.textContent = `👤 ${currentUser.name.split(' ')[0]}`;
+                loginBtn.classList.add('user-nav');
+            }
+        }
+
+        function logout() {
+            // Complete logout process
+            currentUser = null;
+            localStorage.removeItem('patheUser');
+
+            // Clear all user-related data
+            localStorage.removeItem('patheFavorites');
+            localStorage.removeItem('patheSettings');
+
+            // Reset navigation to login state
+            const loginBtn = document.querySelector('.nav-links .login-btn');
+            if (loginBtn) {
+                loginBtn.textContent = '👤 Inloggen';
+                loginBtn.classList.remove('user-nav');
+                loginBtn.onclick = openLoginModal; // Reset to login function
+            }
+
+            // Close any open modals
+            closeLoginModal();
+            closeSettingsModal();
+
+            // Reset favorites display
+            updateFavoritesDisplay();
+
+            // Clear any active sessions
+            sessionStorage.clear();
+
+            // Reset page to logged-out state
+            updateNavigationState();
+
+            // Show logout confirmation
+            showNotification('👋 Je bent volledig uitgelogd. Tot ziens!', 'success');
+
+            // Optional: Refresh page to ensure clean state
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        }
+
+        // Update navigation state based on login status
+        function updateNavigationState() {
+            const loginBtn = document.querySelector('.nav-links .login-btn');
+
+            if (currentUser && currentUser.emailVerified) {
+                // User is logged in and verified
+                if (loginBtn) {
+                    loginBtn.textContent = `👤 ${currentUser.name}`;
+                    loginBtn.classList.add('user-nav');
+                    loginBtn.onclick = openLoginModal; // This will show profile when logged in
+                }
+            } else {
+                // User is logged out
                 if (loginBtn) {
                     loginBtn.textContent = '👤 Inloggen';
                     loginBtn.classList.remove('user-nav');
-                    loginBtn.onclick = openLoginModal; // Reset to login function
-                }
-
-                // Close any open modals
-                closeLoginModal();
-                closeSettingsModal();
-
-                // Reset favorites display
-                updateFavoritesDisplay();
-
-                // Clear any active sessions
-                sessionStorage.clear();
-
-                // Reset page to logged-out state
-                updateNavigationState();
-
-                // Show logout confirmation
-                showNotification('👋 Je bent volledig uitgelogd. Tot ziens!', 'success');
-
-                // Optional: Refresh page to ensure clean state
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1500);
-            }
-
-            // Update navigation state based on login status
-            function updateNavigationState() {
-                const loginBtn = document.querySelector('.nav-links .login-btn');
-
-                if (currentUser && currentUser.emailVerified) {
-                    // User is logged in and verified
-                    if (loginBtn) {
-                        loginBtn.textContent = `👤 ${currentUser.name}`;
-                        loginBtn.classList.add('user-nav');
-                        loginBtn.onclick = openLoginModal; // This will show profile when logged in
-                    }
-                } else {
-                    // User is logged out
-                    if (loginBtn) {
-                        loginBtn.textContent = '👤 Inloggen';
-                        loginBtn.classList.remove('user-nav');
-                        loginBtn.onclick = openLoginModal; // This will show login form
-                    }
+                    loginBtn.onclick = openLoginModal; // This will show login form
                 }
             }
+        }
 
-            // Close settings modal if it exists
-            function closeSettingsModal() {
-                const settingsModal = document.getElementById('settingsModal');
-                if (settingsModal) {
-                    settingsModal.classList.remove('active');
-                    settingsModal.style.display = 'none';
-                }
+        // Close settings modal if it exists
+        function closeSettingsModal() {
+            const settingsModal = document.getElementById('settingsModal');
+            if (settingsModal) {
+                settingsModal.classList.remove('active');
+                settingsModal.style.display = 'none';
             }
+        }
 
-            function showNotification(message, type) {
-                // Create notification element
-                const notification = document.createElement('div');
-                notification.className = `notification ${type}`;
-                notification.innerHTML = message;
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = message;
 
-                // Add styles
-                notification.style.cssText = `
+            // Add styles
+            notification.style.cssText = `
                 position: fixed;
                 top: 20px;
                 right: 20px;
@@ -4048,450 +4048,450 @@ Visit us: ${window.location.origin}`);
                 font-weight: 500;
             `;
 
-                document.body.appendChild(notification);
+            document.body.appendChild(notification);
 
-                // Animate in
-                setTimeout(() => {
-                    notification.style.transform = 'translateX(0)';
-                }, 100);
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
 
-                // Remove after 4 seconds
+            // Remove after 4 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
                 setTimeout(() => {
-                    notification.style.transform = 'translateX(400px)';
-                    setTimeout(() => {
-                        if (document.body.contains(notification)) {
-                            document.body.removeChild(notification);
-                        }
-                    }, 300);
-                }, 4000);
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function (event) {
+            const loginModal = document.getElementById('loginModal');
+            const verificationModal = document.getElementById('verificationModal');
+            const twoFactorModal = document.getElementById('twoFactorModal');
+
+            if (event.target === loginModal) {
+                closeLoginModal();
             }
 
-            // Close modal when clicking outside
-            window.addEventListener('click', function (event) {
-                const loginModal = document.getElementById('loginModal');
-                const verificationModal = document.getElementById('verificationModal');
-                const twoFactorModal = document.getElementById('twoFactorModal');
+            if (event.target === verificationModal) {
+                closeVerificationModal();
+            }
 
-                if (event.target === loginModal) {
-                    closeLoginModal();
-                }
+            if (event.target === twoFactorModal) {
+                closeTwoFactorModal();
+            }
+        });
 
-                if (event.target === verificationModal) {
-                    closeVerificationModal();
-                }
+        // Favorites System
+        let userFavorites = [];
 
-                if (event.target === twoFactorModal) {
-                    closeTwoFactorModal();
+        // Load favorites on page load
+        window.addEventListener('DOMContentLoaded', function () {
+            loadFavorites();
+            updateFavoriteButtons();
+        });
+
+        function loadFavorites() {
+            const savedFavorites = localStorage.getItem('patheFavorites');
+            if (savedFavorites) {
+                userFavorites = JSON.parse(savedFavorites);
+            }
+        }
+
+        function saveFavorites() {
+            localStorage.setItem('patheFavorites', JSON.stringify(userFavorites));
+        }
+
+        function toggleFavorite(movieTitle) {
+            // Check if user is logged in
+            if (!currentUser) {
+                showNotification('⚠️ Je moet ingelogd zijn om favorieten toe te voegen.', 'error');
+                openLoginModal();
+                return;
+            }
+
+            const index = userFavorites.indexOf(movieTitle);
+
+            if (index === -1) {
+                // Add to favorites
+                userFavorites.push(movieTitle);
+                showNotification(`❤️ ${movieTitle} toegevoegd aan favorieten!`, 'success');
+            } else {
+                // Remove from favorites
+                userFavorites.splice(index, 1);
+                showNotification(`💔 ${movieTitle} verwijderd uit favorieten.`, 'info');
+            }
+
+            saveFavorites();
+            updateFavoriteButtons();
+        }
+
+        // Reset all favorites to unfavorited state
+        function updateFavoritesDisplay() {
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
+
+            favoriteButtons.forEach(button => {
+                button.classList.remove('favorited');
+                const heart = button.querySelector('.heart');
+                if (heart) {
+                    heart.textContent = '🤍';
                 }
             });
 
-            // Favorites System
-            let userFavorites = [];
+            // Clear favorites array
+            userFavorites = [];
+        }
 
-            // Load favorites on page load
-            window.addEventListener('DOMContentLoaded', function () {
-                loadFavorites();
-                updateFavoriteButtons();
-            });
+        function updateFavoriteButtons() {
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
 
-            function loadFavorites() {
-                const savedFavorites = localStorage.getItem('patheFavorites');
-                if (savedFavorites) {
-                    userFavorites = JSON.parse(savedFavorites);
-                }
-            }
+            favoriteButtons.forEach(button => {
+                const movieTitle = button.getAttribute('data-movie');
+                const heart = button.querySelector('.heart');
 
-            function saveFavorites() {
-                localStorage.setItem('patheFavorites', JSON.stringify(userFavorites));
-            }
-
-            function toggleFavorite(movieTitle) {
-                // Check if user is logged in
-                if (!currentUser) {
-                    showNotification('⚠️ Je moet ingelogd zijn om favorieten toe te voegen.', 'error');
-                    openLoginModal();
-                    return;
-                }
-
-                const index = userFavorites.indexOf(movieTitle);
-
-                if (index === -1) {
-                    // Add to favorites
-                    userFavorites.push(movieTitle);
-                    showNotification(`❤️ ${movieTitle} toegevoegd aan favorieten!`, 'success');
+                if (userFavorites.includes(movieTitle)) {
+                    button.classList.add('favorited');
+                    heart.textContent = '❤️';
                 } else {
-                    // Remove from favorites
-                    userFavorites.splice(index, 1);
-                    showNotification(`💔 ${movieTitle} verwijderd uit favorieten.`, 'info');
-                }
-
-                saveFavorites();
-                updateFavoriteButtons();
-            }
-
-            // Reset all favorites to unfavorited state
-            function updateFavoritesDisplay() {
-                const favoriteButtons = document.querySelectorAll('.favorite-btn');
-
-                favoriteButtons.forEach(button => {
                     button.classList.remove('favorited');
-                    const heart = button.querySelector('.heart');
-                    if (heart) {
-                        heart.textContent = '🤍';
-                    }
-                });
-
-                // Clear favorites array
-                userFavorites = [];
-            }
-
-            function updateFavoriteButtons() {
-                const favoriteButtons = document.querySelectorAll('.favorite-btn');
-
-                favoriteButtons.forEach(button => {
-                    const movieTitle = button.getAttribute('data-movie');
-                    const heart = button.querySelector('.heart');
-
-                    if (userFavorites.includes(movieTitle)) {
-                        button.classList.add('favorited');
-                        heart.textContent = '❤️';
-                    } else {
-                        button.classList.remove('favorited');
-                        heart.textContent = '🤍';
-                    }
-                });
-            }
-
-            function getFavoriteMovies() {
-                return userFavorites;
-            }
-
-            function showFavorites() {
-                if (!currentUser) {
-                    showNotification('⚠️ Je moet ingelogd zijn om je favorieten te bekijken.', 'error');
-                    return;
-                }
-
-                if (userFavorites.length === 0) {
-                    showNotification('📽️ Je hebt nog geen favoriete films toegevoegd.', 'info');
-                    return;
-                }
-
-                let favoritesList = userFavorites.map(movie => `• ${movie}`).join('\n');
-                showNotification(`⭐ Je favoriete films:\n${favoritesList}`, 'success');
-            }
-
-            // Update the existing profile button click handler
-            document.addEventListener('DOMContentLoaded', function () {
-                // Add click handler for favorites button in profile
-                const favoriteProfileBtn = document.querySelector('.profile-btn');
-                if (favoriteProfileBtn && favoriteProfileBtn.textContent.includes('Favorieten')) {
-                    favoriteProfileBtn.addEventListener('click', showFavorites);
+                    heart.textContent = '🤍';
                 }
             });
+        }
 
-            // Settings System
-            let userSettings = {
-                account: {
-                    displayName: '',
-                    language: 'nl',
-                    publicProfile: false
-                },
-                notifications: {
-                    email: true,
-                    movieReleases: true,
-                    specialOffers: true,
-                    reminders: false,
-                    news: false
-                },
-                privacy: {
-                    dataCollection: false,
-                    locationTracking: false,
-                    cookies: true
-                },
-                moviePreferences: {
-                    genres: [],
-                    preferredCinema: '',
-                    preferredShowtime: ''
-                },
-                accessibility: {
-                    subtitles: false,
-                    audiodescription: false,
-                    wheelchairAccess: false,
-                    textSize: 'normal',
-                    theme: 'dark'
-                },
-                app: {
-                    autoplayTrailers: true,
-                    chatbotEnabled: true,
-                    soundEffects: true,
-                    autoLogout: '1day'
+        function getFavoriteMovies() {
+            return userFavorites;
+        }
+
+        function showFavorites() {
+            if (!currentUser) {
+                showNotification('⚠️ Je moet ingelogd zijn om je favorieten te bekijken.', 'error');
+                return;
+            }
+
+            if (userFavorites.length === 0) {
+                showNotification('📽️ Je hebt nog geen favoriete films toegevoegd.', 'info');
+                return;
+            }
+
+            let favoritesList = userFavorites.map(movie => `• ${movie}`).join('\n');
+            showNotification(`⭐ Je favoriete films:\n${favoritesList}`, 'success');
+        }
+
+        // Update the existing profile button click handler
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add click handler for favorites button in profile
+            const favoriteProfileBtn = document.querySelector('.profile-btn');
+            if (favoriteProfileBtn && favoriteProfileBtn.textContent.includes('Favorieten')) {
+                favoriteProfileBtn.addEventListener('click', showFavorites);
+            }
+        });
+
+        // Settings System
+        let userSettings = {
+            account: {
+                displayName: '',
+                language: 'nl',
+                publicProfile: false
+            },
+            notifications: {
+                email: true,
+                movieReleases: true,
+                specialOffers: true,
+                reminders: false,
+                news: false
+            },
+            privacy: {
+                dataCollection: false,
+                locationTracking: false,
+                cookies: true
+            },
+            moviePreferences: {
+                genres: [],
+                preferredCinema: '',
+                preferredShowtime: ''
+            },
+            accessibility: {
+                subtitles: false,
+                audiodescription: false,
+                wheelchairAccess: false,
+                textSize: 'normal',
+                theme: 'dark'
+            },
+            app: {
+                autoplayTrailers: true,
+                chatbotEnabled: true,
+                soundEffects: true,
+                autoLogout: '1day'
+            }
+        };
+
+        // Load settings on page load
+        window.addEventListener('DOMContentLoaded', function () {
+            loadUserSettings();
+            applyUserSettings();
+        });
+
+        function loadUserSettings() {
+            const savedSettings = localStorage.getItem('patheSettings');
+            if (savedSettings) {
+                userSettings = { ...userSettings, ...JSON.parse(savedSettings) };
+            }
+            populateSettingsForm();
+        }
+
+        function saveUserSettings() {
+            localStorage.setItem('patheSettings', JSON.stringify(userSettings));
+        }
+
+        function populateSettingsForm() {
+            // Account settings
+            if (document.getElementById('displayName')) {
+                document.getElementById('displayName').value = userSettings.account.displayName || '';
+                document.getElementById('profileLanguage').value = userSettings.account.language || 'nl';
+                document.getElementById('publicProfile').checked = userSettings.account.publicProfile || false;
+            }
+
+            // Notification settings
+            if (document.getElementById('emailNotifications')) {
+                document.getElementById('emailNotifications').checked = userSettings.notifications.email !== false;
+                document.getElementById('movieReleases').checked = userSettings.notifications.movieReleases !== false;
+                document.getElementById('specialOffers').checked = userSettings.notifications.specialOffers !== false;
+                document.getElementById('reminderNotifications').checked = userSettings.notifications.reminders || false;
+                document.getElementById('newsUpdates').checked = userSettings.notifications.news || false;
+            }
+
+            // Privacy settings
+            if (document.getElementById('dataCollection')) {
+                document.getElementById('dataCollection').checked = userSettings.privacy.dataCollection || false;
+                document.getElementById('locationTracking').checked = userSettings.privacy.locationTracking || false;
+                document.getElementById('cookiePreferences').checked = userSettings.privacy.cookies !== false;
+            }
+
+            // Movie preferences
+            if (document.getElementById('preferredCinema')) {
+                document.getElementById('preferredCinema').value = userSettings.moviePreferences.preferredCinema || '';
+                document.getElementById('preferredShowtime').value = userSettings.moviePreferences.preferredShowtime || '';
+
+                // Set genre checkboxes
+                const genreInputs = document.querySelectorAll('input[name="genre"]');
+                genreInputs.forEach(input => {
+                    input.checked = userSettings.moviePreferences.genres.includes(input.value);
+                });
+            }
+
+            // Accessibility settings
+            if (document.getElementById('subtitlesDefault')) {
+                document.getElementById('subtitlesDefault').checked = userSettings.accessibility.subtitles || false;
+                document.getElementById('audiodescription').checked = userSettings.accessibility.audiodescription || false;
+                document.getElementById('wheelchairAccess').checked = userSettings.accessibility.wheelchairAccess || false;
+                document.getElementById('textSize').value = userSettings.accessibility.textSize || 'normal';
+                document.getElementById('themePreference').value = userSettings.accessibility.theme || 'dark';
+            }
+
+            // App settings
+            if (document.getElementById('autoplayTrailers')) {
+                document.getElementById('autoplayTrailers').checked = userSettings.app.autoplayTrailers !== false;
+                document.getElementById('chatbotEnabled').checked = userSettings.app.chatbotEnabled !== false;
+                document.getElementById('soundEffects').checked = userSettings.app.soundEffects !== false;
+                document.getElementById('autoLogout').value = userSettings.app.autoLogout || '1day';
+            }
+        }
+
+        function applyUserSettings() {
+            // Apply text size
+            const textSize = userSettings.accessibility.textSize || 'normal';
+            document.body.classList.remove('text-small', 'text-large', 'text-extra-large');
+            if (textSize !== 'normal') {
+                document.body.classList.add(`text-${textSize.replace('-', '-')}`);
+            }
+
+            // Apply theme
+            const theme = userSettings.accessibility.theme || 'dark';
+            document.body.classList.remove('theme-light', 'theme-dark');
+            document.body.classList.add(`theme-${theme}`);
+
+            // Apply chatbot setting
+            const chatbotEnabled = userSettings.app.chatbotEnabled !== false;
+            const chatbotBtn = document.getElementById('chatbotButton');
+            if (chatbotBtn) {
+                chatbotBtn.style.display = chatbotEnabled ? 'flex' : 'none';
+            }
+        }
+
+        // Settings save functions
+        function saveAccountSettings() {
+            if (!currentUser) {
+                showNotification('⚠️ Je moet ingelogd zijn om instellingen op te slaan.', 'error');
+                return;
+            }
+
+            userSettings.account.displayName = document.getElementById('displayName').value;
+            userSettings.account.language = document.getElementById('profileLanguage').value;
+            userSettings.account.publicProfile = document.getElementById('publicProfile').checked;
+
+            saveUserSettings();
+            showNotification('✅ Account instellingen opgeslagen!', 'success');
+        }
+
+        function saveNotificationSettings() {
+            userSettings.notifications.email = document.getElementById('emailNotifications').checked;
+            userSettings.notifications.movieReleases = document.getElementById('movieReleases').checked;
+            userSettings.notifications.specialOffers = document.getElementById('specialOffers').checked;
+            userSettings.notifications.reminders = document.getElementById('reminderNotifications').checked;
+            userSettings.notifications.news = document.getElementById('newsUpdates').checked;
+
+            saveUserSettings();
+            showNotification('🔔 Notificatie instellingen opgeslagen!', 'success');
+        }
+
+        function savePrivacySettings() {
+            userSettings.privacy.dataCollection = document.getElementById('dataCollection').checked;
+            userSettings.privacy.locationTracking = document.getElementById('locationTracking').checked;
+            userSettings.privacy.cookies = document.getElementById('cookiePreferences').checked;
+
+            saveUserSettings();
+            showNotification('🔒 Privacy instellingen opgeslagen!', 'success');
+        }
+
+        function saveMoviePreferences() {
+            userSettings.moviePreferences.preferredCinema = document.getElementById('preferredCinema').value;
+            userSettings.moviePreferences.preferredShowtime = document.getElementById('preferredShowtime').value;
+
+            // Get selected genres
+            const selectedGenres = [];
+            const genreInputs = document.querySelectorAll('input[name="genre"]:checked');
+            genreInputs.forEach(input => selectedGenres.push(input.value));
+            userSettings.moviePreferences.genres = selectedGenres;
+
+            saveUserSettings();
+            showNotification('🎬 Film voorkeuren opgeslagen!', 'success');
+        }
+
+        function saveAccessibilitySettings() {
+            userSettings.accessibility.subtitles = document.getElementById('subtitlesDefault').checked;
+            userSettings.accessibility.audiodescription = document.getElementById('audiodescription').checked;
+            userSettings.accessibility.wheelchairAccess = document.getElementById('wheelchairAccess').checked;
+            userSettings.accessibility.textSize = document.getElementById('textSize').value;
+            userSettings.accessibility.theme = document.getElementById('themePreference').value;
+
+            saveUserSettings();
+            applyUserSettings(); // Apply changes immediately
+            showNotification('♿ Toegankelijkheid instellingen opgeslagen!', 'success');
+        }
+
+        function saveAppSettings() {
+            userSettings.app.autoplayTrailers = document.getElementById('autoplayTrailers').checked;
+            userSettings.app.chatbotEnabled = document.getElementById('chatbotEnabled').checked;
+            userSettings.app.soundEffects = document.getElementById('soundEffects').checked;
+            userSettings.app.autoLogout = document.getElementById('autoLogout').value;
+
+            saveUserSettings();
+            applyUserSettings(); // Apply changes immediately
+            showNotification('📱 App instellingen opgeslagen!', 'success');
+        }
+
+        // Additional settings functions
+        function goToSettings() {
+            closeLoginModal();
+            const settingsSection = document.getElementById('settings');
+            if (settingsSection) {
+                settingsSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        function changePassword() {
+            if (!currentUser) {
+                showNotification('⚠️ Je moet ingelogd zijn om je wachtwoord te wijzigen.', 'error');
+                return;
+            }
+
+            const newPassword = prompt('Enter your new password (minimum 6 characters):');
+            if (newPassword && newPassword.length >= 6) {
+                // Update password in localStorage
+                const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+                const userIndex = users.findIndex(u => u.email === currentUser.email);
+                if (userIndex !== -1) {
+                    users[userIndex].password = newPassword;
+                    currentUser.password = newPassword;
+                    localStorage.setItem('patheUsers', JSON.stringify(users));
+                    localStorage.setItem('patheUser', JSON.stringify(currentUser));
+                    showNotification('🔑 Wachtwoord succesvol gewijzigd!', 'success');
                 }
+            } else if (newPassword !== null) {
+                showNotification('❌ Password must contain at least 6 characters.', 'error');
+            }
+        }
+
+        function downloadData() {
+            if (!currentUser) {
+                showNotification('⚠️ You must be logged in to download your data.', 'error');
+                return;
+            }
+
+            const userData = {
+                user: currentUser,
+                settings: userSettings,
+                favorites: userFavorites,
+                downloadDate: new Date().toISOString()
             };
 
-            // Load settings on page load
-            window.addEventListener('DOMContentLoaded', function () {
-                loadUserSettings();
-                applyUserSettings();
-            });
+            const dataStr = JSON.stringify(userData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
 
-            function loadUserSettings() {
-                const savedSettings = localStorage.getItem('patheSettings');
-                if (savedSettings) {
-                    userSettings = { ...userSettings, ...JSON.parse(savedSettings) };
-                }
-                populateSettingsForm();
-            }
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `pathe-data-${currentUser.email.replace('@', '_')}.json`;
+            link.click();
 
-            function saveUserSettings() {
-                localStorage.setItem('patheSettings', JSON.stringify(userSettings));
-            }
+            URL.revokeObjectURL(url);
+            showNotification('📥 Your data is being downloaded!', 'success');
+        }
 
-            function populateSettingsForm() {
-                // Account settings
-                if (document.getElementById('displayName')) {
-                    document.getElementById('displayName').value = userSettings.account.displayName || '';
-                    document.getElementById('profileLanguage').value = userSettings.account.language || 'nl';
-                    document.getElementById('publicProfile').checked = userSettings.account.publicProfile || false;
-                }
+        function clearCache() {
+            if (confirm('Weet je zeker dat je alle cache wilt wissen? Dit kan de laadtijd van de website verhogen.')) {
+                // Clear specific cache items but keep user data
+                const keysToKeep = ['patheUser', 'patheUsers', 'patheSettings', 'patheFavorites'];
+                const allKeys = Object.keys(localStorage);
 
-                // Notification settings
-                if (document.getElementById('emailNotifications')) {
-                    document.getElementById('emailNotifications').checked = userSettings.notifications.email !== false;
-                    document.getElementById('movieReleases').checked = userSettings.notifications.movieReleases !== false;
-                    document.getElementById('specialOffers').checked = userSettings.notifications.specialOffers !== false;
-                    document.getElementById('reminderNotifications').checked = userSettings.notifications.reminders || false;
-                    document.getElementById('newsUpdates').checked = userSettings.notifications.news || false;
-                }
-
-                // Privacy settings
-                if (document.getElementById('dataCollection')) {
-                    document.getElementById('dataCollection').checked = userSettings.privacy.dataCollection || false;
-                    document.getElementById('locationTracking').checked = userSettings.privacy.locationTracking || false;
-                    document.getElementById('cookiePreferences').checked = userSettings.privacy.cookies !== false;
-                }
-
-                // Movie preferences
-                if (document.getElementById('preferredCinema')) {
-                    document.getElementById('preferredCinema').value = userSettings.moviePreferences.preferredCinema || '';
-                    document.getElementById('preferredShowtime').value = userSettings.moviePreferences.preferredShowtime || '';
-
-                    // Set genre checkboxes
-                    const genreInputs = document.querySelectorAll('input[name="genre"]');
-                    genreInputs.forEach(input => {
-                        input.checked = userSettings.moviePreferences.genres.includes(input.value);
-                    });
-                }
-
-                // Accessibility settings
-                if (document.getElementById('subtitlesDefault')) {
-                    document.getElementById('subtitlesDefault').checked = userSettings.accessibility.subtitles || false;
-                    document.getElementById('audiodescription').checked = userSettings.accessibility.audiodescription || false;
-                    document.getElementById('wheelchairAccess').checked = userSettings.accessibility.wheelchairAccess || false;
-                    document.getElementById('textSize').value = userSettings.accessibility.textSize || 'normal';
-                    document.getElementById('themePreference').value = userSettings.accessibility.theme || 'dark';
-                }
-
-                // App settings
-                if (document.getElementById('autoplayTrailers')) {
-                    document.getElementById('autoplayTrailers').checked = userSettings.app.autoplayTrailers !== false;
-                    document.getElementById('chatbotEnabled').checked = userSettings.app.chatbotEnabled !== false;
-                    document.getElementById('soundEffects').checked = userSettings.app.soundEffects !== false;
-                    document.getElementById('autoLogout').value = userSettings.app.autoLogout || '1day';
-                }
-            }
-
-            function applyUserSettings() {
-                // Apply text size
-                const textSize = userSettings.accessibility.textSize || 'normal';
-                document.body.classList.remove('text-small', 'text-large', 'text-extra-large');
-                if (textSize !== 'normal') {
-                    document.body.classList.add(`text-${textSize.replace('-', '-')}`);
-                }
-
-                // Apply theme
-                const theme = userSettings.accessibility.theme || 'dark';
-                document.body.classList.remove('theme-light', 'theme-dark');
-                document.body.classList.add(`theme-${theme}`);
-
-                // Apply chatbot setting
-                const chatbotEnabled = userSettings.app.chatbotEnabled !== false;
-                const chatbotBtn = document.getElementById('chatbotButton');
-                if (chatbotBtn) {
-                    chatbotBtn.style.display = chatbotEnabled ? 'flex' : 'none';
-                }
-            }
-
-            // Settings save functions
-            function saveAccountSettings() {
-                if (!currentUser) {
-                    showNotification('⚠️ Je moet ingelogd zijn om instellingen op te slaan.', 'error');
-                    return;
-                }
-
-                userSettings.account.displayName = document.getElementById('displayName').value;
-                userSettings.account.language = document.getElementById('profileLanguage').value;
-                userSettings.account.publicProfile = document.getElementById('publicProfile').checked;
-
-                saveUserSettings();
-                showNotification('✅ Account instellingen opgeslagen!', 'success');
-            }
-
-            function saveNotificationSettings() {
-                userSettings.notifications.email = document.getElementById('emailNotifications').checked;
-                userSettings.notifications.movieReleases = document.getElementById('movieReleases').checked;
-                userSettings.notifications.specialOffers = document.getElementById('specialOffers').checked;
-                userSettings.notifications.reminders = document.getElementById('reminderNotifications').checked;
-                userSettings.notifications.news = document.getElementById('newsUpdates').checked;
-
-                saveUserSettings();
-                showNotification('🔔 Notificatie instellingen opgeslagen!', 'success');
-            }
-
-            function savePrivacySettings() {
-                userSettings.privacy.dataCollection = document.getElementById('dataCollection').checked;
-                userSettings.privacy.locationTracking = document.getElementById('locationTracking').checked;
-                userSettings.privacy.cookies = document.getElementById('cookiePreferences').checked;
-
-                saveUserSettings();
-                showNotification('🔒 Privacy instellingen opgeslagen!', 'success');
-            }
-
-            function saveMoviePreferences() {
-                userSettings.moviePreferences.preferredCinema = document.getElementById('preferredCinema').value;
-                userSettings.moviePreferences.preferredShowtime = document.getElementById('preferredShowtime').value;
-
-                // Get selected genres
-                const selectedGenres = [];
-                const genreInputs = document.querySelectorAll('input[name="genre"]:checked');
-                genreInputs.forEach(input => selectedGenres.push(input.value));
-                userSettings.moviePreferences.genres = selectedGenres;
-
-                saveUserSettings();
-                showNotification('🎬 Film voorkeuren opgeslagen!', 'success');
-            }
-
-            function saveAccessibilitySettings() {
-                userSettings.accessibility.subtitles = document.getElementById('subtitlesDefault').checked;
-                userSettings.accessibility.audiodescription = document.getElementById('audiodescription').checked;
-                userSettings.accessibility.wheelchairAccess = document.getElementById('wheelchairAccess').checked;
-                userSettings.accessibility.textSize = document.getElementById('textSize').value;
-                userSettings.accessibility.theme = document.getElementById('themePreference').value;
-
-                saveUserSettings();
-                applyUserSettings(); // Apply changes immediately
-                showNotification('♿ Toegankelijkheid instellingen opgeslagen!', 'success');
-            }
-
-            function saveAppSettings() {
-                userSettings.app.autoplayTrailers = document.getElementById('autoplayTrailers').checked;
-                userSettings.app.chatbotEnabled = document.getElementById('chatbotEnabled').checked;
-                userSettings.app.soundEffects = document.getElementById('soundEffects').checked;
-                userSettings.app.autoLogout = document.getElementById('autoLogout').value;
-
-                saveUserSettings();
-                applyUserSettings(); // Apply changes immediately
-                showNotification('📱 App instellingen opgeslagen!', 'success');
-            }
-
-            // Additional settings functions
-            function goToSettings() {
-                closeLoginModal();
-                const settingsSection = document.getElementById('settings');
-                if (settingsSection) {
-                    settingsSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            }
-
-            function changePassword() {
-                if (!currentUser) {
-                    showNotification('⚠️ Je moet ingelogd zijn om je wachtwoord te wijzigen.', 'error');
-                    return;
-                }
-
-                const newPassword = prompt('Enter your new password (minimum 6 characters):');
-                if (newPassword && newPassword.length >= 6) {
-                    // Update password in localStorage
-                    const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
-                    const userIndex = users.findIndex(u => u.email === currentUser.email);
-                    if (userIndex !== -1) {
-                        users[userIndex].password = newPassword;
-                        currentUser.password = newPassword;
-                        localStorage.setItem('patheUsers', JSON.stringify(users));
-                        localStorage.setItem('patheUser', JSON.stringify(currentUser));
-                        showNotification('🔑 Wachtwoord succesvol gewijzigd!', 'success');
+                allKeys.forEach(key => {
+                    if (!keysToKeep.includes(key)) {
+                        localStorage.removeItem(key);
                     }
-                } else if (newPassword !== null) {
-                    showNotification('❌ Password must contain at least 6 characters.', 'error');
-                }
+                });
+
+                showNotification('🗑️ Cache gewist!', 'success');
             }
+        }
 
-            function downloadData() {
-                if (!currentUser) {
-                    showNotification('⚠️ You must be logged in to download your data.', 'error');
-                    return;
-                }
-
-                const userData = {
-                    user: currentUser,
-                    settings: userSettings,
-                    favorites: userFavorites,
-                    downloadDate: new Date().toISOString()
+        function resetSettings() {
+            if (confirm('Weet je zeker dat je alle instellingen wilt resetten naar de standaardwaarden?')) {
+                // Reset settings to default
+                userSettings = {
+                    account: { displayName: '', language: 'nl', publicProfile: false },
+                    notifications: { email: true, movieReleases: true, specialOffers: true, reminders: false, news: false },
+                    privacy: { dataCollection: false, locationTracking: false, cookies: true },
+                    moviePreferences: { genres: [], preferredCinema: '', preferredShowtime: '' },
+                    accessibility: { subtitles: false, audiodescription: false, wheelchairAccess: false, textSize: 'normal', theme: 'dark' },
+                    app: { autoplayTrailers: true, chatbotEnabled: true, soundEffects: true, autoLogout: '1day' }
                 };
 
-                const dataStr = JSON.stringify(userData, null, 2);
-                const dataBlob = new Blob([dataStr], { type: 'application/json' });
-                const url = URL.createObjectURL(dataBlob);
-
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `pathe-data-${currentUser.email.replace('@', '_')}.json`;
-                link.click();
-
-                URL.revokeObjectURL(url);
-                showNotification('📥 Your data is being downloaded!', 'success');
+                saveUserSettings();
+                populateSettingsForm();
+                applyUserSettings();
+                showNotification('🔄 Settings reset to default values!', 'success');
             }
+        }
 
-            function clearCache() {
-                if (confirm('Weet je zeker dat je alle cache wilt wissen? Dit kan de laadtijd van de website verhogen.')) {
-                    // Clear specific cache items but keep user data
-                    const keysToKeep = ['patheUser', 'patheUsers', 'patheSettings', 'patheFavorites'];
-                    const allKeys = Object.keys(localStorage);
-
-                    allKeys.forEach(key => {
-                        if (!keysToKeep.includes(key)) {
-                            localStorage.removeItem(key);
-                        }
-                    });
-
-                    showNotification('🗑️ Cache gewist!', 'success');
-                }
-            }
-
-            function resetSettings() {
-                if (confirm('Weet je zeker dat je alle instellingen wilt resetten naar de standaardwaarden?')) {
-                    // Reset settings to default
-                    userSettings = {
-                        account: { displayName: '', language: 'nl', publicProfile: false },
-                        notifications: { email: true, movieReleases: true, specialOffers: true, reminders: false, news: false },
-                        privacy: { dataCollection: false, locationTracking: false, cookies: true },
-                        moviePreferences: { genres: [], preferredCinema: '', preferredShowtime: '' },
-                        accessibility: { subtitles: false, audiodescription: false, wheelchairAccess: false, textSize: 'normal', theme: 'dark' },
-                        app: { autoplayTrailers: true, chatbotEnabled: true, soundEffects: true, autoLogout: '1day' }
-                    };
-
-                    saveUserSettings();
-                    populateSettingsForm();
-                    applyUserSettings();
-                    showNotification('🔄 Settings reset to default values!', 'success');
-                }
-            }
-
-            // Add CSS for text size settings
-            const textSizeCSS = `
+        // Add CSS for text size settings
+        const textSizeCSS = `
             .text-small { font-size: 0.9em; }
             .text-large { font-size: 1.1em; }
             .text-extra-large { font-size: 1.3em; }
@@ -4512,68 +4512,68 @@ Visit us: ${window.location.origin}`);
             }
         `;
 
-            // Inject CSS
-            const style = document.createElement('style');
-            style.textContent = textSizeCSS;
-            document.head.appendChild(style);
+        // Inject CSS
+        const style = document.createElement('style');
+        style.textContent = textSizeCSS;
+        document.head.appendChild(style);
 
-            // Copyright Footer Functions
-            function showPrivacyPolicy() {
-                showNotification('📄 Privacy Policy page would open here', 'info');
-                // In a real implementation, this would navigate to the privacy policy page
-                // window.open('/privacy-policy', '_blank');
-            }
+        // Copyright Footer Functions
+        function showPrivacyPolicy() {
+            showNotification('📄 Privacy Policy page would open here', 'info');
+            // In a real implementation, this would navigate to the privacy policy page
+            // window.open('/privacy-policy', '_blank');
+        }
 
-            function showTermsOfService() {
-                showNotification('📜 Terms of Service page would open here', 'info');
-                // In a real implementation, this would navigate to the terms page
-                // window.open('/terms-of-service', '_blank');
-            }
+        function showTermsOfService() {
+            showNotification('📜 Terms of Service page would open here', 'info');
+            // In a real implementation, this would navigate to the terms page
+            // window.open('/terms-of-service', '_blank');
+        }
 
-            function showCookiePolicy() {
-                showNotification('🍪 Cookie Policy page would open here', 'info');
-                // In a real implementation, this would navigate to the cookie policy page
-                // window.open('/cookie-policy', '_blank');
-            }
+        function showCookiePolicy() {
+            showNotification('🍪 Cookie Policy page would open here', 'info');
+            // In a real implementation, this would navigate to the cookie policy page
+            // window.open('/cookie-policy', '_blank');
+        }
 
-            function showAccessibility() {
-                showNotification('♿ Accessibility information page would open here', 'info');
-                // In a real implementation, this would navigate to the accessibility page
-                // window.open('/accessibility', '_blank');
-            }
+        function showAccessibility() {
+            showNotification('♿ Accessibility information page would open here', 'info');
+            // In a real implementation, this would navigate to the accessibility page
+            // window.open('/accessibility', '_blank');
+        }
 
-            // EmailJS Configuration Helper
-            function enableEmailJS(publicKey, serviceId, verificationTemplateId, twoFATemplateId, bookingTemplateId) {
-                // This function can be called from browser console to quickly enable EmailJS
-                console.log('🔧 Enabling EmailJS with provided configuration...');
+        // EmailJS Configuration Helper
+        function enableEmailJS(publicKey, serviceId, verificationTemplateId, twoFATemplateId, bookingTemplateId) {
+            // This function can be called from browser console to quickly enable EmailJS
+            console.log('🔧 Enabling EmailJS with provided configuration...');
 
-                // Update the configuration flags
-                window.emailjsConfig = {
-                    publicKey: publicKey,
-                    serviceId: serviceId,
-                    verificationTemplate: verificationTemplateId,
-                    twoFATemplate: twoFATemplateId,
-                    bookingTemplate: bookingTemplateId,
-                    enabled: true
-                };
+            // Update the configuration flags
+            window.emailjsConfig = {
+                publicKey: publicKey,
+                serviceId: serviceId,
+                verificationTemplate: verificationTemplateId,
+                twoFATemplate: twoFATemplateId,
+                bookingTemplate: bookingTemplateId,
+                enabled: true
+            };
 
-                console.log('✅ EmailJS configuration updated! New registrations and logins will use real emails.');
-                console.log('📧 Configuration:', window.emailjsConfig);
+            console.log('✅ EmailJS configuration updated! New registrations and logins will use real emails.');
+            console.log('📧 Configuration:', window.emailjsConfig);
 
-                alert('✅ EmailJS enabled! Next registration/login will use real emails.\n\n🔧 To make permanent: update the code as shown in quick-gmail.html');
-            }
+            alert('✅ EmailJS enabled! Next registration/login will use real emails.\n\n🔧 To make permanent: update the code as shown in quick-gmail.html');
+        }
 
-            // Console helper message
-            console.log('📧 EMAIL SETUP STATUS:');
-            console.log('✅ Formspree Endpoint: xwpreyjr (PRIMARY - ACTIVE)');
-            console.log('✅ EmailJS Public Key: 902hWQUoBZdWzwVfH (BACKUP)');
-            console.log('✅ Verification emails: Formspree → EmailJS → Mailto');
-            console.log('✅ 2FA emails: Formspree → EmailJS → Mailto');
-            console.log('✅ Booking emails: Formspree → EmailJS → Mailto');
-            console.log('🎯 Primary Service: Formspree (100% reliable)');
-            console.log('---');
-            console.log('🧪 Test: Register new account or login to test REAL emails!');
-            console.log('📧 Formspree will send actual emails to your inbox.');
+        // Console helper message
+        console.log('📧 EMAIL SETUP STATUS:');
+        console.log('✅ Formspree Endpoint: xwpreyjr (PRIMARY - ACTIVE)');
+        console.log('✅ EmailJS Public Key: 902hWQUoBZdWzwVfH (BACKUP)');
+        console.log('✅ Verification emails: Formspree → EmailJS → Mailto');
+        console.log('✅ 2FA emails: Formspree → EmailJS → Mailto');
+        console.log('✅ Booking emails: Formspree → EmailJS → Mailto');
+        console.log('🎯 Primary Service: Formspree (100% reliable)');
+        console.log('---');
+        console.log('🧪 Test: Register new account or login to test REAL emails!');
+        console.log('📧 Formspree will send actual emails to your inbox.');
     </script> <!-- Copyright Footer -->
     <footer class="copyright-footer">
         <div class="container">

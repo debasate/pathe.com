@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 Pathé Email Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #d32f2f);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        button:hover {
+            background: #b71c1c;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4caf50;
+        }
+
+        .error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid #f44336;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎬 PATHÉ</h1>
+        <h2>Email Test</h2>
+        <p>Test je Web3Forms email integratie</p>
+
+        <input type="email" id="email" placeholder="Je email address" required>
+        <button onclick="testEmail()">📧 Test Verification Email</button>
+
+        <div id="result" class="result">
+            <div id="resultText"></div>
+        </div>
+    </div>
+
+    <script>
+        async function testEmail() {
+            const email = document.getElementById('email').value;
+
+            if (!email) {
+                showResult('❌ Voer een email address in!', 'error');
+                return;
+            }
+
+            showResult('🔄 Versturen email...', 'info');
+
+            const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+            const formData = new FormData();
+            formData.append('access_key', 'eea0b619-01b8-4875-964b-ca709c97bee5');
+            formData.append('email', email);
+            formData.append('subject', '🎬 Pathé Cinema - Email Verification Test');
+            formData.append('message', `Hallo!
+
+Dit is een test email van Pathé Cinema! 🍿
+
+Je verificatie code is: ${verificationCode}
+
+Als je deze email ontvangt, dan werkt het email systeem perfect!
+
+Met vriendelijke groet,
+Het Pathé Cinema Team
+
+🎬 Geniet van de film!`);
+            formData.append('from_name', 'Pathé Cinema');
+            formData.append('replyto', email);
+
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                console.log('Web3Forms response:', data);
+
+                if (data.success) {
+                    showResult(`✅ Email succesvol verstuurd naar ${email}! 
+                    
+🎬 Verificatie code: ${verificationCode}
+
+Check je inbox (en spam folder)!`, 'success');
+                } else {
+                    throw new Error(data.message || 'Unknown error');
+                }
+            } catch (error) {
+                console.error('Email error:', error);
+                showResult(`❌ Email versturen mislukt: ${error.message}
+
+🎬 Je verificatie code: ${verificationCode}
+(Gebruik deze code alsnog!)`, 'error');
+            }
+        }
+
+        function showResult(message, type) {
+            const result = document.getElementById('result');
+            const resultText = document.getElementById('resultText');
+
+            result.className = `result ${type}`;
+            resultText.innerHTML = message.replace(/\n/g, '<br>');
+            result.style.display = 'block';
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('email').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                testEmail();
+            }
+        });
+    </script>
+</body>
+
+</html>
