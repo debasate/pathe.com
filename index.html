@@ -2807,6 +2807,58 @@
         </div>
     </div>
 
+    <!-- 2FA Login Modal -->
+    <div id="twoFactorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-btn" onclick="closeTwoFactorModal()">✕</button>
+                <h2>🔐 Tweestapsverificatie</h2>
+                <p>Voer de verificatiecode in die naar je e-mail is gestuurd</p>
+            </div>
+
+            <form id="twoFactorForm" class="auth-form">
+                <div class="form-group">
+                    <label for="twoFactorCode">📱 Verificatiecode (6 cijfers)</label>
+                    <input type="text" id="twoFactorCode" required maxlength="6" pattern="[0-9]{6}" placeholder="123456"
+                        autocomplete="one-time-code">
+                </div>
+
+                <button type="submit" class="auth-btn primary">
+                    🔓 Verifieer & Inloggen
+                </button>
+
+                <div class="form-footer">
+                    <button type="button" class="link-btn" onclick="resend2FACode()">
+                        📤 Code opnieuw versturen
+                    </button>
+                    <p class="small-text">Code geldig voor 10 minuten</p>
+                </div>
+            </form>
+
+            <!-- 2FA Email Display -->
+            <div id="twoFactorEmail" class="simulated-email">
+                <div class="email-header">
+                    <h4>📧 Pathé 2FA Login Code</h4>
+                    <span class="email-from">Van: security@pathe.nl</span>
+                </div>
+                <div class="email-body">
+                    <h3>🔐 Inlog Verificatie</h3>
+                    <p>Hallo <span id="twoFactorUserName">Gebruiker</span>,</p>
+                    <p>Er is een inlogpoging gedaan op je Pathé account. Voer de onderstaande code in om in te loggen:
+                    </p>
+
+                    <div class="verification-code-display">
+                        <span id="twoFactorDisplayedCode">654321</span>
+                    </div>
+
+                    <p><strong>Als je dit niet was, wijzig dan onmiddellijk je wachtwoord!</strong></p>
+                    <p>Deze code is 10 minuten geldig.</p>
+                    <p><strong>Het Pathé Beveiligingsteam</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Floating Chatbot Button -->
     <div id="chatbotButton" class="chatbot-float-btn" onclick="toggleChatbot()">
         <div class="chatbot-btn-icon">🤖</div>
@@ -3346,13 +3398,10 @@ Click OK to go to Pathé.nl for the actual booking!`);
                     return;
                 }
 
-                currentUser = user;
-                if (rememberMe) {
-                    localStorage.setItem('patheUser', JSON.stringify(user));
-                }
-                updateNavigationForLoggedInUser();
-                showUserProfile();
-                showNotification('✅ Succesvol ingelogd! Welkom terug bij Pathé.', 'success');
+                // Always require 2FA for login
+                generateAndSend2FACode(user);
+                show2FAModal(user, rememberMe);
+                showNotification('📧 2FA code verzonden! Check je e-mail.', 'info');
             } else {
                 showNotification('❌ Ongeldig e-mailadres of wachtwoord.', 'error');
             }
@@ -3507,6 +3556,93 @@ Click OK to go to Pathé.nl for the actual booking!`);
             setTimeout(() => modal.classList.add('active'), 10);
         }
 
+        // 2FA System Functions
+        let currentLoginUser = null;
+        let rememberMeStatus = false;
+
+        function generateAndSend2FACode(user) {
+            // Generate 6-digit 2FA code
+            const twoFactorCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+            // Store temporarily (in real app this would be server-side)
+            user.twoFactorCode = twoFactorCode;
+            user.twoFactorExpiry = Date.now() + (10 * 60 * 1000); // 10 minutes
+
+            // Update user in localStorage
+            const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+            const userIndex = users.findIndex(u => u.email === user.email);
+            if (userIndex !== -1) {
+                users[userIndex] = user;
+                localStorage.setItem('patheUsers', JSON.stringify(users));
+            }
+
+            // Send 2FA email (using EmailJS if configured)
+            send2FAEmail(user);
+        }
+
+        function send2FAEmail(user) {
+            // Initialize EmailJS
+            emailjs.init('902hWQUoBZdWzwVfH');
+
+            // Email template parameters for 2FA
+            const templateParams = {
+                to_name: user.name.split(' ')[0],
+                to_email: user.email,
+                two_factor_code: user.twoFactorCode,
+                login_time: new Date().toLocaleString('nl-NL'),
+                website_url: window.location.origin
+            };
+
+            // Send 2FA email using EmailJS (you need to create a 2FA template)
+            emailjs.send('service_doc2eqt', 'YOUR_2FA_TEMPLATE_ID', templateParams)
+                .then(function (response) {
+                    console.log('2FA email sent successfully!', response.status, response.text);
+                }, function (error) {
+                    console.log('Failed to send 2FA email:', error);
+                    // Fallback: show code in alert if email fails
+                    console.log(`2FA Code (fallback): ${user.twoFactorCode}`);
+                });
+
+            // Update the simulated email display
+            document.getElementById('twoFactorUserName').textContent = user.name.split(' ')[0];
+            document.getElementById('twoFactorDisplayedCode').textContent = user.twoFactorCode;
+        }
+
+        function show2FAModal(user, rememberMe) {
+            currentLoginUser = user;
+            rememberMeStatus = rememberMe;
+
+            closeLoginModal(); // Close login modal first
+
+            const modal = document.getElementById('twoFactorModal');
+            modal.style.display = 'block';
+            setTimeout(() => modal.classList.add('active'), 10);
+
+            // Focus on code input
+            setTimeout(() => {
+                document.getElementById('twoFactorCode').focus();
+            }, 100);
+        }
+
+        function closeTwoFactorModal() {
+            const modal = document.getElementById('twoFactorModal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.getElementById('twoFactorForm').reset();
+            }, 300);
+
+            currentLoginUser = null;
+            rememberMeStatus = false;
+        }
+
+        function resend2FACode() {
+            if (currentLoginUser) {
+                generateAndSend2FACode(currentLoginUser);
+                showNotification('📧 Nieuwe 2FA code verzonden!', 'info');
+            }
+        }
+
         function closeVerificationModal() {
             const modal = document.getElementById('verificationModal');
             modal.classList.remove('active');
@@ -3566,6 +3702,57 @@ Click OK to go to Pathé.nl for the actual booking!`);
             }
         });
 
+        // 2FA Form Handler
+        document.getElementById('twoFactorForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const enteredCode = document.getElementById('twoFactorCode').value;
+
+            if (!currentLoginUser) {
+                showNotification('❌ Sessie verlopen. Log opnieuw in.', 'error');
+                closeTwoFactorModal();
+                return;
+            }
+
+            // Check if code is correct and not expired
+            const now = Date.now();
+            if (currentLoginUser.twoFactorCode === enteredCode &&
+                currentLoginUser.twoFactorExpiry > now) {
+
+                // Successful 2FA login
+                currentUser = currentLoginUser;
+
+                if (rememberMeStatus) {
+                    localStorage.setItem('patheUser', JSON.stringify(currentUser));
+                }
+
+                // Clear 2FA code for security
+                currentLoginUser.twoFactorCode = null;
+                currentLoginUser.twoFactorExpiry = null;
+
+                // Update user in storage
+                const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
+                const userIndex = users.findIndex(u => u.email === currentUser.email);
+                if (userIndex !== -1) {
+                    users[userIndex] = currentUser;
+                    localStorage.setItem('patheUsers', JSON.stringify(users));
+                }
+
+                closeTwoFactorModal();
+                updateNavigationForLoggedInUser();
+                showUserProfile();
+                showNotification('✅ 2FA Succesvol! Welkom terug bij Pathé.', 'success');
+
+            } else if (currentLoginUser.twoFactorExpiry <= now) {
+                showNotification('⏰ Code verlopen. Vraag een nieuwe code aan.', 'error');
+
+            } else {
+                showNotification('❌ Onjuiste verificatiecode. Probeer opnieuw.', 'error');
+                document.getElementById('twoFactorCode').value = '';
+                document.getElementById('twoFactorCode').focus();
+            }
+        });
+
         function updateNavigationForLoggedInUser() {
             const loginBtn = document.querySelector('.nav-links .login-btn');
             if (currentUser && loginBtn) {
@@ -3578,11 +3765,11 @@ Click OK to go to Pathé.nl for the actual booking!`);
             // Complete logout process
             currentUser = null;
             localStorage.removeItem('patheUser');
-            
+
             // Clear all user-related data
             localStorage.removeItem('patheFavorites');
             localStorage.removeItem('patheSettings');
-            
+
             // Reset navigation to login state
             const loginBtn = document.querySelector('.nav-links .login-btn');
             if (loginBtn) {
@@ -3590,23 +3777,23 @@ Click OK to go to Pathé.nl for the actual booking!`);
                 loginBtn.classList.remove('user-nav');
                 loginBtn.onclick = openLoginModal; // Reset to login function
             }
-            
+
             // Close any open modals
             closeLoginModal();
             closeSettingsModal();
-            
+
             // Reset favorites display
             updateFavoritesDisplay();
-            
+
             // Clear any active sessions
             sessionStorage.clear();
-            
+
             // Reset page to logged-out state
             updateNavigationState();
-            
+
             // Show logout confirmation
             showNotification('👋 Je bent volledig uitgelogd. Tot ziens!', 'success');
-            
+
             // Optional: Refresh page to ensure clean state
             setTimeout(() => {
                 window.location.reload();
@@ -3616,7 +3803,7 @@ Click OK to go to Pathé.nl for the actual booking!`);
         // Update navigation state based on login status
         function updateNavigationState() {
             const loginBtn = document.querySelector('.nav-links .login-btn');
-            
+
             if (currentUser && currentUser.emailVerified) {
                 // User is logged in and verified
                 if (loginBtn) {
@@ -3688,6 +3875,7 @@ Click OK to go to Pathé.nl for the actual booking!`);
         window.addEventListener('click', function (event) {
             const loginModal = document.getElementById('loginModal');
             const verificationModal = document.getElementById('verificationModal');
+            const twoFactorModal = document.getElementById('twoFactorModal');
 
             if (event.target === loginModal) {
                 closeLoginModal();
@@ -3695,6 +3883,10 @@ Click OK to go to Pathé.nl for the actual booking!`);
 
             if (event.target === verificationModal) {
                 closeVerificationModal();
+            }
+
+            if (event.target === twoFactorModal) {
+                closeTwoFactorModal();
             }
         });
 
@@ -3745,7 +3937,7 @@ Click OK to go to Pathé.nl for the actual booking!`);
         // Reset all favorites to unfavorited state
         function updateFavoritesDisplay() {
             const favoriteButtons = document.querySelectorAll('.favorite-btn');
-            
+
             favoriteButtons.forEach(button => {
                 button.classList.remove('favorited');
                 const heart = button.querySelector('.heart');
@@ -3753,7 +3945,7 @@ Click OK to go to Pathé.nl for the actual booking!`);
                     heart.textContent = '🤍';
                 }
             });
-            
+
             // Clear favorites array
             userFavorites = [];
         }
