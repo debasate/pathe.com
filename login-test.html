@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,14 +16,16 @@
             justify-content: center;
             margin: 0;
         }
+
         .container {
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.8);
             padding: 40px;
             border-radius: 15px;
             text-align: center;
             max-width: 500px;
             width: 100%;
         }
+
         .test-btn {
             width: 100%;
             padding: 15px;
@@ -36,39 +39,45 @@
             text-decoration: none;
             display: inline-block;
         }
+
         .test-btn:hover {
             background: #b71c1c;
         }
+
         .result {
             margin-top: 20px;
             padding: 15px;
             border-radius: 8px;
             display: none;
         }
+
         .success {
             background: rgba(76, 175, 80, 0.2);
             border: 2px solid #4caf50;
         }
+
         .error {
             background: rgba(244, 67, 54, 0.2);
             border: 2px solid #f44336;
         }
+
         .info {
             background: rgba(33, 150, 243, 0.2);
             border: 2px solid #2196f3;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>🎬 PATHÉ</h1>
         <h2>Login Button Test</h2>
         <p>Test de login functionaliteit van je Pathé Cinema website</p>
-        
+
         <a href="index.html" class="test-btn">🚀 Open Hoofdwebsite</a>
-        
+
         <button onclick="testLoginButton()" class="test-btn">🔍 Test Login Button</button>
-        
+
         <div id="result" class="result">
             <div id="resultText"></div>
         </div>
@@ -82,7 +91,7 @@
                 <li>Test het inloggen met bestaande account</li>
                 <li>Check browser console (F12) voor errors</li>
             </ol>
-            
+
             <h3>💡 Mogelijke Problemen:</h3>
             <ul>
                 <li>JavaScript errors in console</li>
@@ -93,15 +102,15 @@
 
             <h3>✅ Test Account:</h3>
             <p>Email: test@pathe.com<br>
-            Password: test123<br>
-            (Maak eerst een account aan via registratie)</p>
+                Password: test123<br>
+                (Maak eerst een account aan via registratie)</p>
         </div>
     </div>
 
     <script>
         function testLoginButton() {
             showResult('🔄 Opening hoofdwebsite om login te testen...', 'info');
-            
+
             // Open main website
             setTimeout(() => {
                 window.open('index.html', '_blank');
@@ -112,14 +121,14 @@
         function showResult(message, type) {
             const result = document.getElementById('result');
             const resultText = document.getElementById('resultText');
-            
+
             result.className = `result ${type}`;
             resultText.innerHTML = message.replace(/\n/g, '<br>');
             result.style.display = 'block';
         }
 
         // Check if localStorage has users for testing
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
             if (users.length === 0) {
                 showResult('💡 Tip: Maak eerst een account aan via registratie om login te kunnen testen!', 'info');
@@ -129,4 +138,5 @@
         });
     </script>
 </body>
+
 </html>

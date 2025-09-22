@@ -365,28 +365,6 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        /* Enhanced mobile modal styles */
-        @media (max-width: 768px) {
-            .modal-content {
-                width: 95%;
-                max-width: none;
-                margin: 1rem;
-                padding: 1.5rem;
-                max-height: 90vh;
-                border-radius: 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .modal-content {
-                width: 98%;
-                margin: 0.5rem;
-                padding: 1rem;
-                max-height: 95vh;
-                border-radius: 10px;
-            }
-        }
-
         .modal-header {
             text-align: center;
             margin-bottom: 2rem;
@@ -438,179 +416,35 @@
         }
 
         .seat {
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
             border: 2px solid #444;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
+            font-size: 12px;
             background: #222;
-            position: relative;
-            margin: 2px;
         }
 
-        /* Standard seats - basic styling */
-        .seat.standard {
-            background: #2a2a2a;
-            border-color: #555;
-        }
-
-        .seat.standard:hover {
+        .seat:hover {
             border-color: #d32f2f;
             background: rgba(211, 47, 47, 0.2);
         }
 
-        /* Premium seats - golden styling */
-        .seat.premium {
-            background: linear-gradient(135deg, #3a3a3a, #4a4a4a);
-            border-color: #FFD700;
-            box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
-        }
-
-        .seat.premium:hover {
-            border-color: #FFA500;
-            background: linear-gradient(135deg, #4a4a4a, #5a5a5a);
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        /* VIP seats - luxury styling */
-        .seat.vip {
-            background: linear-gradient(135deg, #4a4a4a, #6a4c93);
-            border-color: #9d4edd;
-            box-shadow: 0 0 8px rgba(157, 78, 221, 0.4);
-            width: 40px;
-            height: 40px;
-        }
-
-        .seat.vip:hover {
-            border-color: #c77dff;
-            background: linear-gradient(135deg, #5a5a5a, #7a5ca3);
-            box-shadow: 0 0 15px rgba(157, 78, 221, 0.6);
-        }
-
         .seat.selected {
-            background: #d32f2f !important;
-            border-color: #f44336 !important;
-            color: white;
-            box-shadow: 0 0 15px rgba(211, 47, 47, 0.8) !important;
-        }
-
-        .seat.occupied {
-            background: #666 !important;
-            border-color: #888 !important;
-            cursor: not-allowed;
-            opacity: 0.5;
-            box-shadow: none !important;
-        }
-
-        .seat-type-indicator {
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            font-size: 8px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 50%;
-            width: 14px;
-            height: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Row styling */
-        .row-label {
-            grid-column: 1 / -1;
-            text-align: center;
-            color: #aaa;
-            font-size: 12px;
-            font-weight: 600;
-            margin: 8px 0 4px 0;
-            border-bottom: 1px solid #333;
-            padding-bottom: 4px;
-        }
-
-        .row-break {
-            grid-column: 1 / -1;
-            height: 8px;
-        }
-
-        /* Screen indicator */
-        .screen-indicator {
-            grid-column: 1 / -1;
-            text-align: center;
-            background: linear-gradient(135deg, #333, #555);
-            color: #FFD700;
-            padding: 12px;
-            margin: 20px 0 10px 0;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            border: 2px solid #FFD700;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
-
-        /* Seat Legend */
-        .seat-legend {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin: 10px 0 15px 0;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            color: #cccccc;
-        }
-
-        .legend-seat {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 8px;
-            border: 1px solid #555;
-        }
-
-        .legend-seat.standard {
-            background: #2a2a2a;
-            border-color: #555;
-        }
-
-        .legend-seat.premium {
-            background: linear-gradient(135deg, #3a3a3a, #4a4a4a);
-            border-color: #FFD700;
-            box-shadow: 0 0 3px rgba(255, 215, 0, 0.3);
-        }
-
-        .legend-seat.vip {
-            background: linear-gradient(135deg, #4a4a4a, #6a4c93);
-            border-color: #9d4edd;
-            box-shadow: 0 0 3px rgba(157, 78, 221, 0.4);
-        }
-
-        .legend-seat.occupied {
-            background: #666;
-            border-color: #888;
-            opacity: 0.5;
-        }
-
-        .legend-seat.selected {
             background: #d32f2f;
             border-color: #f44336;
             color: white;
+        }
+
+        .seat.occupied {
+            background: #666;
+            border-color: #888;
+            cursor: not-allowed;
+            opacity: 0.5;
         }
 
         .booking-summary {
@@ -1049,78 +883,6 @@
             overflow-y: auto;
         }
 
-        /* Mobile improvements for login modal */
-        @media (max-width: 768px) {
-            .login-modal {
-                max-width: 95vw;
-                max-height: 95vh;
-                margin: 1rem;
-                padding: 1.5rem;
-            }
-
-            .modal-content {
-                padding: 1.5rem;
-                width: 95%;
-                margin: 1rem;
-            }
-
-            .modal-title {
-                font-size: 1.5rem;
-                margin-bottom: 1rem;
-            }
-
-            .form-group {
-                margin-bottom: 1.2rem;
-            }
-
-            .form-group input {
-                padding: 0.8rem;
-                font-size: 1rem;
-                min-height: 44px;
-                /* Touch-friendly */
-            }
-
-            .auth-btn {
-                padding: 1rem;
-                font-size: 1rem;
-                min-height: 48px;
-                /* Touch-friendly */
-                width: 100%;
-            }
-
-            .form-options {
-                flex-direction: column;
-                gap: 0.5rem;
-                align-items: flex-start;
-            }
-
-            .checkbox-label {
-                margin-bottom: 0.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .login-modal {
-                max-width: 98vw;
-                padding: 1rem;
-            }
-
-            .modal-content {
-                padding: 1rem;
-                width: 98%;
-                margin: 0.5rem;
-            }
-
-            .modal-title {
-                font-size: 1.3rem;
-            }
-
-            .form-group input {
-                padding: 0.7rem;
-                font-size: 0.95rem;
-            }
-        }
-
         .auth-form {
             padding: 1rem 0;
         }
@@ -1134,122 +896,6 @@
             color: #ffffff;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        /* Calendar Styling */
-        .calendar-container {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 0.5rem 0;
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .nav-btn {
-            background: rgba(255, 215, 0, 0.2);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            color: #FFD700;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.2s ease;
-        }
-
-        .nav-btn:hover {
-            background: rgba(255, 215, 0, 0.3);
-            border-color: rgba(255, 215, 0, 0.5);
-            transform: scale(1.05);
-        }
-
-        .weekdays {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-            margin-bottom: 0.5rem;
-        }
-
-        .weekday {
-            text-align: center;
-            padding: 0.5rem;
-            font-size: 0.8rem;
-            color: #aaaaaa;
-            font-weight: 600;
-        }
-
-        .calendar-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-        }
-
-        .calendar-day {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-            color: #ffffff;
-            font-size: 0.9rem;
-            border: 1px solid transparent;
-        }
-
-        .calendar-day:hover {
-            background: rgba(255, 215, 0, 0.2);
-            border-color: rgba(255, 215, 0, 0.3);
-        }
-
-        .calendar-day.selected {
-            background: #FFD700;
-            color: #000000;
-            font-weight: 600;
-        }
-
-        .calendar-day.disabled {
-            color: #666666;
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        .calendar-day.disabled:hover {
-            background: none;
-            border-color: transparent;
-        }
-
-        .calendar-day.other-month {
-            color: #555555;
-        }
-
-        .calendar-day.today {
-            border: 2px solid #FFD700;
-            font-weight: 600;
-        }
-
-        .selected-date {
-            margin-top: 1rem;
-            padding: 0.75rem;
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 6px;
-            color: #FFD700;
-            text-align: center;
-            font-weight: 500;
             font-size: 0.9rem;
         }
 
@@ -1922,146 +1568,43 @@
             transform: scale(1.1);
         }
 
-        /* Responsive chatbot - Enhanced mobile experience */
+        /* Responsive chatbot */
         @media (max-width: 768px) {
             .chatbot-float-btn {
-                right: 15px;
-                bottom: 20px;
-                top: auto;
-                transform: none;
-                width: 55px;
-                height: 55px;
-                box-shadow: 0 8px 20px rgba(211, 47, 47, 0.4);
+                right: 20px;
+                width: 60px;
+                height: 60px;
             }
 
             .chatbot-float-btn:hover {
-                width: 120px;
-                border-radius: 28px;
-                transform: scale(1.05);
+                width: 130px;
+                border-radius: 30px;
             }
 
             .chatbot-btn-icon {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
 
             .chatbot-float-btn:hover .chatbot-btn-icon {
-                font-size: 1.2rem;
-            }
-
-            .chatbot-btn-text {
-                font-size: 0.75rem;
+                font-size: 1.3rem;
             }
 
             .chatbot-container {
-                width: 100vw;
-                height: 100vh;
-                right: 0;
-                top: 0;
-                transform: none;
-                border-radius: 0;
-                border: none;
-            }
-
-            .chatbot-header {
-                padding: 1rem;
-                border-radius: 0;
-            }
-
-            .chatbot-messages {
-                padding: 1rem;
-                max-height: calc(100vh - 200px);
-            }
-
-            .chatbot-input {
-                padding: 1rem;
-                border-radius: 0;
-            }
-
-            .chatbot-input input {
-                padding: 0.8rem 1rem;
-                min-height: 44px;
-                /* Touch-friendly */
-                font-size: 1rem;
-            }
-
-            .chatbot-input button {
-                padding: 0.8rem 1rem;
-                min-height: 44px;
-                /* Touch-friendly */
-                min-width: 44px;
+                width: 95%;
+                height: 75%;
+                right: 2.5%;
+                top: 50%;
+                transform: translateY(-50%);
             }
         }
 
         @media (max-width: 480px) {
-            .chatbot-float-btn {
-                right: 10px;
-                bottom: 15px;
-                width: 50px;
-                height: 50px;
-            }
-
-            .chatbot-float-btn:hover {
-                width: 110px;
-                border-radius: 25px;
-            }
-
-            .chatbot-btn-icon {
-                font-size: 1.4rem;
-            }
-
-            .chatbot-float-btn:hover .chatbot-btn-icon {
-                font-size: 1.1rem;
-            }
-
-            .chatbot-btn-text {
-                font-size: 0.7rem;
-            }
-
             .chatbot-container {
-                width: 100vw;
-                height: 100vh;
-            }
-
-            .chatbot-header {
-                padding: 0.8rem;
-            }
-
-            .chatbot-avatar {
-                width: 35px;
-                height: 35px;
-            }
-
-            .chatbot-info h3 {
-                font-size: 1rem;
-            }
-
-            .chatbot-info p {
-                font-size: 0.8rem;
-            }
-
-            .chatbot-close {
-                width: 35px;
-                height: 35px;
-                font-size: 1.2rem;
-            }
-
-            .chatbot-messages {
-                padding: 0.8rem;
-                max-height: calc(100vh - 180px);
-            }
-
-            .chatbot-input {
-                padding: 0.8rem;
-            }
-
-            .chatbot-input input {
-                padding: 0.7rem;
-                font-size: 0.95rem;
-            }
-
-            .chatbot-input button {
-                padding: 0.7rem;
-                min-width: 40px;
+                width: 98%;
+                height: 80%;
+                right: 1%;
+                top: 50%;
+                transform: translateY(-50%);
             }
         }
 
@@ -3060,111 +2603,31 @@
 
                 <div class="form-group">
                     <label for="dateSelect">📅 Date</label>
-                    <div class="calendar-container">
-                        <input type="hidden" id="dateSelect" name="date" required />
-                        <div class="calendar-header">
-                            <button type="button" id="prevMonth" class="nav-btn">‹</button>
-                            <span id="currentMonth">Loading...</span>
-                            <button type="button" id="nextMonth" class="nav-btn">›</button>
-                        </div>
-                        <div class="calendar-grid">
-                            <div class="weekdays">
-                                <div class="weekday">Sun</div>
-                                <div class="weekday">Mon</div>
-                                <div class="weekday">Tue</div>
-                                <div class="weekday">Wed</div>
-                                <div class="weekday">Thu</div>
-                                <div class="weekday">Fri</div>
-                                <div class="weekday">Sat</div>
-                            </div>
-                            <div id="calendarDays" class="calendar-days">
-                                <!-- Days will be generated by JavaScript -->
-                            </div>
-                        </div>
-                        <div class="selected-date" id="selectedDateDisplay">
-                            Please select a date
-                        </div>
-                    </div>
+                    <select id="dateSelect" required>
+                        <option value="">Choose a date</option>
+                        <option value="today">Today</option>
+                        <option value="tomorrow">Tomorrow</option>
+                        <option value="day-after">Day after tomorrow</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="timeSelect">🕐 Showtimes</label>
-                    <div class="timezone-info" style="font-size: 12px; color: #999; margin-bottom: 8px;">
-                        🌍 <span id="currentTimezone">Central European Time (CET)</span> - <span
-                            id="currentTime">--:--</span>
-                    </div>
+                    <label for="timeSelect">🕐 Time</label>
                     <select id="timeSelect" required>
-                        <option value="">Choose showtime</option>
-                        <optgroup label="🌅 Matinee (11:00-15:00)">
-                            <option value="11:15">11:15 - Early Bird Special</option>
-                            <option value="12:30">12:30</option>
-                            <option value="14:00">14:00</option>
-                            <option value="14:45">14:45</option>
-                        </optgroup>
-                        <optgroup label="🌆 Afternoon (15:00-18:00)">
-                            <option value="15:30">15:30</option>
-                            <option value="16:15">16:15</option>
-                            <option value="17:00">17:00</option>
-                            <option value="17:45">17:45</option>
-                        </optgroup>
-                        <optgroup label="🌃 Evening (18:00-22:00)">
-                            <option value="18:30">18:30</option>
-                            <option value="19:15">19:15 - Prime Time</option>
-                            <option value="20:00">20:00 - Prime Time</option>
-                            <option value="20:45">20:45</option>
-                            <option value="21:30">21:30</option>
-                        </optgroup>
-                        <optgroup label="🌙 Late Night (22:00+)">
-                            <option value="22:15">22:15 - Late Show</option>
-                            <option value="23:00">23:00 - Late Show</option>
-                            <option value="23:45">23:45 - Midnight Special</option>
-                        </optgroup>
+                        <option value="">Choose a time</option>
+                        <option value="14:00">14:00</option>
+                        <option value="16:30">16:30</option>
+                        <option value="19:00">19:00</option>
+                        <option value="21:30">21:30</option>
                     </select>
-                    <div class="timezone-selector" style="margin-top: 8px;">
-                        <label style="font-size: 11px; color: #aaa;">🌍 View times in:</label>
-                        <select id="timezoneSelect" style="font-size: 11px; padding: 2px 6px; margin-left: 5px;"
-                            onchange="updateTimezone()">
-                            <option value="Europe/Amsterdam">🇳🇱 Amsterdam (CET)</option>
-                            <option value="Europe/London">🇬🇧 London (GMT)</option>
-                            <option value="Europe/Paris">🇫🇷 Paris (CET)</option>
-                            <option value="Europe/Berlin">🇩🇪 Berlin (CET)</option>
-                            <option value="Europe/Rome">🇮🇹 Rome (CET)</option>
-                            <option value="America/New_York">🇺🇸 New York (EST)</option>
-                            <option value="Asia/Tokyo">🇯🇵 Tokyo (JST)</option>
-                        </select>
-                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>🪑 Select Seats (Click to select)</label>
-
-                    <!-- Seat Legend -->
-                    <div class="seat-legend">
-                        <div class="legend-item">
-                            <div class="legend-seat standard">💺</div>
-                            <span>Standard - €10.00-15.00</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-seat premium">⭐</div>
-                            <span>Premium - €11.25-18.00</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-seat vip">👑</div>
-                            <span>VIP - €13.75-22.50</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-seat occupied">✗</div>
-                            <span>Occupied</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-seat selected">🎯</div>
-                            <span>Selected</span>
-                        </div>
-                    </div>
-
                     <div class="seats-grid" id="seatsGrid">
                         <!-- Seats will be generated by JavaScript -->
                     </div>
+                    <small style="color: #999;">🔴 Occupied | ⚪ Available | 🎯 Selected</small>
                 </div>
 
                 <div class="booking-summary" id="bookingSummary" style="display: none;">
@@ -3229,7 +2692,7 @@
                         <span class="checkmark"></span>
                         Remember me
                     </label>
-                    <a href="#" class="forgot-link" onclick="openForgotPasswordModal()">Forgot password?</a>
+                    <a href="#" class="forgot-link">Forgot password?</a>
                 </div>
                 <button type="submit" class="auth-btn login-btn-submit">🔑 Login</button>
                 <p class="auth-switch">
@@ -3421,96 +2884,6 @@
         </div>
     </div>
 
-    <!-- Forgot Password Modal -->
-    <div id="forgotPasswordModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close-btn" onclick="closeForgotPasswordModal()">✕</button>
-                <h2>🔑 Wachtwoord Vergeten</h2>
-                <p>Voer je e-mailadres in om een reset link te ontvangen</p>
-            </div>
-
-            <div id="forgotPasswordError" class="error-message" style="display: none;"></div>
-
-            <!-- Step 1: Email Request Form -->
-            <div id="forgotPasswordStep1" style="display: block;">
-                <form id="forgotPasswordForm" class="auth-form">
-                    <div class="form-group">
-                        <label for="forgotEmail">📧 E-mailadres</label>
-                        <input type="email" id="forgotEmail" required placeholder="naam@voorbeeld.nl"
-                            autocomplete="email">
-                    </div>
-
-                    <button type="submit" class="auth-btn primary">
-                        📧 Verstuur Reset Link
-                    </button>
-
-                    <div class="form-footer">
-                        <button type="button" class="link-btn" onclick="closeForgotPasswordModal(); openLoginModal();">
-                            ← Terug naar inloggen
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Step 2: Success Message -->
-            <div id="forgotPasswordStep2" style="display: none;">
-                <div class="success-message" style="text-align: center; padding: 30px 20px;">
-                    <div style="font-size: 64px; margin-bottom: 20px;">✅</div>
-                    <h3 style="color: #4caf50; margin-bottom: 15px;">Reset Link Verzonden!</h3>
-                    <p style="color: #ccc; margin-bottom: 20px; line-height: 1.6;">
-                        We hebben een wachtwoord reset link verzonden naar:<br>
-                        <strong id="forgotPasswordEmailConfirm" style="color: #2196f3;">user@example.com</strong>
-                    </p>
-                    <p style="color: #999; font-size: 14px; margin-bottom: 25px;">
-                        💡 Check ook je spam folder als je de e-mail niet binnen 5 minuten ontvangt.
-                    </p>
-
-                    <div class="modal-buttons">
-                        <button type="button" class="auth-btn primary" onclick="closeForgotPasswordModal()">
-                            ✅ Sluiten
-                        </button>
-                        <button type="button" class="link-btn" onclick="showForgotPasswordStep1()">
-                            🔄 Andere E-mail Proberen
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Simulated Email Display (for demo) -->
-            <div id="forgotPasswordEmailSim" class="simulated-email"
-                style="background: #2a2a2a; border: 1px solid #555; border-radius: 10px; padding: 20px; margin: 20px 0; font-family: monospace; font-size: 13px; display: none;">
-                <div style="border-bottom: 1px solid #555; padding-bottom: 10px; margin-bottom: 15px; color: #aaa;">
-                    <strong>📧 Demo Email - Pathé Security</strong><br>
-                    <small>To: <span id="forgotPasswordEmailAddress">user@example.com</span> | Subject: 🔑 Password
-                        Reset Request</small>
-                </div>
-                <div style="line-height: 1.6; color: #ddd;">
-                    Hello there! 👋<br><br>
-
-                    You requested a password reset for your Pathé account.<br><br>
-
-                    <div
-                        style="background: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0; text-align: center; border: 1px solid #4caf50;">
-                        <strong style="color: #4caf50;">🔗 Reset Password Link</strong><br>
-                        <a href="#" style="color: #2196f3; text-decoration: underline; font-size: 12px;"
-                            onclick="simulatePasswordReset()">
-                            https://pathe.com/reset?token=abc123def456
-                        </a>
-                        <br><small style="color: #999;">Click here to reset your password</small>
-                    </div>
-
-                    ⏰ This link expires in <strong>1 hour</strong> for security.<br><br>
-
-                    ⚠️ If you didn't request this, please ignore this email.<br><br>
-
-                    Best regards,<br>
-                    The Pathé Security Team 🎬
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Floating Chatbot Button -->
     <div id="chatbotButton" class="chatbot-float-btn" onclick="toggleChatbot()">
         <div class="chatbot-btn-icon">🤖</div>
@@ -3555,125 +2928,27 @@
     <script>
         let currentMovie = '';
         let selectedSeats = [];
-
-        // Dynamic pricing based on time and day
-        function getTicketPrice(timeSlot, selectedDate = null) {
-            const basePrice = 12.50;
-            let priceMultiplier = 1.0;
-            let priceType = 'Standard';
-
-            if (!timeSlot) return { price: basePrice, type: priceType };
-
-            const hour = parseInt(timeSlot.split(':')[0]);
-            const minute = parseInt(timeSlot.split(':')[1]);
-            const timeInMinutes = hour * 60 + minute;
-
-            // Check if it's weekend (if date is provided)
-            let isWeekend = false;
-            if (selectedDate) {
-                const dayOfWeek = selectedDate.getDay();
-                isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-            }
-
-            // Pricing tiers
-            if (timeInMinutes >= 600 && timeInMinutes < 900) { // 10:00 - 15:00
-                priceMultiplier = 0.8; // 20% discount
-                priceType = '🌅 Matinee Special';
-            } else if (timeInMinutes >= 900 && timeInMinutes < 1080) { // 15:00 - 18:00
-                priceMultiplier = 0.9; // 10% discount
-                priceType = '🌆 Afternoon';
-            } else if (timeInMinutes >= 1080 && timeInMinutes < 1320) { // 18:00 - 22:00
-                priceMultiplier = 1.2; // 20% premium
-                priceType = '🌃 Prime Time';
-            } else if (timeInMinutes >= 1320) { // 22:00+
-                priceMultiplier = 1.1; // 10% premium
-                priceType = '🌙 Late Show';
-            }
-
-            // Weekend surcharge
-            if (isWeekend && timeInMinutes >= 1080) { // Weekend evening/night
-                priceMultiplier += 0.1; // Additional 10%
-                priceType += ' (Weekend)';
-            }
-
-            const finalPrice = Math.round(basePrice * priceMultiplier * 100) / 100;
-            return { price: finalPrice, type: priceType };
-        }
+        const ticketPrice = 12.50;
 
         // Initialize seat grid
         function initSeats() {
             const seatsGrid = document.getElementById('seatsGrid');
             seatsGrid.innerHTML = '';
 
-            // Create enhanced seat layout with different types
-            const seatLayout = [
-                // Front rows (1-2): Standard seats, cheaper
-                { rows: [1, 2], type: 'standard', count: 12 },
-                // Middle rows (3-7): Premium seats, best view
-                { rows: [3, 4, 5, 6, 7], type: 'premium', count: 14 },
-                // Back rows (8-10): VIP seats with extra space
-                { rows: [8, 9, 10], type: 'vip', count: 10 }
-            ];
+            for (let i = 1; i <= 50; i++) {
+                const seat = document.createElement('div');
+                seat.className = 'seat';
+                seat.textContent = i;
+                seat.onclick = () => toggleSeat(i, seat);
 
-            let seatNumber = 1;
+                // Randomly make some seats occupied (for demo)
+                if (Math.random() < 0.15) {
+                    seat.className = 'seat occupied';
+                    seat.textContent = '✗';
+                    seat.onclick = null;
+                }
 
-            seatLayout.forEach(section => {
-                section.rows.forEach(rowNum => {
-                    // Add row label
-                    const rowLabel = document.createElement('div');
-                    rowLabel.className = 'row-label';
-                    rowLabel.textContent = `Row ${rowNum}`;
-                    seatsGrid.appendChild(rowLabel);
-
-                    // Add seats for this row
-                    for (let i = 1; i <= section.count; i++) {
-                        const seat = document.createElement('div');
-                        seat.className = `seat ${section.type}`;
-                        seat.textContent = seatNumber;
-                        seat.setAttribute('data-seat-type', section.type);
-                        seat.setAttribute('data-row', rowNum);
-                        seat.setAttribute('data-seat-num', i);
-
-                        // Add seat type indicator
-                        const typeIndicator = document.createElement('span');
-                        typeIndicator.className = 'seat-type-indicator';
-                        typeIndicator.textContent = getSeatTypeIcon(section.type);
-                        seat.appendChild(typeIndicator);
-
-                        seat.onclick = () => toggleSeat(seatNumber, seat);
-
-                        // Randomly make some seats occupied (for demo)
-                        if (Math.random() < 0.12) {
-                            seat.classList.add('occupied');
-                            seat.innerHTML = '✗';
-                            seat.onclick = null;
-                        }
-
-                        seatsGrid.appendChild(seat);
-                        seatNumber++;
-                    }
-
-                    // Add row break
-                    const rowBreak = document.createElement('div');
-                    rowBreak.className = 'row-break';
-                    seatsGrid.appendChild(rowBreak);
-                });
-            });
-
-            // Add screen indicator
-            const screen = document.createElement('div');
-            screen.className = 'screen-indicator';
-            screen.innerHTML = '🎬 SCREEN 🎬';
-            seatsGrid.appendChild(screen);
-        }
-
-        // Get seat type icon
-        function getSeatTypeIcon(type) {
-            switch (type) {
-                case 'standard': return '💺';
-                case 'premium': return '⭐';
-                case 'vip': return '👑';
-                default: return '💺';
+                seatsGrid.appendChild(seat);
             }
         }
 
@@ -3683,24 +2958,11 @@
 
             if (seatElement.classList.contains('selected')) {
                 seatElement.classList.remove('selected');
-                // Remove seat object from selectedSeats array
-                selectedSeats = selectedSeats.filter(s => s.number !== seatNumber);
+                selectedSeats = selectedSeats.filter(s => s !== seatNumber);
             } else {
                 if (selectedSeats.length < 8) { // Max 8 tickets
                     seatElement.classList.add('selected');
-
-                    // Store seat info with type for pricing
-                    const seatType = seatElement.getAttribute('data-seat-type');
-                    const rowNum = seatElement.getAttribute('data-row');
-                    const seatPos = seatElement.getAttribute('data-seat-num');
-
-                    selectedSeats.push({
-                        number: seatNumber,
-                        type: seatType,
-                        row: rowNum,
-                        position: seatPos,
-                        display: `${rowNum}-${seatPos}`
-                    });
+                    selectedSeats.push(seatNumber);
                 } else {
                     alert('🎫 Maximum 8 tickets per order');
                 }
@@ -3727,314 +2989,6 @@
             updateSummary();
         }
 
-        // Calendar functionality
-        let currentCalendarDate = new Date();
-        let selectedDate = null;
-
-        function initCalendar() {
-            renderCalendar();
-
-            document.getElementById('prevMonth').addEventListener('click', () => {
-                currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
-                renderCalendar();
-            });
-
-            document.getElementById('nextMonth').addEventListener('click', () => {
-                currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
-                renderCalendar();
-            });
-        }
-
-        function renderCalendar() {
-            const year = currentCalendarDate.getFullYear();
-            const month = currentCalendarDate.getMonth();
-
-            // Update month header
-            const monthNames = [
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-            ];
-            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
-
-            // Get first day of month and number of days
-            const firstDay = new Date(year, month, 1);
-            const lastDay = new Date(year, month + 1, 0);
-            const daysInMonth = lastDay.getDate();
-            const startingDayOfWeek = firstDay.getDay();
-
-            // Get today's date for comparison
-            const today = new Date();
-            const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
-            const todayDate = today.getDate();
-
-            const calendarDays = document.getElementById('calendarDays');
-            calendarDays.innerHTML = '';
-
-            // Add empty cells for days before month starts
-            for (let i = 0; i < startingDayOfWeek; i++) {
-                const emptyDay = document.createElement('div');
-                emptyDay.className = 'calendar-day other-month';
-                calendarDays.appendChild(emptyDay);
-            }
-
-            // Add days of the month
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayElement = document.createElement('div');
-                dayElement.className = 'calendar-day';
-                dayElement.textContent = day;
-
-                const cellDate = new Date(year, month, day);
-                const isPast = cellDate < today.setHours(0, 0, 0, 0);
-
-                // Disable past dates
-                if (isPast) {
-                    dayElement.classList.add('disabled');
-                } else {
-                    dayElement.addEventListener('click', () => selectDate(year, month, day));
-                }
-
-                // Mark today
-                if (isCurrentMonth && day === todayDate) {
-                    dayElement.classList.add('today');
-                }
-
-                // Mark selected date
-                if (selectedDate &&
-                    selectedDate.getFullYear() === year &&
-                    selectedDate.getMonth() === month &&
-                    selectedDate.getDate() === day) {
-                    dayElement.classList.add('selected');
-                }
-
-                calendarDays.appendChild(dayElement);
-            }
-        }
-
-        function selectDate(year, month, day) {
-            selectedDate = new Date(year, month, day);
-
-            // Format date for display
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
-            const dateString = selectedDate.toLocaleDateString('en-US', options);
-
-            // Update display
-            document.getElementById('selectedDateDisplay').textContent = `Selected: ${dateString}`;
-
-            // Set hidden input value (format: YYYY-MM-DD)
-            const isoString = selectedDate.toISOString().split('T')[0];
-            document.getElementById('dateSelect').value = isoString;
-
-            // Update showtimes based on weekend/weekday
-            updateShowtimesForDate(selectedDate);
-
-            // Re-render calendar to show selection
-            renderCalendar();
-
-            // Update summary
-            updateSummary();
-        }
-
-        // Update showtimes based on selected date (weekend vs weekday)
-        function updateShowtimesForDate(date) {
-            const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
-            const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-            const timeSelect = document.getElementById('timeSelect');
-
-            // Clear current selection
-            timeSelect.value = '';
-
-            // Clear existing options except the first one
-            while (timeSelect.children.length > 1) {
-                timeSelect.removeChild(timeSelect.lastChild);
-            }
-
-            if (isWeekend) {
-                // Weekend Schedule - More showtimes, later nights
-                const weekendGroups = [
-                    {
-                        label: '🌅 Weekend Matinee (10:30-15:00)',
-                        times: [
-                            { value: '10:30', text: '10:30 - Early Bird Weekend' },
-                            { value: '11:45', text: '11:45' },
-                            { value: '13:00', text: '13:00' },
-                            { value: '14:15', text: '14:15' },
-                            { value: '14:45', text: '14:45' }
-                        ]
-                    },
-                    {
-                        label: '🌆 Weekend Afternoon (15:00-18:30)',
-                        times: [
-                            { value: '15:30', text: '15:30' },
-                            { value: '16:00', text: '16:00' },
-                            { value: '16:45', text: '16:45' },
-                            { value: '17:30', text: '17:30' },
-                            { value: '18:00', text: '18:00' }
-                        ]
-                    },
-                    {
-                        label: '🌃 Weekend Prime Time (18:30-22:30)',
-                        times: [
-                            { value: '18:45', text: '18:45' },
-                            { value: '19:30', text: '19:30 - Weekend Prime' },
-                            { value: '20:15', text: '20:15 - Weekend Prime' },
-                            { value: '21:00', text: '21:00 - Weekend Prime' },
-                            { value: '22:00', text: '22:00' }
-                        ]
-                    },
-                    {
-                        label: '🌙 Weekend Late Night (22:30+)',
-                        times: [
-                            { value: '22:30', text: '22:30 - Late Weekend' },
-                            { value: '23:15', text: '23:15 - Late Weekend' },
-                            { value: '00:00', text: '00:00 - Midnight Special' },
-                            { value: '00:45', text: '00:45 - After Midnight' }
-                        ]
-                    }
-                ];
-
-                weekendGroups.forEach(group => addOptGroup(timeSelect, group));
-
-            } else {
-                // Weekday Schedule - Fewer showtimes, earlier nights
-                const weekdayGroups = [
-                    {
-                        label: '🌅 Weekday Matinee (12:00-15:00)',
-                        times: [
-                            { value: '12:00', text: '12:00 - Lunch Special' },
-                            { value: '13:15', text: '13:15' },
-                            { value: '14:30', text: '14:30' }
-                        ]
-                    },
-                    {
-                        label: '🌆 Weekday Afternoon (15:00-18:00)',
-                        times: [
-                            { value: '15:45', text: '15:45' },
-                            { value: '16:30', text: '16:30' },
-                            { value: '17:15', text: '17:15' }
-                        ]
-                    },
-                    {
-                        label: '🌃 Weekday Evening (18:00-22:00)',
-                        times: [
-                            { value: '18:30', text: '18:30' },
-                            { value: '19:15', text: '19:15 - After Work' },
-                            { value: '20:00', text: '20:00 - Prime Time' },
-                            { value: '21:00', text: '21:00' },
-                            { value: '21:45', text: '21:45' }
-                        ]
-                    },
-                    {
-                        label: '🌙 Weekday Late (22:00+)',
-                        times: [
-                            { value: '22:15', text: '22:15 - Late Show' },
-                            { value: '23:00', text: '23:00 - Late Show' }
-                        ]
-                    }
-                ];
-
-                weekdayGroups.forEach(group => addOptGroup(timeSelect, group));
-            }
-
-            // Add schedule info to the timezone display
-            const scheduleType = isWeekend ? '📅 Weekend Schedule' : '📅 Weekday Schedule';
-            const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
-            document.getElementById('selectedDateDisplay').innerHTML = `
-                Selected: ${dayName}, ${date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}<br>
-                <small style="color: #FFD700;">${scheduleType} - ${isWeekend ? 'More showtimes available!' : 'Focused schedule for weekdays'}</small>
-            `;
-        }
-
-        // Helper function to add option groups to select
-        function addOptGroup(selectElement, group) {
-            const optGroup = document.createElement('optgroup');
-            optGroup.label = group.label;
-
-            group.times.forEach(time => {
-                const option = document.createElement('option');
-                option.value = time.value;
-
-                // Add pricing info to option text
-                const priceInfo = getTicketPrice(time.value, selectedDate);
-                option.textContent = `${time.text} - €${priceInfo.price.toFixed(2)}`;
-
-                optGroup.appendChild(option);
-            });
-
-            selectElement.appendChild(optGroup);
-        }
-
-        // Timezone functionality
-        let currentTimezone = 'Europe/Amsterdam';
-
-        function updateTimezone() {
-            const timezoneSelect = document.getElementById('timezoneSelect');
-            currentTimezone = timezoneSelect.value;
-
-            // Update timezone display
-            const timezoneNames = {
-                'Europe/Amsterdam': 'Central European Time (CET)',
-                'Europe/London': 'Greenwich Mean Time (GMT)',
-                'Europe/Paris': 'Central European Time (CET)',
-                'Europe/Berlin': 'Central European Time (CET)',
-                'Europe/Rome': 'Central European Time (CET)',
-                'America/New_York': 'Eastern Standard Time (EST)',
-                'Asia/Tokyo': 'Japan Standard Time (JST)'
-            };
-
-            document.getElementById('currentTimezone').textContent = timezoneNames[currentTimezone];
-            updateCurrentTime();
-            updateShowtimesForTimezone();
-        }
-
-        function updateCurrentTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('en-US', {
-                timeZone: currentTimezone,
-                hour12: false,
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            document.getElementById('currentTime').textContent = timeString;
-        }
-
-        function updateShowtimesForTimezone() {
-            // This could be expanded to adjust showtimes based on timezone
-            // For now, we keep the same times but show current local time
-            console.log('Showtimes updated for timezone:', currentTimezone);
-        }
-
-        // Initialize timezone functionality
-        function initTimezone() {
-            // Detect user's timezone
-            const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const timezoneSelect = document.getElementById('timezoneSelect');
-
-            // Set to user's timezone if available in options
-            for (let option of timezoneSelect.options) {
-                if (option.value === userTimezone) {
-                    timezoneSelect.value = userTimezone;
-                    currentTimezone = userTimezone;
-                    break;
-                }
-            }
-
-            updateTimezone();
-
-            // Initialize showtimes for today if no date is selected
-            if (!selectedDate) {
-                const today = new Date();
-                updateShowtimesForDate(today);
-            }
-
-            // Update time every minute
-            setInterval(updateCurrentTime, 60000);
-        }
-
         // Update booking summary
         function updateSummary() {
             const cinema = document.getElementById('cinemaSelect').value;
@@ -4054,33 +3008,18 @@
                     'eindhoven': 'Pathé Eindhoven'
                 };
 
-                // Get dynamic pricing
-                const priceInfo = getTicketPrice(time, selectedDate);
-                const totalPrice = selectedSeats.length * priceInfo.price;
-
-                // Format date display
-                let dateDisplay;
-                if (selectedDate) {
-                    dateDisplay = selectedDate.toLocaleDateString('nl-NL', {
-                        weekday: 'long',
-                        day: 'numeric',
-                        month: 'long'
-                    });
-                } else {
-                    const dateNames = {
-                        'today': 'Vandaag',
-                        'tomorrow': 'Morgen',
-                        'day-after': 'Overmorgen'
-                    };
-                    dateDisplay = dateNames[date] || date;
-                }
+                const dateNames = {
+                    'today': 'Vandaag',
+                    'tomorrow': 'Morgen',
+                    'day-after': 'Overmorgen'
+                };
 
                 document.getElementById('summaryMovie').textContent = currentMovie;
                 document.getElementById('summaryCinema').textContent = cinemaNames[cinema] || cinema;
-                document.getElementById('summaryDateTime').innerHTML = `${dateDisplay} om ${time}<br><small style="color: #FFD700;">${priceInfo.type}</small>`;
+                document.getElementById('summaryDateTime').textContent = `${dateNames[date]} om ${time}`;
                 document.getElementById('summarySeats').textContent = selectedSeats.sort((a, b) => a - b).join(', ');
-                document.getElementById('summaryTickets').innerHTML = `${selectedSeats.length} × €${priceInfo.price.toFixed(2)}`;
-                document.getElementById('summaryTotal').textContent = `€${totalPrice.toFixed(2)}`;
+                document.getElementById('summaryTickets').textContent = selectedSeats.length;
+                document.getElementById('summaryTotal').textContent = `€${(selectedSeats.length * ticketPrice).toFixed(2)}`;
 
                 confirmBtn.disabled = false;
             } else {
@@ -4094,16 +3033,11 @@
             // Check if user is logged in for email confirmation
             const user = currentUser;
 
-            // Get current pricing for the confirmation
-            const time = document.getElementById('timeSelect').value;
-            const priceInfo = getTicketPrice(time, selectedDate);
-            const totalPrice = selectedSeats.length * priceInfo.price;
-
             const confirmed = confirm(`🎬 You will be redirected to the official Pathé website!
 
 Movie: ${currentMovie}
-Seats: ${selectedSeats.length} ticket(s) (${priceInfo.type})
-Total: €${totalPrice.toFixed(2)}
+Seats: ${selectedSeats.length} ticket(s)
+Total: €${(selectedSeats.length * ticketPrice).toFixed(2)}
 
 Click OK to go to Pathé.nl for the actual booking!`);
 
@@ -4132,10 +3066,6 @@ Click OK to go to Pathé.nl for the actual booking!`);
             ['cinemaSelect', 'dateSelect', 'timeSelect'].forEach(id => {
                 document.getElementById(id).addEventListener('change', updateSummary);
             });
-
-            // Initialize calendar and timezone functionality
-            initCalendar();
-            initTimezone();
 
             // Close modal when clicking outside
             document.getElementById('ticketModal').addEventListener('click', (e) => {
@@ -4429,19 +3359,13 @@ Click OK to go to Pathé.nl for the actual booking!`);
         });
 
         function openLoginModal() {
-            const modal = document.getElementById('loginModal');
-
             if (currentUser) {
-                // If user is logged in, show profile instead of login form
+                // If user is logged in, show profile
                 showUserProfile();
-                modal.style.display = 'block';
-                setTimeout(() => modal.classList.add('active'), 10);
-            } else {
-                // Show login form for non-logged in users
-                switchToLogin(); // Ensure we're showing the login form
-                modal.style.display = 'block';
-                setTimeout(() => modal.classList.add('active'), 10);
             }
+            const modal = document.getElementById('loginModal');
+            modal.style.display = 'block';
+            setTimeout(() => modal.classList.add('active'), 10);
         }
 
         function closeLoginModal() {
@@ -4573,7 +3497,7 @@ Click OK to go to Pathé.nl for the actual booking!`);
 
             // Method 1: Web3Forms (Primary - Free & Reliable!)
             const formData = new FormData();
-            formData.append('access_key', 'eea0b619-01b8-4875-964b-ca709c97bee5'); // Free Web3Forms key
+            formData.append('access_key', 'e8c4f8a1-4e2d-4f8a-9b2c-6d3e7f1a5b9c'); // Free Web3Forms key
             formData.append('email', user.email);
             formData.append('subject', '🎬 Pathé Cinema - Email Verification');
             formData.append('message', `Hello ${user.name.split(' ')[0]}!
@@ -4592,6 +3516,7 @@ The Pathé Cinema Team
 Visit us: ${window.location.origin}`);
             formData.append('from_name', 'Pathé Cinema');
             formData.append('replyto', user.email);
+            formData.append('redirect', 'https://web3forms.com/success');
 
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
@@ -4655,35 +3580,35 @@ Visit us: ${window.location.origin}`);
                         })
                         .catch(formspreeError => {
                             console.log('❌ Formspree fallback also failed, trying EmailJS:', formspreeError);
-                            if (typeof emailjs !== 'undefined') {
-                                try {
-                                    emailjs.init('902hWQUoBZdWzwVfH');
+                    if (typeof emailjs !== 'undefined') {
+                        try {
+                            emailjs.init('902hWQUoBZdWzwVfH');
 
-                                    const templateParams = {
-                                        to_name: user.name.split(' ')[0],
-                                        to_email: user.email,
-                                        verification_code: user.verificationCode,
-                                        cinema_name: 'Pathé Cinema',
-                                        website_url: window.location.origin
-                                    };
+                            const templateParams = {
+                                to_name: user.name.split(' ')[0],
+                                to_email: user.email,
+                                verification_code: user.verificationCode,
+                                cinema_name: 'Pathé Cinema',
+                                website_url: window.location.origin
+                            };
 
-                                    emailjs.send('service_doc2eqt', 'template_verification', templateParams)
-                                        .then(function (response) {
-                                            console.log('✅ Verification email sent via EmailJS fallback!');
-                                            alert('✅ Verification email sent! Check your inbox and spam folder.');
+                            emailjs.send('service_doc2eqt', 'template_verification', templateParams)
+                                .then(function (response) {
+                                    console.log('✅ Verification email sent via EmailJS fallback!');
+                                    alert('✅ Verification email sent! Check your inbox and spam folder.');
 
-                                            document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
-                                            document.getElementById('displayedCode').textContent = user.verificationCode;
-                                        })
-                                        .catch(function (emailJsError) {
-                                            console.log('❌ EmailJS also failed, showing code directly:', emailJsError);
+                                    document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                                    document.getElementById('displayedCode').textContent = user.verificationCode;
+                                })
+                                .catch(function (emailJsError) {
+                                    console.log('❌ EmailJS also failed, showing code directly:', emailJsError);
 
-                                            // Method 3: Direct code display with mailto option
-                                            const subject = encodeURIComponent('🎬 Pathé Cinema - Email Verification');
-                                            const body = encodeURIComponent(`Hello ${user.name.split(' ')[0]}!\n\nWelcome to Pathé Cinema! 🍿\n\nYour verification code is: ${user.verificationCode}\n\nPlease enter this code on our website to verify your account.\n\nThanks for joining Pathé!\n\nBest regards,\nThe Pathé Cinema Team`);
-                                            const mailtoLink = `mailto:${user.email}?subject=${subject}&body=${body}`;
+                                    // Method 3: Direct code display with mailto option
+                                    const subject = encodeURIComponent('🎬 Pathé Cinema - Email Verification');
+                                    const body = encodeURIComponent(`Hello ${user.name.split(' ')[0]}!\n\nWelcome to Pathé Cinema! 🍿\n\nYour verification code is: ${user.verificationCode}\n\nPlease enter this code on our website to verify your account.\n\nThanks for joining Pathé!\n\nBest regards,\nThe Pathé Cinema Team`);
+                                    const mailtoLink = `mailto:${user.email}?subject=${subject}&body=${body}`;
 
-                                            document.body.insertAdjacentHTML('beforeend', `
+                                    document.body.insertAdjacentHTML('beforeend', `
                                     <div id="emailFallback" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);color:white;padding:30px;text-align:center;z-index:10000;">
                                         <div style="background:#1a1a1a;padding:40px;border-radius:15px;max-width:500px;margin:0 auto;border:2px solid #d32f2f;">
                                             <h2>📧 Email Service Backup</h2>
@@ -4696,28 +3621,25 @@ Visit us: ${window.location.origin}`);
                                     </div>
                                 `);
 
-                                            document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
-                                            document.getElementById('displayedCode').textContent = user.verificationCode;
-                                        });
-                                } catch (emailJsInitError) {
-                                    console.log('❌ EmailJS init failed:', emailJsInitError);
-                                    alert(`📧 Email services unavailable. Your verification code is: ${user.verificationCode}`);
-
                                     document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
                                     document.getElementById('displayedCode').textContent = user.verificationCode;
-                                }
-                            } else {
-                                console.log('❌ EmailJS not loaded');
-                                alert(`📧 Email services unavailable. Your verification code is: ${user.verificationCode}`);
+                                });
+                        } catch (emailJsInitError) {
+                            console.log('❌ EmailJS init failed:', emailJsInitError);
+                            alert(`📧 Email services unavailable. Your verification code is: ${user.verificationCode}`);
 
-                                document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
-                                document.getElementById('displayedCode').textContent = user.verificationCode;
-                            }
-                        });
+                            document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                            document.getElementById('displayedCode').textContent = user.verificationCode;
+                        }
+                    } else {
+                        console.log('❌ EmailJS not loaded');
+                        alert(`📧 Email services unavailable. Your verification code is: ${user.verificationCode}`);
+
+                        document.getElementById('emailUserName').textContent = user.name.split(' ')[0];
+                        document.getElementById('displayedCode').textContent = user.verificationCode;
+                    }
                 });
-        }
-
-        // Send booking confirmation email
+        }        // Send booking confirmation email
         function sendBookingConfirmationEmail(user) {
             // Get booking details
             const cinema = document.getElementById('cinemaSelect');
@@ -4735,56 +3657,37 @@ Visit us: ${window.location.origin}`);
             // Generate booking reference
             const bookingRef = 'PTH' + Date.now().toString().slice(-6);
 
-            // Get dynamic pricing for email
-            const priceInfo = getTicketPrice(time.value, selectedDate);
-            const totalPrice = selectedSeats.length * priceInfo.price;
+            // Email template parameters for booking confirmation
+            const templateParams = {
+                to_name: user.name.split(' ')[0],
+                to_email: user.email,
+                movie_title: currentMovie,
+                cinema_name: cinemaNames[cinema.value] || cinema.value,
+                booking_date: date.options[date.selectedIndex].text,
+                showtime: time.options[time.selectedIndex].text,
+                seat_count: selectedSeats.length,
+                total_price: (selectedSeats.length * ticketPrice).toFixed(2),
+                booking_reference: bookingRef,
+                seats_list: selectedSeats.join(', '),
+                website_url: window.location.origin
+            };
 
-            // Send booking confirmation via Web3Forms
-            const formData = new FormData();
-            formData.append('access_key', 'eea0b619-01b8-4875-964b-ca709c97bee5');
-            formData.append('email', user.email);
-            formData.append('subject', '🎬 Pathé Cinema - Booking Confirmation');
-            formData.append('message', `Hello ${user.name.split(' ')[0]}!
-
-🎬 BOOKING CONFIRMATION
-
-Your movie booking has been confirmed!
-
-📋 BOOKING DETAILS:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎬 Movie: ${currentMovie}
-🏢 Cinema: ${cinemaNames[cinema.value] || cinema.value}
-📅 Date: ${date.options[date.selectedIndex].text}
-🕐 Time: ${time.options[time.selectedIndex].text} (${priceInfo.type})
-🎫 Tickets: ${selectedSeats.length} × €${priceInfo.price.toFixed(2)}
-💺 Seats: ${selectedSeats.join(', ')}
-💰 Total: €${totalPrice.toFixed(2)}
-📧 Reference: ${bookingRef}
-
-🎉 Enjoy your movie!
-
-Best regards,
-The Pathé Cinema Team
-
-Visit us: ${window.location.origin}`);
-            formData.append('from_name', 'Pathé Cinema');
-            formData.append('replyto', user.email);
-
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log('✅ Booking confirmation sent via Web3Forms!');
-                    } else {
-                        console.log('❌ Web3Forms booking confirmation failed:', data.message);
-                    }
-                })
-                .catch(error => {
-                    console.log('❌ Booking confirmation error:', error);
-                });
+            // Check if EmailJS is available
+            if (typeof emailjs !== 'undefined') {
+                try {
+                    // Send booking confirmation email
+                    emailjs.send('service_doc2eqt', 'template_booking', templateParams)
+                        .then(function (response) {
+                            console.log('Booking confirmation sent!', response.status, response.text);
+                        }, function (error) {
+                            console.log('Failed to send booking confirmation:', error);
+                        });
+                } catch (error) {
+                    console.log('EmailJS error in booking confirmation:', error);
+                }
+            } else {
+                console.log('EmailJS not available for booking confirmation');
+            }
         }
 
         function showVerificationModal(email) {
@@ -5045,66 +3948,6 @@ Visit us: ${window.location.origin}`);
             }
         });
 
-        // Forgot Password Form Handler
-        document.getElementById('forgotPasswordForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const email = document.getElementById('forgotEmail').value;
-            const errorDiv = document.getElementById('forgotPasswordError');
-
-            // Clear previous errors
-            errorDiv.style.display = 'none';
-
-            // Basic email validation
-            if (!email || !email.includes('@')) {
-                errorDiv.textContent = '❌ Voer een geldig e-mailadres in.';
-                errorDiv.style.display = 'block';
-                return;
-            }
-
-            // Check if email exists in our user database
-            const users = JSON.parse(localStorage.getItem('patheUsers') || '[]');
-            const userExists = users.find(u => u.email === email);
-
-            if (!userExists) {
-                // For security, we don't reveal if email exists or not
-                // But in demo, we'll still send the "email" for testing
-                console.log('ℹ️ Email not found in database, but proceeding for demo');
-            }
-
-            // Show loading state
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = '📧 Versturen...';
-            submitBtn.disabled = true;
-
-            // Send password reset email
-            sendPasswordResetEmail(email)
-                .then(result => {
-                    if (result.success) {
-                        // Show success step
-                        showForgotPasswordStep2(email);
-                        showNotification('📧 Reset link verzonden naar je e-mail!', 'success');
-                    } else {
-                        // Show error
-                        errorDiv.textContent = `❌ ${result.message}`;
-                        errorDiv.style.display = 'block';
-                        showNotification('❌ Kon reset e-mail niet verzenden. Probeer opnieuw.', 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Forgot password error:', error);
-                    errorDiv.textContent = '❌ Er ging iets mis. Probeer het later opnieuw.';
-                    errorDiv.style.display = 'block';
-                    showNotification('❌ Netwerkfout. Controleer je internetverbinding.', 'error');
-                })
-                .finally(() => {
-                    // Reset button state
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                });
-        });
-
         function updateNavigationForLoggedInUser() {
             const loginBtn = document.querySelector('.nav-links .login-btn');
             if (currentUser && loginBtn) {
@@ -5223,158 +4066,11 @@ Visit us: ${window.location.origin}`);
             }, 4000);
         }
 
-        // Forgot Password System Functions
-        function openForgotPasswordModal() {
-            // Close login modal first
-            closeLoginModal();
-
-            const modal = document.getElementById('forgotPasswordModal');
-            if (modal) {
-                modal.style.display = 'block';
-                setTimeout(() => modal.classList.add('active'), 10);
-
-                // Focus on email input
-                setTimeout(() => {
-                    const emailInput = document.getElementById('forgotEmail');
-                    if (emailInput) emailInput.focus();
-                }, 100);
-            }
-        }
-
-        function closeForgotPasswordModal() {
-            const modal = document.getElementById('forgotPasswordModal');
-            if (modal) {
-                modal.classList.remove('active');
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                    // Reset form if it exists
-                    const form = document.getElementById('forgotPasswordForm');
-                    if (form) form.reset();
-
-                    // Hide any error messages
-                    const errorDiv = document.getElementById('forgotPasswordError');
-                    if (errorDiv) errorDiv.style.display = 'none';
-                }, 300);
-            }
-        }
-
-        // Password Reset Email Function
-        function sendPasswordResetEmail(email) {
-            console.log('🔄 Sending password reset email via Web3Forms...');
-
-            // Generate reset token (in real app this would be server-side)
-            const resetToken = 'reset_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-
-            // Store reset token temporarily (in real app this would be server-side with expiry)
-            const resetData = {
-                email: email,
-                token: resetToken,
-                expiry: Date.now() + (60 * 60 * 1000) // 1 hour from now
-            };
-            localStorage.setItem('passwordResetToken', JSON.stringify(resetData));
-
-            // Send reset email via Web3Forms
-            const formData = new FormData();
-            formData.append('access_key', 'eea0b619-01b8-4875-964b-ca709c97bee5');
-            formData.append('email', email);
-            formData.append('subject', '🔑 Pathé Cinema - Password Reset Request');
-            formData.append('message', `Hello!
-
-You requested a password reset for your Pathé Cinema account.
-
-🔗 Reset your password by clicking this link:
-${window.location.origin}/reset-password?token=${resetToken}
-
-⏰ This link expires in 1 hour for security.
-
-⚠️ If you didn't request this password reset, please ignore this email.
-
-Your account remains secure and no changes have been made.
-
-Best regards,
-The Pathé Security Team
-
-Visit us: ${window.location.origin}`);
-            formData.append('from_name', 'Pathé Security');
-            formData.append('replyto', email);
-
-            return fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log('✅ Password reset email sent via Web3Forms!');
-                        return { success: true, message: 'Reset email sent successfully!' };
-                    } else {
-                        console.log('❌ Web3Forms password reset failed:', data.message);
-                        return { success: false, message: 'Failed to send reset email. Please try again.' };
-                    }
-                })
-                .catch(error => {
-                    console.log('❌ Password reset email error:', error);
-                    return { success: false, message: 'Network error. Please check your connection and try again.' };
-                });
-        }
-
-        // Helper functions for forgot password flow
-        function showForgotPasswordStep1() {
-            // Show step 1 and hide step 2
-            document.getElementById('forgotPasswordStep1').style.display = 'block';
-            document.getElementById('forgotPasswordStep2').style.display = 'none';
-            document.getElementById('forgotPasswordEmailSim').style.display = 'none';
-
-            // Clear form
-            const form = document.getElementById('forgotPasswordForm');
-            if (form) form.reset();
-
-            // Focus on email input
-            setTimeout(() => {
-                const emailInput = document.getElementById('forgotEmail');
-                if (emailInput) emailInput.focus();
-            }, 100);
-        }
-
-        function showForgotPasswordStep2(email) {
-            // Hide step 1 and show step 2
-            document.getElementById('forgotPasswordStep1').style.display = 'none';
-            document.getElementById('forgotPasswordStep2').style.display = 'block';
-
-            // Update email confirmation
-            const emailConfirm = document.getElementById('forgotPasswordEmailConfirm');
-            if (emailConfirm) emailConfirm.textContent = email;
-
-            // Show simulated email for demo
-            const emailSim = document.getElementById('forgotPasswordEmailSim');
-            const emailAddress = document.getElementById('forgotPasswordEmailAddress');
-            if (emailSim && emailAddress) {
-                emailAddress.textContent = email;
-                emailSim.style.display = 'block';
-            }
-        }
-
-        function simulatePasswordReset() {
-            // Simulate clicking the reset link
-            showNotification('🔗 In een echte app zou je naar de wachtwoord reset pagina gaan!', 'info');
-
-            // For demo purposes, just show a prompt
-            const newPassword = prompt('Demo: Voer je nieuwe wachtwoord in (min. 6 tekens):');
-            if (newPassword && newPassword.length >= 6) {
-                // In real app, this would validate the token and update password
-                showNotification('✅ Demo: Wachtwoord succesvol gewijzigd!', 'success');
-                closeForgotPasswordModal();
-            } else if (newPassword !== null) {
-                showNotification('❌ Wachtwoord moet minimaal 6 tekens lang zijn.', 'error');
-            }
-        }
-
         // Close modal when clicking outside
         window.addEventListener('click', function (event) {
             const loginModal = document.getElementById('loginModal');
             const verificationModal = document.getElementById('verificationModal');
             const twoFactorModal = document.getElementById('twoFactorModal');
-            const forgotPasswordModal = document.getElementById('forgotPasswordModal');
 
             if (event.target === loginModal) {
                 closeLoginModal();
@@ -5386,10 +4082,6 @@ Visit us: ${window.location.origin}`);
 
             if (event.target === twoFactorModal) {
                 closeTwoFactorModal();
-            }
-
-            if (event.target === forgotPasswordModal) {
-                closeForgotPasswordModal();
             }
         });
 
